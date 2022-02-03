@@ -14,7 +14,7 @@
   background: url('@/assets/imgs/img1.jpg') black;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 100%;
+  height: 85vh;
   color: black;
   text-align: center;
 }
