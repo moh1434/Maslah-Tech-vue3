@@ -40,10 +40,11 @@ const registerLinks = ref([
   </header>
 </template>
 
-<style>
+<style scoped>
 li {
   @apply p-3;
   color: white;
+  cursor: pointer;
 }
 li:hover {
   @apply bg-cyan-600;
