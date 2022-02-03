@@ -23,7 +23,6 @@ const registerLinks = ref([
       px-4
       lg:px-44
       bg-cyan-700
-      mb-8
     "
   >
     <ul class="flex flex-wrap">

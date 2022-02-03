@@ -11,7 +11,6 @@
 
 <style>
 .image-parent {
-  @apply -mt-8;
   background: url('@/assets/imgs/img1.jpg') black;
   background-size: cover;
   background-repeat: no-repeat;
