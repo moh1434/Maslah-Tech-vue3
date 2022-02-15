@@ -122,7 +122,7 @@
       </div>
     </div>
     <div class="mx-6 py-10 text-center md:text-left">
-      <div class="grid grid-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:px-40">
+      <div class="grid grid-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:px-40">
         <!--  -->
         <div class="">
           <h6
