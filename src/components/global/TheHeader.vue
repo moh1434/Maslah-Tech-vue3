@@ -21,7 +21,7 @@ const registerLinks = ref([
       items-center
       sm:flex-row sm:justify-between
       px-4
-      lg:px-44
+      lg:px-40
       bg-cyan-700
     "
   >
