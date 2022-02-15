@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import {
+  GlobalSvgAttributes,
+  GlobalPathAttributes,
+} from '@/constants/iconsGlobalAttributes';
 import { socialIconsWithHref as socialIcons } from '@/constants/socialIconsWithHref';
 </script>
 
@@ -20,7 +24,7 @@ import { socialIconsWithHref as socialIcons } from '@/constants/socialIconsWithH
       </div>
       <div class="flex justify-center">
         <a
-          v-for="(icon, index) in socialIcons.icons"
+          v-for="(icon, index) in socialIcons"
           :href="icon.href"
           class="mr-6 text-gray-600"
           target="_blank"
@@ -28,13 +32,13 @@ import { socialIconsWithHref as socialIcons } from '@/constants/socialIconsWithH
         >
           <svg
             v-bind="{
-              ...socialIcons.GlobalSvgAttributes,
+              ...GlobalSvgAttributes,
               ...icon.svgAttributes,
             }"
           >
             <path
               v-bind="{
-                ...socialIcons.GlobalPathAttributes,
+                ...GlobalPathAttributes,
                 ...icon.pathAttributes,
               }"
             ></path>
