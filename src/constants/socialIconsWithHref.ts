@@ -1,15 +1,14 @@
 import { ref } from 'vue';
 import { socialIconsI, svgI } from '@/types/icons';
+import {
+  GlobalSvgAttributes,
+  GlobalPathAttributes,
+} from './iconsGlobalAttributes';
+
 type socialIconsWithHrefI = socialIconsI<svgI & { href: string }>;
 const socialIconsWithHref = ref<socialIconsWithHrefI>({
-  GlobalSvgAttributes: {
-    'aria-hidden': true,
-    focusable: 'false',
-    'data-prefix': 'fab',
-    role: 'img',
-    xmlns: 'http://www.w3.org/2000/svg',
-  },
-  GlobalPathAttributes: { fill: 'currentColor' },
+  GlobalSvgAttributes,
+  GlobalPathAttributes,
   icons: [
     {
       svgAttributes: {
