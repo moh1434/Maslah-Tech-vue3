@@ -2,14 +2,14 @@
 import { ref } from 'vue';
 
 const menuLinks = ref([
-  { text: 'Get Jobs', url: '/' },
-  { text: 'Find Freelancers', url: '/' },
-  { text: 'About Us', url: '/' },
+  { text: 'Get Jobs', name: '404', params: {} },
+  { text: 'Find Freelancers', name: '404', params: {} },
+  { text: 'About Us', name: '404', params: {} },
   // { text: "Contact Us", url: "/" },
 ]);
 const registerLinks = ref([
-  { text: 'Login', url: '/login' },
-  { text: 'Sign up', url: '/signup' },
+  { text: 'Login', name: '404', params: {} },
+  { text: 'Sign up', name: '404', params: {} },
   // { text: "Contact Us", url: "/" },
 ]);
 </script>
@@ -27,12 +27,16 @@ const registerLinks = ref([
   >
     <ul class="flex flex-wrap">
       <li v-for="(menuLink, index) in menuLinks" :key="index" class="mx-4">
-        <router-link :to="menuLink.url">{{ menuLink.text }}</router-link>
+        <router-link :to="{ name: menuLink.name, params: menuLink.params }">{{
+          menuLink.text
+        }}</router-link>
       </li>
     </ul>
     <ul class="flex flex-wrap">
       <li v-for="(registerLink, index) in registerLinks" :key="index">
-        <router-link :to="registerLink.url">
+        <router-link
+          :to="{ name: registerLink.name, params: registerLink.params }"
+        >
           {{ registerLink.text }}
         </router-link>
       </li>
