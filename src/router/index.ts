@@ -11,7 +11,8 @@ const history = createWebHistory();
 const routes = [
   { path: '/', name: 'index', component: Index },
   {
-    path: '/:pathMatch(.*)*',
+    path: '/404',
+    alias: '/:pathMatch(.*)*',
     name: '404',
     component: () => import('@/pages/404.vue'),
   },
