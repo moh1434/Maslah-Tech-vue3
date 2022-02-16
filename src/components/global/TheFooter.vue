@@ -120,10 +120,8 @@ import { menuRoutesLists, menuIconsList } from '@/constants/footerLinksLists';
     </div>
     <div class="text-center p-6 bg-gray-200">
       <span>© 2022 Copyright:</span>
-      <a
-        class="text-gray-600 font-semibold"
-        href="https://tailwind-elements.com/"
-        >Maslaha</a
+      <router-link class="text-gray-600 font-semibold" :to="{ name: '404' }"
+        >Maslaha</router-link
       >
     </div>
   </footer>
