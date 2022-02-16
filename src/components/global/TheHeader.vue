@@ -19,14 +19,18 @@ const registerLinks = ref([
     class="
       flex flex-wrap flex-col
       items-center
-      sm:flex-row sm:justify-between
-      px-4
+      sm:flex-row sm:justify-between sm:px-2
+      md:px-4
       lg:px-40
       bg-cyan-700
     "
   >
     <ul class="flex flex-wrap">
-      <li v-for="(menuLink, index) in menuLinks" :key="index" class="mx-4">
+      <li
+        v-for="(menuLink, index) in menuLinks"
+        :key="index"
+        class="mx-1 sm:mx-2 md:mx-4"
+      >
         <router-link :to="{ name: menuLink.name, params: menuLink.params }">{{
           menuLink.text
         }}</router-link>
@@ -46,12 +50,20 @@ const registerLinks = ref([
 
 <style scoped>
 li {
-  @apply p-3;
+  @apply mx-3;
   color: white;
   cursor: pointer;
 }
 li:hover {
   @apply bg-cyan-600;
   transition: background-color 200ms ease-in-out;
+}
+header {
+  @apply py-4;
+}
+@media (max-width: 639px) {
+  ul:last-of-type {
+    @apply mt-3.5;
+  }
 }
 </style>
