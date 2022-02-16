@@ -12,8 +12,8 @@ export type svgI = {
   } & { [k in string]: string };
   pathAttributes: { d: string } & { [k in string]: string };
 };
-export type socialIconsI<T extends svgI> = {
-  GlobalSvgAttributes: GlobalSvgAttributesI;
-  GlobalPathAttributes: GlobalPathAttributesI;
-  icons: T[];
-};
+// export type socialIconsI<T extends svgI> = {
+//   GlobalSvgAttributes: GlobalSvgAttributesI;
+//   GlobalPathAttributes: GlobalPathAttributesI;
+//   icons: T[];
+// };
