@@ -61,7 +61,7 @@ const WhyMaslahaData_ICONS: Readonly<string[]> = [
 }
 
 .relative-center {
-  top: 60%;
+  top: 50%;
   left: 0;
   right: 0;
   @apply mx-12;
@@ -78,6 +78,7 @@ const WhyMaslahaData_ICONS: Readonly<string[]> = [
     @apply p-9;
   }
   .relative-center {
+    top: 60%;
     width: 50%;
     max-width: 550px;
     @apply mx-auto;
@@ -85,7 +86,7 @@ const WhyMaslahaData_ICONS: Readonly<string[]> = [
 }
 @media screen(2xl) {
   .background-section {
-    background-position: 0 -120px;
+    background-position: 0 -130px; /* Cant make it less than -130px because of the image hight  */
   }
 }
 /* End background-section */

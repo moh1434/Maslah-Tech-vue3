@@ -4,7 +4,7 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <div class="flex flex-col h-full text-center">
+  <div class="flex flex-col min-h-50vh text-center">
     <div class="m-auto">
       <p class="text-3xl font-bold mb-3">{{ t('404.Cooming_soon') }}</p>
       <router-link
@@ -16,4 +16,8 @@ const { t } = useI18n();
   </div>
 </template>
 
-<style></style>
+<style>
+.min-h-50vh {
+  min-height: 50vh;
+}
+</style>
