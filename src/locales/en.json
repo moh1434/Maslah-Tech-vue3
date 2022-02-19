@@ -6,6 +6,7 @@
   "login": "Login",
   "sign_up": "Sign up",
   "Home": "Home",
+  "page": "page",
   "footer": {
     "Copyright": "© 2022 Copyright:",
     "languages": "Languages",
@@ -20,6 +21,9 @@
     "Motion_Graphic": "Motion Graphic",
     "Programming": "Programming",
     "Translating": "Translating"
+  },
+  "404": {
+    "Cooming_soon": "Cooming soon"
   },
   "Complete_your_projects_online_easily_and_safely": "Complete your projects online easily and safely",
   "Get_freelancers_to_complete_your_projects": "Get freelancers to complete your projects",

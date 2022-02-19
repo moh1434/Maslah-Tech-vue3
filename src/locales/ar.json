@@ -6,6 +6,7 @@
   "login": "دخول",
   "sign_up": "حساب جديد",
   "Home": "الرئيسية",
+  "page": "الصفحة",
   "footer": {
     "Copyright": "جميع الحقوق محفوظة 2022 ©",
     "languages": "اللغات",
@@ -20,6 +21,9 @@
     "Motion_Graphic": "موشن كرافك",
     "Programming": "برمجة",
     "Translating": "ترجمة"
+  },
+  "404": {
+    "Cooming_soon": "قريبا"
   },
   "Complete_your_projects_online_easily_and_safely": "أكمل مشاريعك على الانترنيت بسهولة وأمان",
   "Get_freelancers_to_complete_your_projects": "أحصل على مستقلين لإكمال مشاريعك",
