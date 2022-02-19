@@ -1,37 +1,15 @@
 <script setup lang="ts">
 import WhyMaslahaCard from '@/components/WhyMaslahaCard.vue';
-import { ref, computed, ComputedRef } from 'vue';
+
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
-const WhyMaslahaData = ref<
-  {
-    svgId: string;
-    title: string | ComputedRef<string>;
-    p: string | ComputedRef<string>;
-  }[]
->([
-  {
-    svgId: '#lightbulb',
-    title: computed(() => t('WhyMaslahaData.lightbulb.title')),
-    p: computed(() => t('WhyMaslahaData.lightbulb.p')),
-  },
-  {
-    svgId: '#thumbs-up',
-    title: computed(() => t('WhyMaslahaData.thumbs-up.title')),
-    p: computed(() => t('WhyMaslahaData.thumbs-up.p')),
-  },
-  {
-    svgId: '#money-bill-alt',
-    title: computed(() => t('WhyMaslahaData.money-bill-alt.title')),
-    p: computed(() => t('WhyMaslahaData.money-bill-alt.p')),
-  },
-  {
-    svgId: '#handshake',
-    title: computed(() => t('WhyMaslahaData.handshake.title')),
-    p: computed(() => t('WhyMaslahaData.handshake.p')),
-  },
-]);
+const WhyMaslahaData_ICONS: Readonly<string[]> = [
+  'lightbulb',
+  'thumbs-up',
+  'money-bill-alt',
+  'handshake',
+];
 </script>
 
 <template>
@@ -44,17 +22,17 @@ const WhyMaslahaData = ref<
   <section class="bg-cyan-600 text-center py-14">
     <div class="container mx-auto flex flex-wrap justify-evenly">
       <WhyMaslahaCard
-        v-for="(data, index) in WhyMaslahaData"
+        v-for="(ICON, index) in WhyMaslahaData_ICONS"
         :key="index"
         class="md:w-1/2 2xl:w-1/4"
       >
         <template #icon>
-          <svg><use :xlink:href="data.svgId" /></svg>
+          <svg><use :xlink:href="'#' + ICON" /></svg>
         </template>
-        <template #title-text>{{ data.title }}</template>
+        <template #title-text>{{ t(`WhyMaslahaData.${ICON}.title`) }}</template>
         <template #p>
           <p class="xl:max-w-md xl:mx-auto">
-            {{ data.p }}
+            {{ t(`WhyMaslahaData.${ICON}.p`) }}
           </p>
         </template>
       </WhyMaslahaCard>
