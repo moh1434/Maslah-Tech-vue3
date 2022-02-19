@@ -60,7 +60,7 @@ function setLocale(newLocale: 'en' | 'ar') {
         <div
           v-for="(routeList, index) in menuRoutesLists"
           :key="'div' + index"
-          class="flex flex-col items-baseline mx-auto"
+          class="flex flex-col items-center mx-auto"
         >
           <h6 class="uppercase font-semibold mb-4">
             {{ routeList.title }}
@@ -78,7 +78,7 @@ function setLocale(newLocale: 'en' | 'ar') {
             </router-link>
           </p>
         </div>
-        <div class="flex flex-col items-baseline mx-auto">
+        <div class="flex flex-col items-center mx-auto">
           <h6 class="uppercase font-semibold mb-4">
             {{ menuIconsList.title }}
           </h6>
@@ -103,7 +103,7 @@ function setLocale(newLocale: 'en' | 'ar') {
             {{ iconsList.text }}
           </p>
         </div>
-        <div class="flex flex-col items-baseline mx-auto">
+        <div class="flex flex-col items-center mx-auto">
           <h6 class="uppercase font-semibold mb-4">
             {{ t('footer.languages') }}
           </h6>
