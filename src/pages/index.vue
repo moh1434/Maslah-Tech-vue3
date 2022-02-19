@@ -15,8 +15,8 @@ const WhyMaslahaData_ICONS: Readonly<string[]> = [
 <template>
   <section class="background-section relative">
     <div class="absolute relative-center">
-      <h1>{{ t('Complete_your_projects_online_easily_and_safely') }}</h1>
-      <h2>{{ t('Get_freelancers_to_complete_your_projects') }}</h2>
+      <h1>{{ t('index_background-section_h1') }}</h1>
+      <h2>{{ t('index_background-section_h2') }}</h2>
     </div>
   </section>
   <section class="bg-cyan-600 text-center py-14">
