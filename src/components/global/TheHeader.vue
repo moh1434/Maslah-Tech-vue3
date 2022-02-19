@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue';
 
 import { useI18n } from 'vue-i18n';
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
 const menuLinks = ref([
   { text: computed(() => t('Get_Jobs')), name: '404', params: {} },
@@ -46,6 +46,11 @@ const registerLinks = ref([
         >
           {{ registerLink.text }}
         </router-link>
+      </li>
+      <li class="hidden lg:block absolute right-4">
+        <button @click="locale = locale == 'ar' ? 'en' : 'ar'">
+          {{ locale == 'ar' ? 'عربي' : 'English' }}
+        </button>
       </li>
     </ul>
   </header>
