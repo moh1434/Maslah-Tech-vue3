@@ -1,0 +1,48 @@
+{
+  "test": "تجربة",
+  "Get_Jobs": "أحصل على وظائف",
+  "Find_Freelancers": "ابحث عن مستقلين",
+  "About_Us": "معلومات عنا",
+  "login": "دخول",
+  "sign_up": "حساب جديد",
+  "Home": "الرئيسية",
+  "page": "الصفحة",
+  "footer": {
+    "Copyright": "جميع الحقوق محفوظة 2022 ©",
+    "languages": "اللغات",
+    "Get_connected_with_us_on_social_networks": "تواصل معنا على مواقع التوصل الإجتماعي",
+    "countryProvince": "العراق, بغداد",
+    "Useful_pages": "صفحات مفيدة",
+    "Contact": "للتواصل"
+  },
+  "categories": {
+    "categories": "الأقسام",
+    "Graphic_design": "كرافك دزاين",
+    "Motion_Graphic": "موشن كرافك",
+    "Programming": "برمجة",
+    "Translating": "ترجمة"
+  },
+  "404": {
+    "Cooming_soon": "قريبا"
+  },
+  "index_background-section_h1": "أكمل مشاريعك على الانترنيت بسهولة وأمان",
+  "index_background-section_h2": "أحصل على مستقلين لإكمال مشاريعك",
+  "WhyMaslahaData": {
+    "lightbulb": {
+      "title": "أكمل فكرتك المبتكرة",
+      "p": "إختر مستقل محترف لإكمال أعمالك بسهولة"
+    },
+    "thumbs-up": {
+      "title": "وظف الأفضل لك",
+      "p": "شاهد معارض اعمال المستقلين واسعارهم ثم إختر الذي يناسبك"
+    },
+    "money-bill-alt": {
+      "title": "إدفع بأمان",
+      "p": "ادفع مقابل العمل فقط عندما يكتمل بجودة ترضيك"
+    },
+    "handshake": {
+      "title": "وِجِدنا لمساعدتك",
+      "p": "يمكن لفريق التوظيف الخاص بنا مساعدتك للعثور على أفضل المستقلين لتوظيفهم"
+    }
+  }
+}

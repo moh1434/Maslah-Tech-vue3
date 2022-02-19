@@ -1,15 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+
+import { useI18n } from 'vue-i18n';
+const { t, locale } = useI18n();
 
 const menuLinks = ref([
-  { text: 'Get Jobs', name: '404', params: {} },
-  { text: 'Find Freelancers', name: '404', params: {} },
-  { text: 'About Us', name: '404', params: {} },
+  { text: computed(() => t('Get_Jobs')), name: '404', params: {} },
+  { text: computed(() => t('Find_Freelancers')), name: '404', params: {} },
+  { text: computed(() => t('About_Us')), name: '404', params: {} },
   // { text: "Contact Us", url: "/" },
 ]);
 const registerLinks = ref([
-  { text: 'Login', name: '404', params: {} },
-  { text: 'Sign up', name: '404', params: {} },
+  { text: computed(() => t('login')), name: '404', params: {} },
+  { text: computed(() => t('sign_up')), name: '404', params: {} },
   // { text: "Contact Us", url: "/" },
 ]);
 </script>
@@ -43,6 +46,11 @@ const registerLinks = ref([
         >
           {{ registerLink.text }}
         </router-link>
+      </li>
+      <li class="hidden lg:block absolute right-4">
+        <button @click="locale = locale == 'ar' ? 'en' : 'ar'">
+          {{ locale == 'ar' ? 'عربي' : 'English' }}
+        </button>
       </li>
     </ul>
   </header>

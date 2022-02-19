@@ -1,0 +1,48 @@
+{
+  "test": "Test en",
+  "Get_Jobs": "Get Jobs",
+  "Find_Freelancers": "Find Freelancers",
+  "About_Us": "About Us",
+  "login": "Login",
+  "sign_up": "Sign up",
+  "Home": "Home",
+  "page": "page",
+  "footer": {
+    "Copyright": "© 2022 Copyright:",
+    "languages": "Languages",
+    "Get_connected_with_us_on_social_networks": "Get connected with us on social networks",
+    "countryProvince": "Iraq, Baghdad",
+    "Useful_pages": "Useful pages",
+    "Contact": "Contact"
+  },
+  "categories": {
+    "categories": "Categories",
+    "Graphic_design": "Graphic design",
+    "Motion_Graphic": "Motion Graphic",
+    "Programming": "Programming",
+    "Translating": "Translating"
+  },
+  "404": {
+    "Cooming_soon": "Cooming soon"
+  },
+  "index_background-section_h1": "Complete your projects online easily and safely",
+  "index_background-section_h2": "Get freelancers to complete your projects",
+  "WhyMaslahaData": {
+    "lightbulb": {
+      "title": "Complete your creative idea",
+      "p": "Choose a professional freelancer to complete your work effortlessly."
+    },
+    "thumbs-up": {
+      "title": "Hire the best for you",
+      "p": "Visit freelancers profiles, see their past work and their price, then hire the best."
+    },
+    "money-bill-alt": {
+      "title": "Pay safely",
+      "p": "Pay for work only when it has been completed and you are satisfied with the quality."
+    },
+    "handshake": {
+      "title": "We are here to help",
+      "p": "Our talented team of recruiters can help you find the best freelancer for the job."
+    }
+  }
+}

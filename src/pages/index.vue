@@ -1,51 +1,38 @@
 <script setup lang="ts">
 import WhyMaslahaCard from '@/components/WhyMaslahaCard.vue';
-import { ref } from 'vue';
-const WhyMaslahaData = ref<{ svgId: string; title: string; p: string }[]>([
-  {
-    svgId: '#lightbulb',
-    title: 'Complete your creative idea',
-    p: 'Choose a professional freelancer to complete your work effortlessly',
-  },
-  {
-    svgId: '#thumbs-up',
-    title: 'Hire the best for you',
-    p: 'Visit freelancers profiles, see their past work and their price, then hire the best',
-  },
-  {
-    svgId: '#money-bill-alt',
-    title: 'Pay safely',
-    p: 'Pay for work only when it has been completed and you are satisfied with the quality.',
-  },
-  {
-    svgId: '#handshake',
-    title: 'We are here to help',
-    p: 'Our talented team of recruiters can help you find the best freelancer for the job.',
-  },
-]);
+
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+
+const WhyMaslahaData_ICONS: Readonly<string[]> = [
+  'lightbulb',
+  'thumbs-up',
+  'money-bill-alt',
+  'handshake',
+];
 </script>
 
 <template>
   <section class="background-section relative">
     <div class="absolute relative-center">
-      <h1>Complete your projects online easily and safely</h1>
-      <h2>Get freelancers to complete your projects</h2>
+      <h1>{{ t('index_background-section_h1') }}</h1>
+      <h2>{{ t('index_background-section_h2') }}</h2>
     </div>
   </section>
   <section class="bg-cyan-600 text-center py-14">
     <div class="container mx-auto flex flex-wrap justify-evenly">
       <WhyMaslahaCard
-        v-for="(data, index) in WhyMaslahaData"
+        v-for="(ICON, index) in WhyMaslahaData_ICONS"
         :key="index"
         class="md:w-1/2 2xl:w-1/4"
       >
         <template #icon>
-          <svg><use :xlink:href="data.svgId" /></svg>
+          <svg><use :xlink:href="'#' + ICON" /></svg>
         </template>
-        <template #title-text>{{ data.title }}</template>
+        <template #title-text>{{ t(`WhyMaslahaData.${ICON}.title`) }}</template>
         <template #p>
           <p class="xl:max-w-md xl:mx-auto">
-            {{ data.p }}
+            {{ t(`WhyMaslahaData.${ICON}.p`) }}
           </p>
         </template>
       </WhyMaslahaCard>
@@ -74,7 +61,7 @@ const WhyMaslahaData = ref<{ svgId: string; title: string; p: string }[]>([
 }
 
 .relative-center {
-  top: 60%;
+  top: 50%;
   left: 0;
   right: 0;
   @apply mx-12;
@@ -91,6 +78,7 @@ const WhyMaslahaData = ref<{ svgId: string; title: string; p: string }[]>([
     @apply p-9;
   }
   .relative-center {
+    top: 60%;
     width: 50%;
     max-width: 550px;
     @apply mx-auto;
@@ -98,7 +86,7 @@ const WhyMaslahaData = ref<{ svgId: string; title: string; p: string }[]>([
 }
 @media screen(2xl) {
   .background-section {
-    background-position: 0 -120px;
+    background-position: 0 -130px; /* Cant make it less than -130px because of the image hight  */
   }
 }
 /* End background-section */
