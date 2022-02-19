@@ -1,0 +1,24 @@
+{
+  "test": "تجربة",
+  "Get_Jobs": "أحصل على وظائف",
+  "Find_Freelancers": "ابحث عن مستقلين",
+  "About_Us": "معلومات عنا",
+  "login": "دخول",
+  "sign_up": "حساب جديد",
+  "Home": "الرئيسية",
+  "footer": {
+    "Copyright": "جميع الحقوق محفوظة 2022 ©",
+    "languages": "اللغات",
+    "Get_connected_with_us_on_social_networks": "تواصل معنا على مواقع التوصل الإجتماعي",
+    "countryProvince": "العراق, بغداد",
+    "Useful_pages": "صفحات مفيدة",
+    "Contact": "للتواصل"
+  },
+  "categories": {
+    "categories": "الأقسام",
+    "Graphic_design": "كرافك دزاين",
+    "Motion_Graphic": "موشن كرافك",
+    "Programming": "برمجة",
+    "Translating": "ترجمة"
+  }
+}
