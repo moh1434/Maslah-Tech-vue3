@@ -1,26 +1,35 @@
 <script setup lang="ts">
 import WhyMaslahaCard from '@/components/WhyMaslahaCard.vue';
-import { ref } from 'vue';
-const WhyMaslahaData = ref<{ svgId: string; title: string; p: string }[]>([
+import { ref, computed, ComputedRef } from 'vue';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+
+const WhyMaslahaData = ref<
+  {
+    svgId: string;
+    title: string | ComputedRef<string>;
+    p: string | ComputedRef<string>;
+  }[]
+>([
   {
     svgId: '#lightbulb',
-    title: 'Complete your creative idea',
-    p: 'Choose a professional freelancer to complete your work effortlessly',
+    title: computed(() => t('WhyMaslahaData.lightbulb.title')),
+    p: computed(() => t('WhyMaslahaData.lightbulb.p')),
   },
   {
     svgId: '#thumbs-up',
-    title: 'Hire the best for you',
-    p: 'Visit freelancers profiles, see their past work and their price, then hire the best',
+    title: computed(() => t('WhyMaslahaData.thumbs-up.title')),
+    p: computed(() => t('WhyMaslahaData.thumbs-up.p')),
   },
   {
     svgId: '#money-bill-alt',
-    title: 'Pay safely',
-    p: 'Pay for work only when it has been completed and you are satisfied with the quality.',
+    title: computed(() => t('WhyMaslahaData.money-bill-alt.title')),
+    p: computed(() => t('WhyMaslahaData.money-bill-alt.p')),
   },
   {
     svgId: '#handshake',
-    title: 'We are here to help',
-    p: 'Our talented team of recruiters can help you find the best freelancer for the job.',
+    title: computed(() => t('WhyMaslahaData.handshake.title')),
+    p: computed(() => t('WhyMaslahaData.handshake.p')),
   },
 ]);
 </script>
@@ -28,8 +37,8 @@ const WhyMaslahaData = ref<{ svgId: string; title: string; p: string }[]>([
 <template>
   <section class="background-section relative">
     <div class="absolute relative-center">
-      <h1>Complete your projects online easily and safely</h1>
-      <h2>Get freelancers to complete your projects</h2>
+      <h1>{{ t('Complete_your_projects_online_easily_and_safely') }}</h1>
+      <h2>{{ t('Get_freelancers_to_complete_your_projects') }}</h2>
     </div>
   </section>
   <section class="bg-cyan-600 text-center py-14">
