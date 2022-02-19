@@ -5,6 +5,14 @@ import {
 } from '@/constants/iconsGlobalAttributes';
 import { socialIconsWithHref as socialIcons } from '@/constants/socialIconsWithHref';
 import { menuRoutesLists, menuIconsList } from '@/constants/footerLinksLists';
+
+import { useI18n } from 'vue-i18n';
+const { t, locale } = useI18n();
+
+function setLocale(newLocale: 'en' | 'ar') {
+  locale.value = newLocale;
+  localStorage.setItem('currentLocale', newLocale);
+}
 </script>
 
 <template>
@@ -48,7 +56,7 @@ import { menuRoutesLists, menuIconsList } from '@/constants/footerLinksLists';
       </div>
     </div>
     <div class="mx-6 py-10 text-center md:text-left">
-      <div class="grid grid-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid grid-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <div
           v-for="(routeList, index) in menuRoutesLists"
           :key="'div' + index"
@@ -93,6 +101,17 @@ import { menuRoutesLists, menuIconsList } from '@/constants/footerLinksLists';
               ></path>
             </svg>
             {{ iconsList.text }}
+          </p>
+        </div>
+        <div class="flex flex-col items-baseline mx-auto">
+          <h6 class="uppercase font-semibold mb-4">
+            {{ t('footer.languages') }}
+          </h6>
+          <p class="mb-4">
+            <button @click="setLocale('en')">English</button>
+          </p>
+          <p class="mb-4 last:mb-0">
+            <button @click="setLocale('ar')">عربي</button>
           </p>
         </div>
       </div>
