@@ -29,7 +29,7 @@ function setLocale(newLocale: 'en' | 'ar') {
       "
     >
       <div class="mr-12 hidden lg:block">
-        <span>Get connected with us on social networks:</span>
+        <span>{{ t('footer.Get_connected_with_us_on_social_networks') }}:</span>
       </div>
       <div class="flex justify-center">
         <a
@@ -117,9 +117,9 @@ function setLocale(newLocale: 'en' | 'ar') {
       </div>
     </div>
     <div class="text-center p-6 bg-gray-200">
-      <span>© 2022 Copyright:</span>
-      <router-link class="text-gray-600 font-semibold" :to="{ name: '404' }"
-        >Maslaha</router-link
+      <span> {{ t('footer.Copyright') }} </span>
+      <router-link class="text-gray-600 font-semibold" :to="{ name: '404' }">
+        Maslaha</router-link
       >
     </div>
   </footer>

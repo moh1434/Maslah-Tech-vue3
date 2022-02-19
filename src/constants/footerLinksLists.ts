@@ -1,17 +1,19 @@
-import { ref } from 'vue';
+import { ref, computed, ComputedRef } from 'vue';
+import i18n from '@/i18n';
+const { t } = i18n.global;
 
 import { svgI } from '@/types/icons';
 
-export type socialIconWithTextI = svgI & { text: string };
+export type socialIconWithTextI = svgI & { text: string | ComputedRef<string> };
 
 export type namedRouteLink = {
-  text: string;
+  text: string | ComputedRef<string>;
   routeName: string;
   params: Record<string, string>;
 };
 
 type menuListI<T extends namedRouteLink[] | socialIconWithTextI[]> = {
-  title: string;
+  title: string | ComputedRef<string>;
   items: T;
 };
 
@@ -20,27 +22,47 @@ export type menuListWithIconsI = menuListI<socialIconWithTextI[]>;
 
 const menuRoutesLists = ref<Array<menuListWithRoutesI>>([
   {
-    title: 'Categories',
+    title: computed(() => t('categories.categories')),
     items: [
-      { text: 'Graphic design', routeName: '404', params: {} },
-      { text: 'Motion Graphic', routeName: '404', params: {} },
-      { text: 'Programming', routeName: '404', params: {} },
-      { text: 'Translating', routeName: '404', params: {} },
+      {
+        text: computed(() => t('categories.Graphic_design')),
+        routeName: '404',
+        params: {},
+      },
+      {
+        text: computed(() => t('categories.Motion_Graphic')),
+        routeName: '404',
+        params: {},
+      },
+      {
+        text: computed(() => t('categories.Programming')),
+        routeName: '404',
+        params: {},
+      },
+      {
+        text: computed(() => t('categories.Translating')),
+        routeName: '404',
+        params: {},
+      },
     ],
   },
   {
-    title: 'Useful links',
+    title: computed(() => t('footer.Useful_pages')),
     items: [
-      { text: 'Home', routeName: 'index', params: {} },
-      { text: 'About us', routeName: '404', params: {} },
-      { text: 'Get jobs', routeName: '404', params: {} },
-      { text: 'Find freelancers', routeName: '404', params: {} },
+      { text: computed(() => t('Home')), routeName: 'index', params: {} },
+      { text: computed(() => t('About_Us')), routeName: '404', params: {} },
+      { text: computed(() => t('Get_Jobs')), routeName: '404', params: {} },
+      {
+        text: computed(() => t('Find_Freelancers')),
+        routeName: '404',
+        params: {},
+      },
     ],
   },
 ]);
 
-const menuIconsList: menuListWithIconsI = {
-  title: 'Contact',
+const menuIconsList = ref<menuListWithIconsI>({
+  title: computed(() => t('footer.Contact')),
   items: [
     {
       svgAttributes: {
@@ -51,7 +73,7 @@ const menuIconsList: menuListWithIconsI = {
       pathAttributes: {
         d: 'M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z',
       },
-      text: 'Iraq, Baghdad',
+      text: computed(() => t('footer.countryProvince')),
     },
     {
       svgAttributes: {
@@ -87,6 +109,6 @@ const menuIconsList: menuListWithIconsI = {
       text: '07802222222',
     },
   ],
-};
+});
 
 export { menuRoutesLists, menuIconsList };
