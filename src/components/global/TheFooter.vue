@@ -48,18 +48,13 @@ import { menuRoutesLists, menuIconsList } from '@/constants/footerLinksLists';
       </div>
     </div>
     <div class="mx-6 py-10 text-center md:text-left">
-      <div class="grid grid-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:px-40">
-        <div v-for="(routeList, index) in menuRoutesLists" :key="'div' + index">
-          <h6
-            class="
-              uppercase
-              font-semibold
-              mb-4
-              flex
-              justify-center
-              md:justify-start
-            "
-          >
+      <div class="grid grid-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div
+          v-for="(routeList, index) in menuRoutesLists"
+          :key="'div' + index"
+          class="flex flex-col items-baseline mx-auto"
+        >
+          <h6 class="uppercase font-semibold mb-4">
             {{ routeList.title }}
           </h6>
           <p
@@ -75,28 +70,12 @@ import { menuRoutesLists, menuIconsList } from '@/constants/footerLinksLists';
             </router-link>
           </p>
         </div>
-        <div class="">
-          <h6
-            class="
-              uppercase
-              font-semibold
-              mb-4
-              flex
-              justify-center
-              md:justify-start
-            "
-          >
+        <div class="flex flex-col items-baseline mx-auto">
+          <h6 class="uppercase font-semibold mb-4">
             {{ menuIconsList.title }}
           </h6>
           <p
-            class="
-              flex
-              items-center
-              justify-center
-              md:justify-start
-              mb-4
-              last:mb-0
-            "
+            class="flex items-center justify-center mb-4"
             v-for="(iconsList, index) in menuIconsList.items"
             :key="index"
           >
