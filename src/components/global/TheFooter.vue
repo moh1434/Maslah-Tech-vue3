@@ -26,6 +26,7 @@ function setLocale(newLocale: 'en' | 'ar') {
         p-6
         border-b border-gray-300
         lg:px-40
+        direction
       "
     >
       <div class="mr-12 hidden lg:block">
