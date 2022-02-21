@@ -11,7 +11,7 @@ const menuLinks = ref([
   // { text: "Contact Us", url: "/" },
 ]);
 const registerLinks = ref([
-  { text: computed(() => t('login')), name: '404', params: {} },
+  { text: computed(() => t('login')), name: 'login', params: {} },
   { text: computed(() => t('sign_up')), name: '404', params: {} },
   // { text: "Contact Us", url: "/" },
 ]);
