@@ -47,5 +47,8 @@ main {
 input {
   direction: v-bind(direction);
 }
+.direction {
+  direction: v-bind(direction);
+}
 </style>
 <style src="@/assets/css/tailwind.css"></style>
