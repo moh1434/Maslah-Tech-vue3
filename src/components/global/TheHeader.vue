@@ -11,7 +11,7 @@ const menuLinks = ref([
   // { text: "Contact Us", url: "/" },
 ]);
 const registerLinks = ref([
-  { text: computed(() => t('login')), name: '404', params: {} },
+  { text: computed(() => t('login')), name: 'login', params: {} },
   { text: computed(() => t('sign_up')), name: '404', params: {} },
   // { text: "Contact Us", url: "/" },
 ]);
@@ -25,7 +25,7 @@ const registerLinks = ref([
       sm:flex-row sm:justify-between sm:px-2
       md:px-4
       lg:px-40
-      bg-cyan-700
+      bg-blue-600
     "
   >
     <ul class="flex flex-wrap">

@@ -26,6 +26,7 @@ function setLocale(newLocale: 'en' | 'ar') {
         p-6
         border-b border-gray-300
         lg:px-40
+        direction
       "
     >
       <div class="mr-12 hidden lg:block">
@@ -119,7 +120,7 @@ function setLocale(newLocale: 'en' | 'ar') {
     <div class="text-center p-6 bg-gray-200">
       <span> {{ t('footer.Copyright') }} </span>
       <router-link class="text-gray-600 font-semibold" :to="{ name: '404' }">
-        Maslaha</router-link
+        MaslahaTech</router-link
       >
     </div>
   </footer>

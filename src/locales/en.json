@@ -44,5 +44,11 @@
       "title": "We are here to help",
       "p": "Our talented team of recruiters can help you find the best freelancer for the job."
     }
-  }
+  },
+  "phone-number": "Phone number",
+  "password": "password",
+  "forgot-password?": "Forgot password?",
+  "remember-me": "Remember me",
+  "or": "or",
+  "continue-with-facebook": "CONTINUE WITH FACEBOOK"
 }

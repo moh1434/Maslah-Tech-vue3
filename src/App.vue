@@ -3,6 +3,8 @@
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import TheHeader from '@/components/global/TheHeader.vue';
 import TheFooter from '@/components/global/TheFooter.vue';
+
+import direction from '@/helpers/langDirection';
 </script>
 
 <template>
@@ -33,6 +35,20 @@ body {
 /* #__nuxt, */
 main {
   flex-grow: 1;
+}
+
+.rtl {
+  direction: rtl;
+}
+
+.ltr {
+  direction: ltr;
+}
+input {
+  direction: v-bind(direction);
+}
+.direction {
+  direction: v-bind(direction);
 }
 </style>
 <style src="@/assets/css/tailwind.css"></style>
