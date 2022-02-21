@@ -25,7 +25,7 @@ const registerLinks = ref([
       sm:flex-row sm:justify-between sm:px-2
       md:px-4
       lg:px-40
-      bg-cyan-700
+      bg-blue-600
     "
   >
     <ul class="flex flex-wrap">
