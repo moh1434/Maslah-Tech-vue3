@@ -119,7 +119,7 @@ function setLocale(newLocale: 'en' | 'ar') {
     <div class="text-center p-6 bg-gray-200">
       <span> {{ t('footer.Copyright') }} </span>
       <router-link class="text-gray-600 font-semibold" :to="{ name: '404' }">
-        Maslaha</router-link
+        MaslahaTech</router-link
       >
     </div>
   </footer>
