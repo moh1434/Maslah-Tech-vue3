@@ -45,10 +45,21 @@
       "p": "يمكن لفريق التوظيف الخاص بنا مساعدتك للعثور على أفضل المستقلين لتوظيفهم"
     }
   },
+  "register-a-new-account": "تسجيل حساب جديد",
   "phone-number": "رقم الموبايل",
   "password": "الرمز السري",
   "forgot-password?": "نسيت الرمز السري؟",
   "remember-me": "تذكرني",
   "or": "أو",
-  "continue-with-facebook": "سجل مع فيس بوك"
+  "continue-with-facebook": "سجل مع فيس بوك",
+  "full-name": "أسمك",
+  "email-address": "ايميلك",
+  "get-code": "إجلب",
+  "check": "تأكد",
+  "city": "المحافظة",
+  "baghdad": "بغداد",
+  "basra": "البصرة",
+  "describe-yourself": "عبر عن نفسك",
+  "write-your-bio": "أذكر مهاراتك",
+  "select-your-skills": "إختر مهاراتك"
 }

@@ -16,6 +16,12 @@ const routes = [
     component: () => import('@/pages/Login.vue'),
   },
   {
+    path: '/sign-up',
+    name: 'sign-up',
+    component: () => import('@/pages/SignUp.vue'),
+  },
+
+  {
     path: '/404',
     alias: '/:pathMatch(.*)*',
     name: '404',
