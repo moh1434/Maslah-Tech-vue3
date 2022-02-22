@@ -1,77 +1,18 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
+import OrContinueWithFaceBook from '@/components/Auth/OrContinueWithFaceBook.vue';
 const { t } = useI18n();
 </script>
 
 <template>
-  <div class="my-12 md:my-32">
+  <!-- email, name, password, phone_number, bio, city, picture, skills -->
+  <div class="my-12">
     <div class="mx-auto block p-6 max-w-xl">
       <form>
-        <div class="grid grid-cols-2 gap-4">
-          <div class="form-group mb-6">
-            <input
-              type="text"
-              class="
-                form-control
-                block
-                w-full
-                px-3
-                md:px-4
-                py-1.5
-                md:py-2.5
-                text-base
-                font-normal
-                text-gray-700
-                bg-white bg-clip-padding
-                border border-solid border-gray-300
-                rounded
-                transition
-                ease-in-out
-                m-0
-                focus:text-gray-700
-                focus:bg-white
-                focus:border-blue-600
-                focus:outline-none
-              "
-              id="exampleInput123"
-              aria-describedby="emailHelp123"
-              placeholder="First name"
-            />
-          </div>
-          <div class="form-group mb-6">
-            <input
-              type="text"
-              class="
-                form-control
-                block
-                w-full
-                px-3
-                md:px-4
-                py-1.5
-                md:py-2.5
-                text-base
-                font-normal
-                text-gray-700
-                bg-white bg-clip-padding
-                border border-solid border-gray-300
-                rounded
-                transition
-                ease-in-out
-                m-0
-                focus:text-gray-700
-                focus:bg-white
-                focus:border-blue-600
-                focus:outline-none
-              "
-              id="exampleInput124"
-              aria-describedby="emailHelp124"
-              placeholder="Last name"
-            />
-          </div>
-        </div>
         <div class="form-group mb-6">
           <input
-            type="email"
+            type="text"
+            name="name"
             class="
               form-control
               block
@@ -94,13 +35,42 @@ const { t } = useI18n();
               focus:border-blue-600
               focus:outline-none
             "
-            id="exampleInput125"
+            placeholder="Full name"
+          />
+        </div>
+        <div class="form-group mb-6">
+          <input
+            type="email"
+            name="email"
+            class="
+              form-control
+              block
+              w-full
+              px-3
+              md:px-4
+              py-1.5
+              md:py-2.5
+              text-base
+              font-normal
+              text-gray-700
+              bg-white bg-clip-padding
+              border border-solid border-gray-300
+              rounded
+              transition
+              ease-in-out
+              m-0
+              focus:text-gray-700
+              focus:bg-white
+              focus:border-blue-600
+              focus:outline-none
+            "
             placeholder="Email address"
           />
         </div>
         <div class="form-group mb-6">
           <input
             type="password"
+            name="password"
             class="
               form-control
               block
@@ -123,39 +93,186 @@ const { t } = useI18n();
               focus:border-blue-600
               focus:outline-none
             "
-            id="exampleInput126"
             placeholder="Password"
           />
         </div>
-        <div class="form-group form-check text-center mb-6">
-          <input
-            type="checkbox"
+        <div class="sm:flex">
+          <div class="form-group mb-6 flex sm:w-1/2">
+            <input
+              type="text"
+              pattern="^\+9647[0-9]{9}$"
+              name="phone_number"
+              placeholder="+9647000000000"
+              class="
+                form-control
+                block
+                w-full
+                pl-3
+                md:pl-4
+                py-1.5
+                md:py-2.5
+                text-base
+                font-normal
+                text-gray-700
+                bg-white bg-clip-padding
+                border border-solid border-gray-300
+                rounded
+                transition
+                ease-in-out
+                m-0
+                focus:text-gray-700
+                focus:bg-white
+                focus:border-blue-600
+                focus:outline-none
+              "
+            />
+            <button
+              class="text-sm bg-blue-500 text-white w-32 rounded-r-lg sm:mr-3"
+            >
+              Get code
+            </button>
+          </div>
+          <div class="form-group mb-6 flex sm:w-1/2">
+            <input
+              type="number"
+              name="check_number"
+              placeholder="sms code"
+              class="
+                sm:ml-2
+                form-control
+                block
+                w-full
+                pl-3
+                md:pl-4
+                py-1.5
+                md:py-2.5
+                text-base
+                font-normal
+                text-gray-700
+                bg-white bg-clip-padding
+                border border-solid border-gray-300
+                rounded
+                transition
+                ease-in-out
+                m-0
+                focus:text-gray-700
+                focus:bg-white
+                focus:border-blue-600
+                focus:outline-none
+              "
+            />
+            <button class="text-sm bg-blue-500 text-white w-32 rounded-r-lg">
+              Check
+            </button>
+          </div>
+        </div>
+        <!--  -->
+        <div class="grid grid-cols-2 gap-4">
+          <div class="form-group mb-6">
+            <select
+              type="text"
+              name="city"
+              class="
+                form-control
+                block
+                w-full
+                px-3
+                md:px-4
+                py-1.5
+                md:py-2.5
+                text-base
+                font-normal
+                text-gray-700
+                bg-white bg-clip-padding
+                border border-solid border-gray-300
+                rounded
+                transition
+                ease-in-out
+                m-0
+                mr-2
+                focus:text-gray-700
+                focus:bg-white
+                focus:border-blue-600
+                focus:outline-none
+              "
+            >
+              <option>City</option>
+              <option>Baghdad</option>
+              <option>Basra</option>
+            </select>
+          </div>
+          <div class="form-group mb-6">
+            <input
+              type="file"
+              accept="image/x-png,image/jpeg"
+              name="picture"
+              class="
+                form-control
+                block
+                w-full
+                px-3
+                md:px-4
+                py-1
+                md:py-2
+                text-sm
+                font-normal
+                text-gray-700
+                bg-white bg-clip-padding
+                border border-solid border-gray-300
+                rounded
+                transition
+                ease-in-out
+                m-0
+                focus:text-gray-700
+                focus:bg-white
+                focus:border-blue-600
+                focus:outline-none
+              "
+            />
+          </div>
+        </div>
+        <div class="form-group mb-6">
+          <textarea
+            name="bio"
             class="
-              form-check-input
-              appearance-none
-              h-4
-              w-4
-              border border-gray-300
-              rounded-sm
-              bg-white
-              checked:bg-blue-600 checked:border-blue-600
-              focus:outline-none
+              form-control
+              block
+              w-full
+              px-3
+              py-1.5
+              text-base
+              font-normal
+              text-gray-700
+              bg-white bg-clip-padding
+              border border-solid border-gray-300
+              rounded
               transition
-              duration-200
-              mt-1
-              align-top
-              bg-no-repeat bg-center bg-contain
-              mr-2
-              cursor-pointer
+              ease-in-out
+              m-0
+              focus:text-gray-700
+              focus:bg-white
+              focus:border-blue-600
+              focus:outline-none
+              min-h-16
             "
-            id="exampleCheck25"
-            checked
-          />
-          <label
-            class="form-check-label inline-block text-gray-800"
-            for="exampleCheck25"
-            >Subscribe to our newsletter</label
-          >
+            id="exampleFormControlTextarea1"
+            rows="3"
+            placeholder="Describe yourself(write your bio)."
+          ></textarea>
+        </div>
+        <div class="form-group mb-6">
+          <fieldset class="border-2">
+            <legend class="ml-2">Select your skills</legend>
+            <ul class="flex gap-3 text-white p-4">
+              <li class="bg-blue-500 bg-opacity-60 px-2.5 py-1 rounded-lg">
+                c++
+              </li>
+              <li class="bg-blue-500 px-2.5 py-1 rounded-lg">python</li>
+              <li class="bg-blue-500 bg-opacity-60 px-2.5 py-1 rounded-lg">
+                Adobe xd
+              </li>
+            </ul>
+          </fieldset>
         </div>
         <button
           type="submit"
@@ -183,9 +300,15 @@ const { t } = useI18n();
         >
           Sign up
         </button>
+
+        <OrContinueWithFaceBook />
       </form>
     </div>
   </div>
 </template>
 
-<style></style>
+<style>
+.min-h-16 {
+  min-height: 4rem;
+}
+</style>
