@@ -19,7 +19,7 @@ const WhyMaslahaData_ICONS: Readonly<string[]> = [
       <h2>{{ t('index_background-section_h2') }}</h2>
     </div>
   </section>
-  <section class="bg-cyan-600 text-center py-14">
+  <section class="bg-blue-600 text-center py-14">
     <div class="container mx-auto flex flex-wrap justify-evenly">
       <WhyMaslahaCard
         v-for="(ICON, index) in WhyMaslahaData_ICONS"
