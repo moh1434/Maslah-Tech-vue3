@@ -44,7 +44,9 @@ main {
 .ltr {
   direction: ltr;
 }
-input {
+input,
+textarea,
+select {
   direction: v-bind(direction);
 }
 .direction {
