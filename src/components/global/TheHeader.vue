@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
+import setLocale from '@/helpers/setLocale';
 import { useI18n } from 'vue-i18n';
 const { t, locale } = useI18n();
 
@@ -52,7 +53,7 @@ const registerLinks = ref([
         </router-link>
       </li>
       <li class="hidden lg:block absolute right-4 px-1 sm:px-2 md:px-4">
-        <button @click="locale = locale == 'ar' ? 'en' : 'ar'">
+        <button @click="locale == 'ar' ? setLocale('en') : setLocale('ar')">
           {{ locale == 'ar' ? 'عربي' : 'English' }}
         </button>
       </li>

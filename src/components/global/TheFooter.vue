@@ -6,13 +6,9 @@ import {
 import { socialIconsWithHref as socialIcons } from '@/constants/socialIconsWithHref';
 import { menuRoutesLists, menuIconsList } from '@/constants/footerLinksLists';
 
+import setLocale from '@/helpers/setLocale';
 import { useI18n } from 'vue-i18n';
-const { t, locale } = useI18n();
-
-function setLocale(newLocale: 'en' | 'ar') {
-  locale.value = newLocale;
-  localStorage.setItem('currentLocale', newLocale);
-}
+const { t } = useI18n();
 </script>
 
 <template>
