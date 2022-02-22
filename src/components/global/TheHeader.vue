@@ -12,7 +12,7 @@ const menuLinks = ref([
 ]);
 const registerLinks = ref([
   { text: computed(() => t('login')), name: 'login', params: {} },
-  { text: computed(() => t('sign_up')), name: '404', params: {} },
+  { text: computed(() => t('sign_up')), name: 'sign-up', params: {} },
   // { text: "Contact Us", url: "/" },
 ]);
 </script>
