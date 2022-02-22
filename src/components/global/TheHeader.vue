@@ -57,7 +57,8 @@ const registerLinks = ref([
 </template>
 
 <style scoped>
-a {
+a,
+button {
   @apply mx-1 py-4;
   color: white;
   cursor: pointer;
