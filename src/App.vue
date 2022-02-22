@@ -44,9 +44,9 @@ main {
 .ltr {
   direction: ltr;
 }
-input,
-textarea,
-select {
+input:not(.no-direction),
+textarea:not(.no-direction),
+select:not(.no-direction) {
   direction: v-bind(direction);
 }
 .direction {
