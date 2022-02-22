@@ -5,9 +5,9 @@ import {
 } from '@/constants/iconsGlobalAttributes';
 import { socialIconsWithHref as socialIcons } from '@/constants/socialIconsWithHref';
 import { menuRoutesLists, menuIconsList } from '@/constants/footerLinksLists';
-import { useI18n } from 'vue-i18n';
 
 import setLocale from '@/helpers/setLocale';
+import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 </script>
 
