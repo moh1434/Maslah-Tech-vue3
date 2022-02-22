@@ -6,9 +6,19 @@ const { t } = useI18n();
 
 <template>
   <!-- email, name, password, phone_number, bio, city, picture, skills -->
-  <div class="my-12">
+  <div class="my-4 sm:my-8">
     <div class="mx-auto block p-6 max-w-xl">
-      <h1>
+      <h1
+        class="
+          font-medium
+          leading-tight
+          text-3xl
+          mt-0
+          mb-4
+          capitalize
+          direction
+        "
+      >
         {{ t('register-a-new-account') }}
       </h1>
       <form>
