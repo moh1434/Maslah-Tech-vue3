@@ -45,10 +45,21 @@
       "p": "Our talented team of recruiters can help you find the best freelancer for the job."
     }
   },
+  "register-a-new-account": "Register a new account",
   "phone-number": "Phone number",
   "password": "password",
   "forgot-password?": "Forgot password?",
   "remember-me": "Remember me",
   "or": "or",
-  "continue-with-facebook": "CONTINUE WITH FACEBOOK"
+  "continue-with-facebook": "CONTINUE WITH FACEBOOK",
+  "full-name": "Full name",
+  "email-address": "Email address",
+  "get-code": "Get code",
+  "check": "Check",
+  "city": "City",
+  "baghdad": "Baghdad",
+  "basra": "Basra",
+  "describe-yourself": "Describe yourself",
+  "write-your-bio": "Write your bio",
+  "select-your-skills": "Select your skills"
 }

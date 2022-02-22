@@ -8,6 +8,9 @@ const { t } = useI18n();
   <!-- email, name, password, phone_number, bio, city, picture, skills -->
   <div class="my-12">
     <div class="mx-auto block p-6 max-w-xl">
+      <h1>
+        {{ t('register-a-new-account') }}
+      </h1>
       <form>
         <div class="form-group mb-6">
           <input
@@ -35,7 +38,7 @@ const { t } = useI18n();
               focus:border-blue-600
               focus:outline-none
             "
-            placeholder="Full name"
+            :placeholder="t('full-name')"
           />
         </div>
         <div class="form-group mb-6">
@@ -64,7 +67,7 @@ const { t } = useI18n();
               focus:border-blue-600
               focus:outline-none
             "
-            placeholder="Email address"
+            :placeholder="t('email-address')"
           />
         </div>
         <div class="form-group mb-6">
@@ -93,7 +96,7 @@ const { t } = useI18n();
               focus:border-blue-600
               focus:outline-none
             "
-            placeholder="Password"
+            :placeholder="t('password')"
           />
         </div>
         <div class="sm:flex">
@@ -104,6 +107,7 @@ const { t } = useI18n();
               name="phone_number"
               placeholder="+9647000000000"
               class="
+                no-direction
                 form-control
                 block
                 w-full
@@ -129,7 +133,7 @@ const { t } = useI18n();
             <button
               class="text-sm bg-blue-500 text-white w-32 rounded-r-lg sm:mr-3"
             >
-              Get code
+              {{ t('get-code') }}
             </button>
           </div>
           <div class="form-group mb-6 flex sm:w-1/2">
@@ -138,6 +142,7 @@ const { t } = useI18n();
               name="check_number"
               placeholder="sms code"
               class="
+                no-direction
                 sm:ml-2
                 form-control
                 block
@@ -162,7 +167,7 @@ const { t } = useI18n();
               "
             />
             <button class="text-sm bg-blue-500 text-white w-32 rounded-r-lg">
-              Check
+              {{ t('check') }}
             </button>
           </div>
         </div>
@@ -170,7 +175,6 @@ const { t } = useI18n();
         <div class="grid grid-cols-2 gap-4">
           <div class="form-group mb-6">
             <select
-              type="text"
               name="city"
               class="
                 form-control
@@ -196,9 +200,9 @@ const { t } = useI18n();
                 focus:outline-none
               "
             >
-              <option>City</option>
-              <option>Baghdad</option>
-              <option>Basra</option>
+              <option>{{ t('city') }}</option>
+              <option>{{ t('baghdad') }}</option>
+              <option>{{ t('basra') }}</option>
             </select>
           </div>
           <div class="form-group mb-6">
@@ -255,14 +259,13 @@ const { t } = useI18n();
               focus:outline-none
               min-h-16
             "
-            id="exampleFormControlTextarea1"
             rows="3"
-            placeholder="Describe yourself(write your bio)."
+            :placeholder="`${t('describe-yourself')}(${t('write-your-bio')}).`"
           ></textarea>
         </div>
         <div class="form-group mb-6">
           <fieldset class="border-2">
-            <legend class="ml-2">Select your skills</legend>
+            <legend class="ml-2">{{ t('select-your-skills') }}</legend>
             <ul class="flex gap-3 text-white p-4">
               <li class="bg-blue-500 bg-opacity-60 px-2.5 py-1 rounded-lg">
                 c++
@@ -298,7 +301,7 @@ const { t } = useI18n();
             ease-in-out
           "
         >
-          Sign up
+          {{ t('sign_up') }}
         </button>
 
         <OrContinueWithFaceBook />
