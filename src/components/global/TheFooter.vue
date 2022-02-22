@@ -5,14 +5,10 @@ import {
 } from '@/constants/iconsGlobalAttributes';
 import { socialIconsWithHref as socialIcons } from '@/constants/socialIconsWithHref';
 import { menuRoutesLists, menuIconsList } from '@/constants/footerLinksLists';
-
 import { useI18n } from 'vue-i18n';
-const { t, locale } = useI18n();
 
-function setLocale(newLocale: 'en' | 'ar') {
-  locale.value = newLocale;
-  localStorage.setItem('currentLocale', newLocale);
-}
+import setLocale from '@/helpers/setLocale';
+const { t } = useI18n();
 </script>
 
 <template>
