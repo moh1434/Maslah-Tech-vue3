@@ -30,24 +30,19 @@ const registerLinks = ref([
     "
   >
     <ul class="flex flex-wrap">
-      <li
-        v-for="(menuLink, index) in menuLinks"
-        :key="index"
-        class="px-1 sm:px-2 md:px-4"
-      >
-        <router-link :to="{ name: menuLink.name, params: menuLink.params }">{{
-          menuLink.text
-        }}</router-link>
+      <li v-for="(menuLink, index) in menuLinks" :key="index">
+        <router-link
+          :to="{ name: menuLink.name, params: menuLink.params }"
+          class="px-1 sm:px-2 md:px-4"
+          >{{ menuLink.text }}</router-link
+        >
       </li>
     </ul>
     <ul class="flex flex-wrap">
-      <li
-        v-for="(registerLink, index) in registerLinks"
-        :key="index"
-        class="px-1 sm:px-2 md:px-4"
-      >
+      <li v-for="(registerLink, index) in registerLinks" :key="index">
         <router-link
           :to="{ name: registerLink.name, params: registerLink.params }"
+          class="px-1 sm:px-2 md:px-4"
         >
           {{ registerLink.text }}
         </router-link>
@@ -62,17 +57,18 @@ const registerLinks = ref([
 </template>
 
 <style scoped>
-li {
+a {
   @apply mx-1 py-4;
   color: white;
   cursor: pointer;
+  display: block;
 }
-li:hover {
+a:hover {
   @apply bg-blue-500;
   transition: background-color 200ms ease-in-out;
 }
 @media (max-width: 639px) {
-  li {
+  a {
     @apply py-2;
   }
   ul:first-of-type {
