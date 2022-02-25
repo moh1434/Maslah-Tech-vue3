@@ -16,6 +16,7 @@
     "Contact": "للتواصل"
   },
   "categories": {
+    "h1": "إختر قسم للبدء ",
     "categories": "الأقسام",
     "Graphic_design": "كرافك دزاين",
     "Motion_Graphic": "موشن كرافك",

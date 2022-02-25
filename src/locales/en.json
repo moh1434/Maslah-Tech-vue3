@@ -16,6 +16,7 @@
     "Contact": "Contact"
   },
   "categories": {
+    "h1": "Choose category to start.",
     "categories": "Categories",
     "Graphic_design": "Graphic design",
     "Motion_Graphic": "Motion Graphic",

@@ -7,7 +7,11 @@ const { t, locale } = useI18n();
 
 const menuLinks = ref([
   { text: computed(() => t('Get_Jobs')), name: '404', params: {} },
-  { text: computed(() => t('Find_Freelancers')), name: '404', params: {} },
+  {
+    text: computed(() => t('categories.categories')),
+    name: 'categories',
+    params: {},
+  },
   { text: computed(() => t('About_Us')), name: '404', params: {} },
   // { text: "Contact Us", url: "/" },
 ]);

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import OrContinueWithFaceBook from '@/components/Auth/OrContinueWithFaceBook.vue';
+import H1 from '@/components/small/H1.vue';
 const { t } = useI18n();
 </script>
 
@@ -8,19 +9,7 @@ const { t } = useI18n();
   <!-- email, name, password, phone_number, bio, city, picture, skills -->
   <div class="my-4 sm:my-8">
     <div class="mx-auto block p-6 max-w-xl">
-      <h1
-        class="
-          font-medium
-          leading-tight
-          text-3xl
-          mt-0
-          mb-4
-          capitalize
-          direction
-        "
-      >
-        {{ t('register-a-new-account') }}
-      </h1>
+      <H1 class="mt-0 mb-4">{{ t('register-a-new-account') }}</H1>
       <form>
         <div class="form-group mb-6">
           <input
