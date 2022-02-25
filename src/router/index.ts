@@ -20,6 +20,11 @@ const routes = [
     name: 'sign-up',
     component: () => import('@/pages/SignUp.vue'),
   },
+  {
+    path: '/categories',
+    name: 'categories',
+    component: () => import('@/pages/Categories.vue'),
+  },
 
   {
     path: '/404',
