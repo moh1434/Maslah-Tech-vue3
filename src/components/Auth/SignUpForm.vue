@@ -238,7 +238,7 @@ async function signUp(event: Event) {
     <div class="mx-auto block p-6 max-w-xl">
       <H1 class="mt-0 mb-4">{{ t('register-a-new-account') }}</H1>
 
-      <section class="" v-if="!isEmailVerified">
+      <section class="" v-show="!isEmailVerified">
         <form @submit.prevent="" id="verifyEmailForm">
           <div class="flex mb-2.5 direction">
             <h2 class="inline-block font-bold">{{ t('step') }}1:</h2>
@@ -317,7 +317,7 @@ async function signUp(event: Event) {
           </div>
         </form>
       </section>
-      <section class="relative py-4" v-if="!isPhoneNumberVerified">
+      <section class="relative py-4" v-show="!isPhoneNumberVerified">
         <span
           v-if="!isEmailVerified"
           v-show="showCheckYouEmailMessage"
