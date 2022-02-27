@@ -240,9 +240,9 @@ async function signUp(event: Event) {
 
       <section class="" v-if="!isEmailVerified">
         <form @submit.prevent="" id="verifyEmailForm">
-          <div class="flex mb-2.5">
-            <h2 class="inline-block font-bold mr-1">Step1:</h2>
-            <p>write email and password, then verify your email.</p>
+          <div class="flex mb-2.5 direction">
+            <h2 class="inline-block font-bold">{{ t('step') }}1:</h2>
+            <p class="px-1">{{ t('step1_message') }}.</p>
           </div>
           <div class="form-group mb-6">
             <input
@@ -278,7 +278,7 @@ async function signUp(event: Event) {
                 loading-btn
               "
             >
-              Send verification
+              {{ t('send_verification') }}
             </button>
 
             <button
@@ -294,7 +294,7 @@ async function signUp(event: Event) {
                 loading-btn
               "
             >
-              I verified it
+              {{ t('i_verified_it') }}
             </button>
             <!-- <div class="flex my-auto">
               <label class="block mx-1">Verified it before</label>
@@ -322,11 +322,11 @@ async function signUp(event: Event) {
           v-if="!isEmailVerified"
           v-show="showCheckYouEmailMessage"
           class="absolute -top-5 text-xs sm:text-sm"
-          >Hint: open your email to verify it, then click `I verified it` button
+          >{{ t('email_verify_hint') }}
         </span>
-        <div class="flex mb-2.5">
-          <h2 class="block font-bold mr-1">Step2:</h2>
-          <p>Write your Phone number then confirm it.</p>
+        <div class="flex mb-2.5 direction">
+          <h2 class="inline-block font-bold">{{ t('step') }}2:</h2>
+          <p class="px-1">{{ t('step2_message') }}.</p>
         </div>
         <div class="sm:flex">
           <form
@@ -400,11 +400,10 @@ async function signUp(event: Event) {
       <!--  -->
       <section>
         <form @submit.prevent="signUp($event)" id="additionalInformationForm">
-          <div class="flex mb-2.5">
-            <h2 class="inline-block font-bold mr-1">Step3:</h2>
-            <p>Additional information.</p>
+          <div class="flex mb-2.5 direction">
+            <h2 class="inline-block font-bold">{{ t('step') }}3:</h2>
+            <p class="px-1">{{ t('step3_message') }}.</p>
           </div>
-
           <div class="form-group mb-6">
             <input
               type="text"
@@ -446,7 +445,7 @@ async function signUp(event: Event) {
             ></textarea>
           </div>
           <div class="form-group mb-6">
-            <fieldset class="border-2">
+            <fieldset class="border-2 direction">
               <legend class="ml-2">{{ t('select-your-skills') }}</legend>
               <ul class="flex flex-wrap justify-center gap-3 text-white p-4">
                 <button

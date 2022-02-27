@@ -62,5 +62,13 @@
   "basra": "البصرة",
   "describe-yourself": "عبر عن نفسك",
   "write-your-bio": "أذكر مهاراتك",
-  "select-your-skills": "إختر مهاراتك"
+  "select-your-skills": "إختر مهاراتك",
+  "step": "خطوة",
+  "step1_message": "أكتب ايميلك ورمزك السري, ثم فعل ايميلك",
+  "send_verification": "أرسل التفعيل",
+  "i_verified_it": "لقد فعلته",
+  "email_verify_hint2": "Hint: open your email to verify it, then click `I verified it` button",
+  "email_verify_hint": "تلميح: افتح ايميلك وفعله, ثم إضغط زر `لقد فعلته`",
+  "step2_message": "أكتب رقم موبايلك ثم أكده",
+  "step3_message": "معلومات إضافية"
 }

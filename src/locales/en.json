@@ -62,5 +62,12 @@
   "basra": "Basra",
   "describe-yourself": "Describe yourself",
   "write-your-bio": "Write your bio",
-  "select-your-skills": "Select your skills"
+  "select-your-skills": "Select your skills",
+  "step": "Step",
+  "step1_message": "write email and password, then verify your email",
+  "send_verification": "Send verification",
+  "i_verified_it": "I verified it",
+  "email_verify_hint": "Hint: open your email to verify it, then click `I verified it` button",
+  "step2_message": "Write your Phone number then confirm it",
+  "step3_message": "Additional information"
 }
