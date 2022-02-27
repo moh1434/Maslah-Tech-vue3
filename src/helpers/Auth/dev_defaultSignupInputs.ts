@@ -49,14 +49,24 @@ export function defaultSignUpInputs() {
   onMounted(() => {
     const { forms } = getSignUpForms();
 
-    forms.verifyEmail.email.value = 'moh1434.ma@gmail.com';
-    forms.verifyEmail.password.value = '123456';
-
-    forms.getPhoneCode.phone_number.value = '+9647819801344';
-    forms.checkPhoneCode.check_number.value = '123456';
-
-    forms.additionalInformation.name.value = 'mohmmed ammar assi';
-    forms.additionalInformation.bio.value = 'HTML programmer';
+    if (forms?.verifyEmail?.email) {
+      forms.verifyEmail.email.value = 'moh1434.ma@gmail.com';
+    }
+    if (forms?.verifyEmail?.password) {
+      forms.verifyEmail.password.value = '123456';
+    }
+    if (forms?.getPhoneCode?.phone_number) {
+      forms.getPhoneCode.phone_number.value = '+9647819801344';
+    }
+    if (forms?.checkPhoneCode?.check_number) {
+      forms.checkPhoneCode.check_number.value = '123456';
+    }
+    if (forms?.additionalInformation?.name) {
+      forms.additionalInformation.name.value = 'mohmmed ammar assi';
+    }
+    if (forms?.additionalInformation?.bio) {
+      forms.additionalInformation.bio.value = 'HTML programmer';
+    }
     // form.
   });
 }
