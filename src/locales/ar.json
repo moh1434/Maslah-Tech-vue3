@@ -70,5 +70,6 @@
   "email_verify_hint2": "Hint: open your email to verify it, then click `I verified it` button",
   "email_verify_hint": "تلميح: افتح ايميلك وفعله, ثم إضغط زر `لقد فعلته`",
   "step2_message": "أكتب رقم موبايلك ثم أكده",
-  "step3_message": "معلومات إضافية"
+  "step3_message": "معلومات إضافية",
+  "avatar": "صورتك"
 }

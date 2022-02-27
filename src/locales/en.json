@@ -69,5 +69,6 @@
   "i_verified_it": "I verified it",
   "email_verify_hint": "Hint: open your email to verify it, then click `I verified it` button",
   "step2_message": "Write your Phone number then confirm it",
-  "step3_message": "Additional information"
+  "step3_message": "Additional information",
+  "avatar": "Picture"
 }

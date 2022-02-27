@@ -404,7 +404,7 @@ async function signUp(event: Event) {
             <h2 class="inline-block font-bold">{{ t('step') }}3:</h2>
             <p class="px-1">{{ t('step3_message') }}.</p>
           </div>
-          <div class="form-group mb-6">
+          <div class="flex gap-4 form-group mb-6">
             <input
               type="text"
               required
@@ -412,26 +412,24 @@ async function signUp(event: Event) {
               class="base-input px-3 md:px-4 py-1.5 md:py-2.5"
               :placeholder="t('full-name')"
             />
+
+            <select
+              name="city"
+              class="base-input px-3 md:px-4 py-1.5 md:py-2.5 i-w-44"
+            >
+              <option>{{ t('baghdad') }}</option>
+              <option>{{ t('basra') }}</option>
+            </select>
           </div>
-          <div class="grid grid-cols-2 gap-4">
-            <div class="form-group mb-6">
-              <select
-                name="city"
-                class="base-input px-3 md:px-4 py-1.5 md:py-2.5"
-              >
-                <option>{{ t('baghdad') }}</option>
-                <option>{{ t('basra') }}</option>
-              </select>
-            </div>
-            <div class="form-group mb-6">
-              <input
-                required
-                type="file"
-                accept="image/x-png,image/jpeg"
-                name="picture"
-                class="base-input px-3 md:px-4 py-1 md:py-2"
-              />
-            </div>
+          <div class="flex gap-4 form-group mb-6 direction">
+            <label class="text-lg py-1.5 md:py-2.5">{{ t('avatar') }}:</label>
+            <input
+              required
+              type="file"
+              accept="image/x-png,image/jpeg"
+              name="picture"
+              class="base-input px-3 md:px-4 py-1.5 md:py-2.5"
+            />
           </div>
           <div class="form-group mb-6">
             <textarea
@@ -509,6 +507,9 @@ async function signUp(event: Event) {
   @apply block w-full text-base font-normal  text-gray-700  bg-white bg-clip-padding  border border-solid border-gray-300  rounded  transition  ease-in-out  m-0  focus:text-gray-700  focus:bg-white  focus:border-blue-600  focus:outline-none;
 }
 
+.i-w-44 {
+  @apply w-44 !important;
+}
 .sign-up-form input:disabled,
 .sign-up-form textarea:disabled,
 .sign-up-form select:disabled,
