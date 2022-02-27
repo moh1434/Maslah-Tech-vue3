@@ -1,9 +1,14 @@
 import { onMounted } from 'vue';
 
 type verifyEmailInputsI = 'email' | 'password';
-type getPhoneCodeInputsI = 'phone_number';
-type checkPhoneCodeInputsI = 'check_number';
-type additionalInformationInputsI = 'name' | 'city' | 'picture' | 'bio';
+type getPhoneCodeInputsI = 'phone_number' | 'button';
+type checkPhoneCodeInputsI = 'check_number' | 'button';
+type additionalInformationInputsI =
+  | 'name'
+  | 'city'
+  | 'picture'
+  | 'bio'
+  | 'button';
 type formI<formInputsNamesI extends string> = HTMLFormElement &
   Record<formInputsNamesI, HTMLInputElement>;
 //  Record<'value', string>

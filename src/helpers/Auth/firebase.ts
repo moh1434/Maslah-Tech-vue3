@@ -21,6 +21,7 @@ export async function createUser(email: string, password: string) {
     } else {
       throw Error('User not found3');
     }
+    return user;
   } catch (error: any) {
     if (error.code == 'auth/email-already-in-use') {
       console.log('email used before, will try login in firebase');
@@ -30,12 +31,9 @@ export async function createUser(email: string, password: string) {
       } else {
         if (!user?.emailVerified) {
           sendEmailVerification(user);
-        } else if (user.emailVerified) {
-          disableFormInputs(getPhoneCodeFormID, false);
-          // disableFormInputs(verifyEmailFormID, true);
-          alert('email verified successfully, got to the next step');
         }
       }
+      return user;
     } else if (error.code == 'auth/weak-password') console.log('week password');
     else if (error.message == 'User not found') console.log(error.message);
     else throw error;
@@ -138,13 +136,8 @@ export async function submitPhoneNumberAuthCode(phoneCode: string) {
 //     .catch((error) => {});
 // }
 
-function refreshToken() {
-  const user = firebase.auth().currentUser;
-
-  return user?.getIdToken(true).then((token) => {
-    console.log(token);
-    return token;
-  });
+async function refreshToken() {
+  return (await firebase.auth().currentUser?.getIdToken(true)) ?? null;
 }
 
 function getUser() {
@@ -175,19 +168,23 @@ export async function registerInAPi(
   user?: firebase.User | null
 ) {
   user ??= firebase.auth().currentUser;
-  let token = await user?.getIdToken(true);
+  let token = (await user?.getIdToken(true)) ?? '';
   try {
     let res = await axios.post('http://localhost:3001/v1/register', body, {
       headers: {
-        token: token ?? '',
+        token: token,
       },
     });
+
     console.log(res.status);
     console.log(res.data);
     console.log(res.statusText);
-    refreshToken();
+
+    return { token };
+    // refreshToken();
   } catch (error) {
     console.log(error);
+    return { token: undefined };
   }
 }
 
