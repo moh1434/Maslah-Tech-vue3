@@ -9,6 +9,7 @@ import { allSkills, selectedSkills, selectSkill } from '@/helpers/useSkills';
 
 import { useI18n } from 'vue-i18n';
 import OrContinueWithFaceBook from '@/components/Auth/OrContinueWithFaceBook.vue';
+import { refreshLocalUserData } from '@/helpers/Auth/localAuth';
 const { t } = useI18n();
 
 async function signUp(event: Event) {
@@ -36,6 +37,7 @@ async function signUp(event: Event) {
     };
 
     localStorage.setItem('userData', JSON.stringify(userData));
+    refreshLocalUserData();
     console.log(token);
   }
   stopLoading(additionalInformation.button as HTMLButtonElement);
