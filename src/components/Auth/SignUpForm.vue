@@ -243,7 +243,7 @@ async function signUp(event: Event) {
             <h2 class="inline-block font-bold">{{ t('step') }}1:</h2>
             <p class="px-1">{{ t('step1_message') }}.</p>
           </div>
-          <div class="form-group mb-6">
+          <div class="mb-6">
             <input
               required
               type="email"
@@ -252,7 +252,7 @@ async function signUp(event: Event) {
               :placeholder="t('email-address')"
             />
           </div>
-          <div class="form-group mb-6">
+          <div class="mb-6">
             <input
               required
               type="password"
@@ -262,7 +262,7 @@ async function signUp(event: Event) {
             />
           </div>
 
-          <div class="form-group mb-6 flex flex-wrap justify-between">
+          <div class="mb-6 flex flex-wrap justify-between">
             <button
               type="submit"
               @click="sendEmailVerification($event)"
@@ -313,7 +313,7 @@ async function signUp(event: Event) {
           <form
             @submit.prevent="getPhoneCode($event)"
             id="getPhoneCodeForm"
-            class="form-group mb-6 flex sm:w-1/2"
+            class="mb-6 flex sm:w-1/2"
           >
             <input
               type="text"
@@ -344,7 +344,7 @@ async function signUp(event: Event) {
           <form
             @submit.prevent="checkPhoneCode($event)"
             id="checkPhoneCodeForm"
-            class="form-group mb-6 flex sm:w-1/2"
+            class="mb-6 flex sm:w-1/2"
           >
             <input
               type="number"
@@ -385,7 +385,7 @@ async function signUp(event: Event) {
             <h2 class="inline-block font-bold">{{ t('step') }}3:</h2>
             <p class="px-1">{{ t('step3_message') }}.</p>
           </div>
-          <div class="flex gap-4 form-group mb-6">
+          <div class="flex gap-4 mb-6">
             <input
               type="text"
               required
@@ -402,7 +402,7 @@ async function signUp(event: Event) {
               <option>{{ t('basra') }}</option>
             </select>
           </div>
-          <div class="flex gap-4 form-group mb-6 direction">
+          <div class="flex gap-4 mb-6 direction">
             <label class="text-lg py-1.5 md:py-2.5">{{ t('avatar') }}:</label>
             <input
               required
@@ -412,7 +412,7 @@ async function signUp(event: Event) {
               class="base-input px-3 md:px-4 py-1.5 md:py-2.5"
             />
           </div>
-          <div class="form-group mb-6">
+          <div class="mb-6">
             <textarea
               required
               name="bio"
@@ -423,7 +423,7 @@ async function signUp(event: Event) {
               )}).`"
             ></textarea>
           </div>
-          <div class="form-group mb-6">
+          <div class="mb-6">
             <fieldset class="border-2 direction">
               <legend class="ml-2">{{ t('select-your-skills') }}</legend>
               <ul class="flex flex-wrap justify-center gap-3 text-white p-4">
