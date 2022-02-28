@@ -41,9 +41,7 @@ export async function createUser(email: string, password: string) {
 }
 
 async function sendEmailVerification(user: firebase.User) {
-  user.sendEmailVerification({
-    url: window.location.origin + '/verify-email/', // redirect url
-  });
+  user.sendEmailVerification();
 }
 
 export async function loginToFireBase(email: string, password: string) {
