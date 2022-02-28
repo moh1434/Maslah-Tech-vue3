@@ -1,12 +1,20 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 
 import setLocale from '@/helpers/setLocale';
 import { useI18n } from 'vue-i18n';
 const { t, locale } = useI18n();
 
+const showAvatarMenu = ref(true);
+onMounted(() => {
+  window.addEventListener('click', function (e: Event) {
+    if (!document.getElementById('avatar-menu')?.contains(e.target as any)) {
+      showAvatarMenu.value = false;
+    }
+  });
+});
 const menuLinks = ref([
-  { text: computed(() => t('Get_Jobs')), name: '404', params: {} },
+  { text: computed(() => t('Home')), name: 'index', params: {} },
   {
     text: computed(() => t('categories.categories')),
     name: 'categories',
@@ -25,10 +33,11 @@ const registerLinks = ref([
 <template>
   <header
     class="
-      flex flex-wrap flex-col
+      flex flex-wrap
       items-center
-      sm:flex-row sm:justify-between sm:px-2
-      md:px-4
+      justify-between
+      px-2
+      sm:px-4
       lg:px-40
       bg-blue-600
     "
@@ -37,38 +46,70 @@ const registerLinks = ref([
       <li v-for="(menuLink, index) in menuLinks" :key="index">
         <router-link
           :to="{ name: menuLink.name, params: menuLink.params }"
-          class="px-1 sm:px-2 md:px-4"
+          class="px-1 sm:px-2 md:px-4 mx-1 py-4"
           >{{ menuLink.text }}</router-link
         >
       </li>
     </ul>
-    <ul class="flex flex-wrap">
-      <li v-for="(registerLink, index) in registerLinks" :key="index">
-        <router-link
-          :to="{ name: registerLink.name, params: registerLink.params }"
-          class="px-1 sm:px-2 md:px-4"
-        >
-          {{ registerLink.text }}
-        </router-link>
-      </li>
-      <li class="hidden lg:block absolute right-4 px-1 sm:px-2 md:px-4">
-        <button @click="locale == 'ar' ? setLocale('en') : setLocale('ar')">
-          {{ locale == 'ar' ? 'عربي' : 'English' }}
-        </button>
-      </li>
-    </ul>
+    <div class="relative" id="avatar-menu">
+      <div
+        class="px-4 py-2 avatar cursor-pointer"
+        @click="showAvatarMenu = !showAvatarMenu"
+      >
+        <img
+          src="@/assets/imgs/defaultAvatar.png"
+          alt="avatar"
+          class="w-9 h-9 rounded-full"
+        />
+      </div>
+      <ul
+        v-show="showAvatarMenu"
+        class="
+          flex flex-wrap flex-col
+          bg-blue-600
+          absolute
+          z-10
+          top-11
+          sm:top-13
+          right-0
+          sm:right-1/2 sm:translate-x-1/2
+          w-24
+          text-center
+          rounded-sm
+          overflow-hidden
+        "
+      >
+        <li v-for="(registerLink, index) in registerLinks" :key="index">
+          <router-link
+            :to="{ name: registerLink.name, params: registerLink.params }"
+            class="px-1 sm:px-2 md:px-4 py-2.5"
+          >
+            {{ registerLink.text }}
+          </router-link>
+        </li>
+        <li>
+          <button
+            class="px-1 sm:px-2 md:px-4 py-2.5 w-full"
+            @click="locale == 'ar' ? setLocale('en') : setLocale('ar')"
+          >
+            {{ locale == 'ar' ? 'عربي' : 'English' }}
+          </button>
+        </li>
+      </ul>
+    </div>
   </header>
 </template>
 
 <style scoped>
 a,
 button {
-  @apply mx-1 py-4;
   color: white;
   cursor: pointer;
   display: block;
 }
-a:hover {
+a:hover,
+button:hover,
+.avatar:hover {
   @apply bg-blue-500;
   transition: background-color 200ms ease-in-out;
 }
