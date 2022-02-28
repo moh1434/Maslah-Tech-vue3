@@ -115,7 +115,6 @@ export async function submitPhoneNumberAuthCode(phoneCode: string) {
     .then((result: any) => {
       res.user = result.user;
       // registerInAPi();
-      alert('Phone number checked, go to the next step');
       // console.log(user);
       return res;
     })
