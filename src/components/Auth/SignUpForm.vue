@@ -170,7 +170,7 @@ async function signUp(event: Event) {
 
   startLoading(additionalInformation.button as HTMLButtonElement);
   //Form validated from HTML5
-  const { token } = await registerInAPi({
+  const { token, user } = await registerInAPi({
     name: additionalInformation.name.value,
     bio: additionalInformation.bio.value,
     city: additionalInformation.city.value,
@@ -179,6 +179,15 @@ async function signUp(event: Event) {
   });
   if (token) {
     localStorage.setItem('token', token);
+
+    const userData = {
+      name: user?.name,
+      email: user?.email,
+      id: user?.id,
+      picture: user?.picture,
+    };
+
+    localStorage.setItem('userData', JSON.stringify(userData));
     console.log(token);
   }
 
