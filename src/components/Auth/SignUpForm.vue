@@ -207,7 +207,7 @@ async function signUp(event: Event) {
     localStorage.setItem('userData', JSON.stringify(userData));
     console.log(token);
   }
-
+  stopLoading(additionalInformation.button as HTMLButtonElement);
   alert('registered successfully');
 }
 
