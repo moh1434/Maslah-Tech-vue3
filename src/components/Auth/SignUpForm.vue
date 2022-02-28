@@ -24,7 +24,7 @@ import {
   checkPhoneCodeFormI,
   additionalInformationFormI,
 } from '@/helpers/Auth/dev_defaultSignupInputs';
-import { getSkills } from '@/api/fetchSkills';
+import { allSkills, selectedSkills, selectSkill } from '@/helpers/useSkills';
 if (import.meta.env.MODE == 'development') {
   defaultSignUpInputs();
 }
@@ -32,35 +32,6 @@ onMounted(() => {
   recaptchaVerifier();
 });
 const { t } = useI18n();
-
-//
-const skills = ref<Array<string>>([]);
-getSkills().then((res) => (skills.value = res));
-// console.log('skills=', skills);
-const selectedSkills = ref<Array<string>>([]);
-
-function selectSkill(event: Event, index: number) {
-  // console.log('selectSkill', event, index);
-  const skillToSelectByUser = skills.value[index];
-  if (!skillToSelectByUser) {
-    return;
-  }
-  if (selectedSkills.value.includes(skillToSelectByUser)) {
-    // console.log('includes');
-    const index = selectedSkills.value.indexOf(skillToSelectByUser);
-    if (index !== -1) {
-      // console.log('add bg-opacity-60');
-      selectedSkills.value.splice(index, 1);
-      (event?.target as any)?.classList?.add('bg-opacity-60');
-    }
-  } else {
-    // console.log('NOT includes');
-    // console.log('remove bg-opacity-60');
-    selectedSkills.value.push(skillToSelectByUser);
-    (event?.target as any)?.classList?.remove('bg-opacity-60');
-  }
-}
-//
 
 onMounted(() => {
   disableFormInputs(getPhoneCodeFormID, true);
@@ -203,7 +174,7 @@ async function signUp(event: Event) {
     name: additionalInformation.name.value,
     bio: additionalInformation.bio.value,
     city: additionalInformation.city.value,
-    skills: skills.value,
+    skills: selectedSkills.value,
     picture: additionalInformation.picture.value,
   });
   if (token) {
@@ -428,7 +399,7 @@ async function signUp(event: Event) {
               <legend class="ml-2">{{ t('select-your-skills') }}</legend>
               <ul class="flex flex-wrap justify-center gap-3 text-white p-4">
                 <button
-                  v-for="(skill, index) in skills"
+                  v-for="(skill, index) in allSkills"
                   :key="index"
                   @click.prevent="selectSkill($event, index)"
                   class="
