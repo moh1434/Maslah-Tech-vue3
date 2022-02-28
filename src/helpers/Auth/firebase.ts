@@ -169,7 +169,7 @@ export async function registerInAPi(
   user ??= firebase.auth().currentUser;
   let token = (await user?.getIdToken(true)) ?? '';
   try {
-    let res = await axios.post<userI>(
+    let res = await axios.post<{ data: userI }>(
       'http://localhost:3001/v1/register',
       body,
       {
@@ -183,7 +183,7 @@ export async function registerInAPi(
     console.log(res.data);
     console.log(res.statusText);
 
-    return { token, user: res.data };
+    return { token, user: res.data.data };
     // refreshToken();
   } catch (error) {
     console.log(error);
