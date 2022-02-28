@@ -1,34 +1,21 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import { ref, onMounted, watch } from 'vue';
+import { onMounted, watch } from 'vue';
 
 import H1 from '@/components/small/H1.vue';
-import {
-  createUser,
-  linkPhone,
-  loginToFireBase,
-  submitPhoneNumberAuthCode,
-  registerInAPi,
-  recaptchaVerifier,
-} from '@/helpers/Auth/firebase';
+import { recaptchaVerifier } from '@/helpers/Auth/firebase';
 import {
   defaultSignUpInputs,
-  verifyEmailFormI,
   verifyEmailFormID,
   getPhoneCodeFormID,
   checkPhoneCodeFormID,
   additionalInformationFormID,
   disableFormInputs,
-  getPhoneCodeFormI,
-  checkPhoneCodeFormI,
-  additionalInformationFormI,
 } from '@/helpers/Auth/dev_defaultSignupInputs';
-import { allSkills, selectedSkills, selectSkill } from '@/helpers/useSkills';
-import { startLoading, stopLoading } from '@/helpers/useLoading';
+
 import {
   isEmailVerified,
   isPhoneNumberVerified,
-  showCheckYouEmailMessage,
 } from '@/helpers/Auth/isVerified';
 
 import VerifyEmail from '@/components/Auth/Forms/VerifyEmail.vue';
@@ -70,30 +57,10 @@ onMounted(() => {
     disableFormInputs(additionalInformationFormID, true);
   }
 });
-//
-
-//
-
-// function testLoading(event: Event) {
-//   const button = event.target as HTMLButtonElement;
-//   button.disabled = true;
-//   button.classList.add('loading');
-//   setTimeout(() => {
-//     button.classList.remove('loading');
-//     button.disabled = false;
-//   }, 1200);
-// }
 </script>
 
 <template>
-  <!-- email, name, password, phone_number, bio, city, picture, skills -->
   <div class="sign-up-form my-4 sm:my-8">
-    <!-- <button
-      @click="testLoading($event)"
-      class="text-sm bg-blue-500 text-white px-3 py-3 mx-2 loading-btn"
-    >
-      Click me
-    </button> -->
     <div class="mx-auto block p-6 max-w-xl">
       <H1 class="mt-0 mb-4">{{ t('register-a-new-account') }}</H1>
       <VerifyEmail />
@@ -101,7 +68,6 @@ onMounted(() => {
       <PhoneCode />
 
       <AdditionalInformation />
-      <!--  -->
     </div>
   </div>
 </template>
