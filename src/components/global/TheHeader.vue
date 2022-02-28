@@ -76,8 +76,9 @@ function logOutAndRedirect() {
         >
       </li>
     </ul>
-    <div class="relative" id="avatar-menu">
+    <div class="relative">
       <div
+        id="avatar-menu"
         class="px-4 py-2 avatar cursor-pointer"
         @click="showAvatarMenu = !showAvatarMenu"
       >
