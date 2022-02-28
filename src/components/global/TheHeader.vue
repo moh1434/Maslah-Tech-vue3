@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
-
+import { ref, computed, onMounted, ComputedRef, watch } from 'vue';
+import { localUser, defaultImagePath, logOut } from '@/helpers/Auth/localAuth';
 import setLocale from '@/helpers/setLocale';
+import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 const { t, locale } = useI18n();
+
+const router = useRouter();
 
 const showAvatarMenu = ref(true);
 onMounted(() => {
@@ -23,11 +26,33 @@ const menuLinks = ref([
   { text: computed(() => t('About_Us')), name: '404', params: {} },
   // { text: "Contact Us", url: "/" },
 ]);
-const registerLinks = ref([
-  { text: computed(() => t('login')), name: 'login', params: {} },
-  { text: computed(() => t('sign_up')), name: 'sign-up', params: {} },
-  // { text: "Contact Us", url: "/" },
+const showSignOutBtn = ref(false);
+const registerLinks = ref<
+  Array<{ text: ComputedRef<string> & any; name: string; params: {} }>
+>([
+  {
+    text: computed(() => t('login')),
+    name: 'login',
+    params: {},
+  },
+  {
+    text: computed(() => t('sign_up')),
+    name: 'sign-up',
+    params: {},
+  },
 ]);
+watch(
+  localUser,
+  (newLocalUser) => {
+    showSignOutBtn.value = newLocalUser.token ? true : false;
+  },
+  { immediate: true, deep: true }
+);
+
+function logOutAndRedirect() {
+  logOut();
+  router.push({ name: 'login' });
+}
 </script>
 
 <template>
@@ -57,7 +82,7 @@ const registerLinks = ref([
         @click="showAvatarMenu = !showAvatarMenu"
       >
         <img
-          src="@/assets/imgs/defaultAvatar.png"
+          :src="localUser.picture ?? defaultImagePath"
           alt="avatar"
           class="w-9 h-9 rounded-full"
         />
@@ -79,14 +104,25 @@ const registerLinks = ref([
           overflow-hidden
         "
       >
-        <li v-for="(registerLink, index) in registerLinks" :key="index">
-          <router-link
-            :to="{ name: registerLink.name, params: registerLink.params }"
-            class="px-1 sm:px-2 md:px-4 py-2.5"
+        <template v-if="!showSignOutBtn">
+          <li v-for="(registerLink, index) in registerLinks" :key="index">
+            <router-link
+              :to="{ name: registerLink.name, params: registerLink.params }"
+              class="px-1 sm:px-2 md:px-4 py-2.5"
+            >
+              {{ registerLink.text }}
+            </router-link>
+          </li>
+        </template>
+        <li v-else>
+          <button
+            class="px-1 sm:px-2 md:px-4 py-2.5 w-full"
+            @click="logOutAndRedirect()"
           >
-            {{ registerLink.text }}
-          </router-link>
+            {{ t('log_out') }}
+          </button>
         </li>
+
         <li>
           <button
             class="px-1 sm:px-2 md:px-4 py-2.5 w-full"
