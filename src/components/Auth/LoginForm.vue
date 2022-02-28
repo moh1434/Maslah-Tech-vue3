@@ -6,7 +6,7 @@ const { t } = useI18n();
 
 <template>
   <section class="md:my-10 lg:my-24">
-    <div class="container px-6 py-12 h-full">
+    <div class="container mx-auto px-6 py-12 h-full">
       <div
         class="
           flex
