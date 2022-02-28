@@ -7,6 +7,7 @@ import {
   verifyEmailFormID,
   additionalInformationFormID,
 } from '@/helpers/Auth/dev_defaultSignupInputs';
+import { userI } from '@/types/UserI';
 
 export async function createUser(email: string, password: string) {
   console.log('call createUser');
@@ -114,7 +115,6 @@ export async function submitPhoneNumberAuthCode(phoneCode: string) {
     .then((result: any) => {
       res.user = result.user;
       // registerInAPi();
-      alert('Phone number checked, go to the next step');
       // console.log(user);
       return res;
     })
@@ -168,21 +168,25 @@ export async function registerInAPi(
   user ??= firebase.auth().currentUser;
   let token = (await user?.getIdToken(true)) ?? '';
   try {
-    let res = await axios.post('http://localhost:3001/v1/register', body, {
-      headers: {
-        token: token,
-      },
-    });
+    let res = await axios.post<{ data: userI }>(
+      'http://localhost:3001/v1/register',
+      body,
+      {
+        headers: {
+          token: token,
+        },
+      }
+    );
 
     console.log(res.status);
     console.log(res.data);
     console.log(res.statusText);
 
-    return { token };
+    return { token, user: res.data.data };
     // refreshToken();
   } catch (error) {
     console.log(error);
-    return { token: undefined };
+    return { token: undefined, user: undefined };
   }
 }
 
