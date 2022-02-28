@@ -149,6 +149,9 @@ async function getPhoneCode(event: Event) {
 
   startLoading(getPhoneCodeForm.button as HTMLButtonElement);
   linkPhone(getPhoneCodeForm.phone_number.value)?.then(() => {
+    alert(
+      'Phone verification code has been sent to your mobile via SMS message.'
+    );
     stopLoading(getPhoneCodeForm.button as HTMLButtonElement);
     disableFormInputs(checkPhoneCodeFormID, false);
   });
