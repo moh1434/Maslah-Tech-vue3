@@ -14,7 +14,6 @@ import {
 } from '@/helpers/Auth/firebase';
 import {
   defaultSignUpInputs,
-  getSignUpForms,
   verifyEmailFormI,
   verifyEmailFormID,
   getPhoneCodeFormID,
@@ -296,24 +295,6 @@ async function signUp(event: Event) {
             >
               {{ t('i_verified_it') }}
             </button>
-            <!-- <div class="flex my-auto">
-              <label class="block mx-1">Verified it before</label>
-              <input
-                type="checkbox"
-                value="true"
-                name="already-confirmed-email"
-                class="
-                  h-4
-                  w-4
-                  border border-gray-300
-                  bg-white
-                  checked:bg-blue-600 checked:border-blue-600
-                  focus:outline-none
-                  mt-1
-                  cursor-pointer
-                "
-              />
-            </div> -->
           </div>
         </form>
       </section>
