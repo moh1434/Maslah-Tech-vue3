@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import firebase from 'firebase';
 import { useI18n } from 'vue-i18n';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import OrContinueWithFaceBook from '@/components/Auth/OrContinueWithFaceBook.vue';
 import H1 from '@/components/small/H1.vue';
 import {
@@ -33,10 +33,38 @@ onMounted(() => {
 });
 const { t } = useI18n();
 
+const isEmailVerified = ref(
+  firebase.auth().currentUser?.emailVerified ?? false
+);
+const isPhoneNumberVerified = ref(
+  firebase.auth().currentUser?.phoneNumber ? true : false
+);
+watch(isEmailVerified, (newIsVerified, oldIsVerified) => {
+  if (newIsVerified) {
+    disableFormInputs(getPhoneCodeFormID, false);
+    // disableFormInputs(verifyEmailFormID, true);
+    alert('email verified successfully, got to the next step');
+  }
+});
+
+watch(isPhoneNumberVerified, (newIsVerified, oldIsVerified) => {
+  if (newIsVerified) {
+    disableFormInputs(verifyEmailFormID, true);
+    disableFormInputs(getPhoneCodeFormID, true);
+    disableFormInputs(checkPhoneCodeFormID, true);
+    disableFormInputs(additionalInformationFormID, false);
+    alert('Phone number verified successfully, go to the next step');
+  }
+});
+
 onMounted(() => {
-  disableFormInputs(getPhoneCodeFormID, true);
-  disableFormInputs(checkPhoneCodeFormID, true);
-  disableFormInputs(additionalInformationFormID, true);
+  if (!isEmailVerified.value) {
+    disableFormInputs(getPhoneCodeFormID, true);
+    disableFormInputs(checkPhoneCodeFormID, true);
+  }
+  if (!isPhoneNumberVerified.value) {
+    disableFormInputs(additionalInformationFormID, true);
+  }
 });
 //
 function startLoading(button: HTMLButtonElement) {
@@ -61,9 +89,9 @@ async function sendEmailVerification(event: Event) {
   const user = await createUser(form.email.value, form.password.value);
   if (user?.emailVerified) {
     isEmailVerified.value = true;
-    disableFormInputs(getPhoneCodeFormID, false);
-    // disableFormInputs(verifyEmailFormID, true);
-    alert('email verified successfully, got to the next step');
+    if (user?.phoneNumber) {
+      isPhoneNumberVerified.value = true;
+    }
   } else {
     alert(
       'We send a verification link to your email, open it then come back to complete the registration.'
@@ -72,13 +100,6 @@ async function sendEmailVerification(event: Event) {
   stopLoading(event.target as HTMLButtonElement);
   showCheckYouEmailMessage.value = true;
 }
-
-const isEmailVerified = ref(
-  firebase.auth().currentUser?.emailVerified ?? false
-);
-const isPhoneNumberVerified = ref(
-  firebase.auth().currentUser?.phoneNumber ? true : false
-);
 
 async function iVerifiedMyEmail(event: Event) {
   const form = document.getElementById(verifyEmailFormID) as verifyEmailFormI;
@@ -111,9 +132,9 @@ async function iVerifiedMyEmail(event: Event) {
 
   if (user.emailVerified) {
     isEmailVerified.value = true;
-    disableFormInputs(getPhoneCodeFormID, false);
-    // disableFormInputs(verifyEmailFormID, true);
-    alert('email verified successfully, got to the next step');
+    if (user?.phoneNumber) {
+      isPhoneNumberVerified.value = true;
+    }
   } else {
     alert(
       'email not verified, open your email and click on "Verify your email for MaslahTech" email.'
@@ -158,10 +179,6 @@ async function checkPhoneCode(event: Event) {
     return Promise.resolve();
   }
   isPhoneNumberVerified.value = true;
-  disableFormInputs(verifyEmailFormID, true);
-  disableFormInputs(getPhoneCodeFormID, true);
-  disableFormInputs(checkPhoneCodeFormID, true);
-  disableFormInputs(additionalInformationFormID, false);
 }
 async function signUp(event: Event) {
   const additionalInformation = document.getElementById(
