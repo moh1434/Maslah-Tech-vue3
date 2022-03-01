@@ -10,6 +10,8 @@ import { allSkills, selectedSkills, selectSkill } from '@/helpers/useSkills';
 import { useI18n } from 'vue-i18n';
 import OrContinueWithFaceBook from '@/components/Auth/OrContinueWithFaceBook.vue';
 import { refreshLocalUserData } from '@/helpers/Auth/localAuth';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const { t } = useI18n();
 
 async function signUp(event: Event) {
@@ -27,8 +29,6 @@ async function signUp(event: Event) {
     picture: additionalInformation.picture.value,
   });
   if (token) {
-    localStorage.setItem('token', token);
-
     const userData = {
       name: user?.name,
       email: user?.email,
@@ -36,12 +36,14 @@ async function signUp(event: Event) {
       picture: user?.picture,
     };
 
+    localStorage.setItem('token', token);
     localStorage.setItem('userData', JSON.stringify(userData));
     refreshLocalUserData();
     console.log(token);
   }
   stopLoading(additionalInformation.button as HTMLButtonElement);
   alert('registered successfully');
+  router.push({ name: 'categories' });
 }
 </script>
 
