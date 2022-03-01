@@ -71,6 +71,18 @@ export function defaultSignUpInputs() {
   });
 }
 
+export function defaultLogInInputs() {
+  onMounted(() => {
+    const form = document.getElementById('login-form') as HTMLFormElement;
+    if (form.email) {
+      form.email.value = '1434.ma@gmail.com';
+    }
+    if (form.password) {
+      form.password.value = '123456';
+    }
+  });
+}
+
 export function disableFormInputs(formID: string, disable = true) {
   document
     .querySelectorAll(
