@@ -1,7 +1,81 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import OrContinueWithFaceBook from '@/components/Auth/OrContinueWithFaceBook.vue';
+import { loginToFireBase } from '@/helpers/Auth/firebase';
+import { defaultLogInInputs } from '@/helpers/Auth/dev_defaultSignupInputs';
+import { fetchUser } from '@/api/fetchUser';
+import { refreshLocalUserData } from '@/helpers/Auth/localAuth';
+import { startLoading, stopLoading } from '@/helpers/useLoading';
+import { useRouter } from 'vue-router';
 const { t } = useI18n();
+if (import.meta.env.MODE == 'development') {
+  defaultLogInInputs();
+}
+
+const router = useRouter();
+
+async function login(event: Event) {
+  const form = event.target as HTMLFormElement;
+  console.log('loginnnn');
+  console.log(form.email.value, form.password.value);
+  startLoading(form['login-btn'] as HTMLButtonElement);
+  const response = await loginToFireBase(form.email.value, form.password.value);
+
+  let uid = response.user?.uid;
+
+  if (response.errors.length) {
+    response.errors.map((err: any) => {
+      if (err instanceof Object && err?.code == 'auth/user-not-found') {
+        console.log(err);
+        alert('Wrong email and password.');
+      } else if (err instanceof Object && err?.code) {
+        console.log(err);
+        alert(err?.code);
+      } else {
+        console.log(err);
+        alert(err);
+      }
+    });
+    stopLoading(form['login-btn'] as HTMLButtonElement);
+    return Promise.resolve();
+  }
+  if (typeof uid !== 'string') {
+    alert('Unknown error, may be slow internet');
+    stopLoading(form['login-btn'] as HTMLButtonElement);
+    return Promise.resolve();
+  }
+
+  const token = await response.user?.getIdToken(true);
+  if (typeof token !== 'string') {
+    alert('Unknown error, may be slow internet');
+    stopLoading(form['login-btn'] as HTMLButtonElement);
+    return Promise.resolve();
+  }
+
+  const userResponse = await fetchUser(uid);
+  if (userResponse.errors.length) {
+    userResponse.errors.map((err) => alert(err));
+    stopLoading(form['login-btn'] as HTMLButtonElement);
+    return Promise.resolve();
+  }
+  const user = userResponse.response?.data.data;
+  if (!user) {
+    alert('Unknown error, may be slow internet');
+    stopLoading(form['login-btn'] as HTMLButtonElement);
+    return Promise.resolve();
+  }
+  const userData = {
+    name: user?.name,
+    email: user?.email,
+    id: user?.id,
+    picture: user?.picture,
+  };
+  localStorage.setItem('token', token);
+  localStorage.setItem('userData', JSON.stringify(userData));
+  refreshLocalUserData();
+  stopLoading(form['login-btn'] as HTMLButtonElement);
+  router.push({ name: 'categories' });
+}
 </script>
 
 <template>
@@ -26,10 +100,12 @@ const { t } = useI18n();
           />
         </div>
         <div class="md:w-8/12 lg:w-5/12 lg:ml-20">
-          <form>
+          <form id="login-form" @submit.prevent="login($event)">
             <div class="mb-6">
               <input
-                type="tel"
+                type="email"
+                name="email"
+                required
                 class="
                   form-control
                   block
@@ -50,12 +126,14 @@ const { t } = useI18n();
                   focus:border-blue-600
                   focus:outline-none
                 "
-                :placeholder="t('phone-number')"
+                :placeholder="t('email-address')"
               />
             </div>
             <div class="mb-6">
               <input
                 type="password"
+                required
+                name="password"
                 class="
                   form-control
                   block
@@ -111,8 +189,8 @@ const { t } = useI18n();
                   >{{ t('remember-me') }}</label
                 >
               </div>
-              <a
-                href="#"
+              <button
+                @click.prevent=""
                 class="
                   text-blue-600
                   hover:text-blue-700
@@ -122,13 +200,15 @@ const { t } = useI18n();
                   transition
                   ease-in-out
                 "
-                >{{ t('forgot-password?') }}</a
               >
+                {{ t('forgot-password?') }}
+              </button>
             </div>
 
             <!-- Submit button -->
             <button
               type="submit"
+              name="login-btn"
               class="
                 inline-block
                 px-7

@@ -8,7 +8,7 @@ const { t, locale } = useI18n();
 
 const router = useRouter();
 
-const showAvatarMenu = ref(true);
+const showAvatarMenu = ref(false);
 onMounted(() => {
   window.addEventListener('click', function (e: Event) {
     if (!document.getElementById('avatar-menu')?.contains(e.target as any)) {
