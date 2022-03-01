@@ -10,6 +10,8 @@ import { allSkills, selectedSkills, selectSkill } from '@/helpers/useSkills';
 import { useI18n } from 'vue-i18n';
 import OrContinueWithFaceBook from '@/components/Auth/OrContinueWithFaceBook.vue';
 import { refreshLocalUserData } from '@/helpers/Auth/localAuth';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const { t } = useI18n();
 
 async function signUp(event: Event) {
@@ -42,6 +44,7 @@ async function signUp(event: Event) {
   }
   stopLoading(additionalInformation.button as HTMLButtonElement);
   alert('registered successfully');
+  router.push({ name: 'categories' });
 }
 </script>
 
