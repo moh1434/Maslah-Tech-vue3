@@ -20,9 +20,9 @@ const { category } = defineProps<{ category: CategoryI }>();
         />
       </a>
       <div class="p-3">
-        <h5 class="text-gray-900 sm:text-xl font-medium mb-2">
+        <a href="#!" class="text-gray-900 sm:text-xl font-medium mb-2">
           {{ locale == 'ar' ? category.arTitle : category.enTitle }}
-        </h5>
+        </a>
         <p class="text-gray-700 text-base mb-4">
           {{ category.description }}
         </p>
@@ -31,4 +31,8 @@ const { category } = defineProps<{ category: CategoryI }>();
   </div>
 </template>
 
-<style></style>
+<style scoped>
+a:hover {
+  @apply text-blue-600 underline;
+}
+</style>
