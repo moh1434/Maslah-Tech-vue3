@@ -1,4 +1,5 @@
 import { ref } from 'vue';
+import { Router } from 'vue-router';
 
 // const clearLocalUser = {
 //   id: undefined,
@@ -49,4 +50,22 @@ function logOut() {
   localStorage.removeItem('userData');
   refreshLocalUserData();
 }
-export { localUser, defaultImagePath, logOut, refreshLocalUserData };
+
+function confirmLogOutOrRedirect(router: Router) {
+  if (
+    confirm(
+      'You are already logged in, do you want to log-out to continue in this page?'
+    )
+  ) {
+    logOut();
+  } else {
+    router.push({ name: 'categories' });
+  }
+}
+export {
+  localUser,
+  defaultImagePath,
+  logOut,
+  refreshLocalUserData,
+  confirmLogOutOrRedirect,
+};
