@@ -1,13 +1,13 @@
 import { ref } from 'vue';
 import { Router } from 'vue-router';
 
-// const clearLocalUser = {
-//   id: undefined,
-//   name: undefined,
-//   email: undefined,
-//   picture: undefined,
-//   token: null,
-// };
+const clearLocalUser = {
+  id: undefined,
+  name: undefined,
+  email: undefined,
+  picture: undefined,
+  token: null,
+};
 
 const localUser = ref<{
   id: string | undefined;
@@ -27,6 +27,10 @@ const localUserKeys = Object.keys(localUser.value) as Array<
 >;
 function refreshLocalUserData() {
   const userData = localStorage.getItem('userData');
+  if (!userData) {
+    localUser.value = { ...clearLocalUser };
+    return;
+  }
   if (userData) {
     const newLocalUser = JSON.parse(userData);
     try {
