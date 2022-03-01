@@ -29,8 +29,6 @@ async function signUp(event: Event) {
     picture: additionalInformation.picture.value,
   });
   if (token) {
-    localStorage.setItem('token', token);
-
     const userData = {
       name: user?.name,
       email: user?.email,
@@ -38,6 +36,7 @@ async function signUp(event: Event) {
       picture: user?.picture,
     };
 
+    localStorage.setItem('token', token);
     localStorage.setItem('userData', JSON.stringify(userData));
     refreshLocalUserData();
     console.log(token);
