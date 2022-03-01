@@ -185,7 +185,7 @@ export async function registerInAPi(
     return { token, user: res.data.data };
     // refreshToken();
   } catch (error) {
-    console.log(error);
+    alert(error);
     return { token: undefined, user: undefined };
   }
 }

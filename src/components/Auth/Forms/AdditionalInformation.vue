@@ -10,6 +10,7 @@ import { allSkills, selectedSkills, selectSkill } from '@/helpers/useSkills';
 import { useI18n } from 'vue-i18n';
 import OrContinueWithFaceBook from '@/components/Auth/OrContinueWithFaceBook.vue';
 import { refreshLocalUserData } from '@/helpers/Auth/localAuth';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter();
 const { t } = useI18n();
@@ -21,12 +22,15 @@ async function signUp(event: Event) {
 
   startLoading(additionalInformation.button as HTMLButtonElement);
   //Form validated from HTML5
+  // const files = additionalInformation.picture.value;
+  // const files = additionalInformation.picture.files ?? [];
   const { token, user } = await registerInAPi({
     name: additionalInformation.name.value,
     bio: additionalInformation.bio.value,
     city: additionalInformation.city.value,
     skills: selectedSkills.value,
-    picture: additionalInformation.picture.value,
+    picture: userPicture.value,
+    // picture: files ? files[0] : null,
   });
   if (token) {
     const userData = {
@@ -44,6 +48,22 @@ async function signUp(event: Event) {
   stopLoading(additionalInformation.button as HTMLButtonElement);
   alert('registered successfully');
   router.push({ name: 'categories' });
+}
+
+const userPicture = ref<string>('');
+
+function encodeImageFileAsURL(event: Event) {
+  const files = (event.target as HTMLInputElement).files ?? [];
+  var reader = new FileReader();
+  reader.onloadend = function () {
+    let result = reader.result ?? '';
+    if (typeof result != 'string') {
+      //it is an array
+      result = JSON.stringify(result);
+    }
+    userPicture.value = reader.result as string;
+  };
+  reader.readAsDataURL(files[0]);
 }
 </script>
 
@@ -74,6 +94,7 @@ async function signUp(event: Event) {
       <div class="flex gap-4 mb-6 direction">
         <label class="text-lg py-1.5 md:py-2.5">{{ t('avatar') }}:</label>
         <input
+          @change="encodeImageFileAsURL($event)"
           required
           type="file"
           accept="image/x-png,image/jpeg"
