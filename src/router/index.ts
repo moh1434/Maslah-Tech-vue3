@@ -25,6 +25,11 @@ const routes = [
     name: 'categories',
     component: () => import('@/pages/Categories.vue'),
   },
+  {
+    path: '/services/:categoryId',
+    name: 'services',
+    component: () => import('@/pages/Services.vue'),
+  },
 
   {
     path: '/404',

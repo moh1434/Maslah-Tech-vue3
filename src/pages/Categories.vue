@@ -10,7 +10,8 @@ import { useI18n } from 'vue-i18n';
 import H1 from '@/components/small/H1.vue';
 
 import { CategoryI } from '@/types/Categroy';
-const { t } = useI18n();
+import Card from '@/components/Card.vue';
+const { t, locale } = useI18n();
 
 const categories = ref<Array<CategoryI>>([]); //ref<Array<CategoryI>>([]);
 fetchCategories()
@@ -38,12 +39,18 @@ fetchCategories()
         :key="category.id"
       >
         <Category :category="category" class="w-full mx-4 mb-4 text-center" />
-        <SubCategory
+        <Card
           class="sm:w-64 w-1/2"
           v-for="subCategory in category.children"
           :key="subCategory.id"
-          :category="subCategory"
-        />
+          :card="{
+            description: subCategory.description,
+            title: locale == 'ar' ? category.arTitle : category.enTitle,
+            image: subCategory.image,
+            route: { name: 'services', params: { categoryId: subCategory.id } },
+          }"
+        >
+        </Card>
 
         <hr
           class="w-4/5 mx-auto my-10 bg-black border rounded-full border-black"

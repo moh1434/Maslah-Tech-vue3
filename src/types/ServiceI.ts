@@ -1,0 +1,21 @@
+import { CategoryI } from './Categroy';
+import { userI } from './UserI';
+export type serviceI = {
+  id: number;
+  title: string;
+  images: string[];
+  description: string;
+  duration: number;
+  cost: number;
+  active: boolean;
+  isReciving: boolean;
+  createdAt: string;
+  updatedAt: string;
+  rateSum: number;
+  rateNum: number;
+  sellerNum: number;
+  category: Omit<CategoryI, 'children'>;
+  packages: unknown[];
+  user: userI;
+  userId: string;
+};
