@@ -124,14 +124,14 @@ function logOutAndRedirect() {
           </button>
         </li>
 
-        <li>
+        <!-- <li>
           <button
             class="px-1 sm:px-2 md:px-4 py-2.5 w-full"
             @click="locale == 'ar' ? setLocale('en') : setLocale('ar')"
           >
             {{ locale == 'ar' ? 'عربي' : 'English' }}
           </button>
-        </li>
+        </li> -->
       </ul>
     </div>
   </header>
