@@ -47,7 +47,7 @@ function refreshLocalUserData() {
 }
 
 refreshLocalUserData();
-const defaultImagePath = './imgs/defaultAvatar.png';
+const defaultImagePath = '/imgs/defaultAvatar.png';
 
 function logOut() {
   localStorage.removeItem('token');
