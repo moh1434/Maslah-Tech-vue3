@@ -1,12 +1,13 @@
 import { ref } from 'vue';
+import { Router } from 'vue-router';
 
-// const clearLocalUser = {
-//   id: undefined,
-//   name: undefined,
-//   email: undefined,
-//   picture: undefined,
-//   token: null,
-// };
+const clearLocalUser = {
+  id: undefined,
+  name: undefined,
+  email: undefined,
+  picture: undefined,
+  token: null,
+};
 
 const localUser = ref<{
   id: string | undefined;
@@ -26,6 +27,10 @@ const localUserKeys = Object.keys(localUser.value) as Array<
 >;
 function refreshLocalUserData() {
   const userData = localStorage.getItem('userData');
+  if (!userData) {
+    localUser.value = { ...clearLocalUser };
+    return;
+  }
   if (userData) {
     const newLocalUser = JSON.parse(userData);
     try {
@@ -49,4 +54,22 @@ function logOut() {
   localStorage.removeItem('userData');
   refreshLocalUserData();
 }
-export { localUser, defaultImagePath, logOut, refreshLocalUserData };
+
+function confirmLogOutOrRedirect(router: Router) {
+  if (
+    confirm(
+      'You are already logged in, do you want to log-out to continue in this page?'
+    )
+  ) {
+    logOut();
+  } else {
+    router.push({ name: 'categories' });
+  }
+}
+export {
+  localUser,
+  defaultImagePath,
+  logOut,
+  refreshLocalUserData,
+  confirmLogOutOrRedirect,
+};

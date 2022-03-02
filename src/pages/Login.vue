@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import LoginForm from '@/components/Auth/LoginForm.vue';
+import { confirmLogOutOrRedirect, localUser } from '@/helpers/Auth/localAuth';
+import { useRouter } from 'vue-router';
+const router = useRouter();
+if (localUser.value.token) {
+  confirmLogOutOrRedirect(router);
+}
 </script>
 
 <template>
