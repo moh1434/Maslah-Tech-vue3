@@ -8,7 +8,7 @@ import { startLoading, stopLoading } from '@/helpers/useLoading';
 import { allSkills, selectedSkills, selectSkill } from '@/helpers/useSkills';
 
 import { useI18n } from 'vue-i18n';
-import OrContinueWithFaceBook from '@/components/Auth/OrContinueWithFaceBook.vue';
+// import OrContinueWithFaceBook from '@/components/Auth/OrContinueWithFaceBook.vue';
 import { refreshLocalUserData } from '@/helpers/Auth/localAuth';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -175,7 +175,7 @@ function encodeImageFileAsURL(event: Event) {
         {{ t('sign_up') }}
       </button>
 
-      <OrContinueWithFaceBook />
+      <!-- <OrContinueWithFaceBook /> -->
     </form>
   </section>
 </template>
