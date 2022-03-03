@@ -116,8 +116,16 @@ function logOutAndRedirect() {
         "
       >
         <li>
+          <router-link
+            :to="{ name: '404', params: {} }"
+            class="px-1 sm:px-2 py-2.5"
+          >
+            {{ t('profile') }}
+          </router-link>
+        </li>
+        <li>
           <button
-            class="px-1 sm:px-2 md:px-4 py-2.5 w-full"
+            class="px-1 sm:px-2 py-2.5 w-full"
             @click="logOutAndRedirect()"
           >
             {{ t('log_out') }}
