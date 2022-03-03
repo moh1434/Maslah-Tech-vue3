@@ -1,8 +1,10 @@
 import { ref, computed, ComputedRef } from 'vue';
 import i18n from '@/i18n';
-const { t } = i18n.global;
+const { t, locale } = i18n.global;
 
 import { svgI } from '@/types/icons';
+import { fetchCategories } from '@/api/FetchCategories';
+import { CategoryI } from '@/types/Categroy';
 
 export type socialIconWithTextI = svgI & { text: string | ComputedRef<string> };
 
@@ -20,31 +22,24 @@ type menuListI<T extends namedRouteLink[] | socialIconWithTextI[]> = {
 export type menuListWithRoutesI = menuListI<namedRouteLink[]>;
 export type menuListWithIconsI = menuListI<socialIconWithTextI[]>;
 
+const response = await fetchCategories();
+const categories = response.data.data;
+const items: namedRouteLink[] = [];
+
+categories[0].children.map((category) => {
+  items.push({
+    text: computed(() =>
+      locale.value == 'ar' ? category.arTitle : category.enTitle
+    ),
+    routeName: 'services',
+    params: { categoryId: category.id.toString() },
+  });
+});
+
 const menuRoutesLists = ref<Array<menuListWithRoutesI>>([
   {
     title: computed(() => t('categories.categories')),
-    items: [
-      {
-        text: computed(() => t('categories.Graphic_design')),
-        routeName: '404',
-        params: {},
-      },
-      {
-        text: computed(() => t('categories.Motion_Graphic')),
-        routeName: '404',
-        params: {},
-      },
-      {
-        text: computed(() => t('categories.Programming')),
-        routeName: '404',
-        params: {},
-      },
-      {
-        text: computed(() => t('categories.Translating')),
-        routeName: '404',
-        params: {},
-      },
-    ],
+    items: items,
   },
   {
     title: computed(() => t('footer.Useful_pages')),
