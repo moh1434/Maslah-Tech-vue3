@@ -30,7 +30,7 @@ console.log(categoryId);
 </script>
 
 <template>
-  <div v-if="!services.length">No services yet</div>
+  <div v-if="!services.length">{{ t('no_services_yet') }}</div>
   <div v-else>
     <H1 class="m-7">
       {{
@@ -38,7 +38,7 @@ console.log(categoryId);
           ? services[0].category.arTitle
           : services[0].category.enTitle
       }}
-      services
+      {{ t('services') }}
     </H1>
     <div class="flex flex-wrap justify-center p-2">
       <Card

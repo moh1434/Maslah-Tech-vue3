@@ -72,5 +72,7 @@
   "email_verify_hint": "Hint: open your email to verify it, then click `I verified it` button",
   "step2_message": "Write your Phone number then confirm it",
   "step3_message": "Additional information",
-  "avatar": "Picture"
+  "avatar": "Picture",
+  "services": "Services",
+  "no_services_yet": "No services yet"
 }
