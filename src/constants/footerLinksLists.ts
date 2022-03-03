@@ -45,7 +45,11 @@ const menuRoutesLists = ref<Array<menuListWithRoutesI>>([
     title: computed(() => t('footer.Useful_pages')),
     items: [
       { text: computed(() => t('Home')), routeName: 'index', params: {} },
-      { text: computed(() => t('About_Us')), routeName: '404', params: {} },
+      {
+        text: computed(() => t('About_Us')),
+        routeName: 'about-us',
+        params: {},
+      },
       { text: computed(() => t('Get_Jobs')), routeName: '404', params: {} },
       {
         text: computed(() => t('Find_Freelancers')),

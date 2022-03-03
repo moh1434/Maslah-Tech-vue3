@@ -23,7 +23,7 @@ const menuLinks = ref([
     name: 'categories',
     params: {},
   },
-  { text: computed(() => t('About_Us')), name: '404', params: {} },
+  { text: computed(() => t('About_Us')), name: 'about-us', params: {} },
   // { text: "Contact Us", url: "/" },
 ]);
 const isLoggedIn = ref(false);
