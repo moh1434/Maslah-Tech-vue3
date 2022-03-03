@@ -45,7 +45,7 @@ fetchCategories()
           :key="subCategory.id"
           :card="{
             description: subCategory.description,
-            title: locale == 'ar' ? category.arTitle : category.enTitle,
+            title: locale == 'ar' ? subCategory.arTitle : subCategory.enTitle,
             image: subCategory.image,
             route: { name: 'services', params: { categoryId: subCategory.id } },
           }"
