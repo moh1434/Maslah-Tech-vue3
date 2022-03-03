@@ -12,6 +12,8 @@ import OrContinueWithFaceBook from '@/components/Auth/OrContinueWithFaceBook.vue
 import { refreshLocalUserData } from '@/helpers/Auth/localAuth';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import firebase from 'firebase';
+import { fetchUser } from '@/api/fetchUser';
 const router = useRouter();
 const { t } = useI18n();
 
@@ -21,6 +23,24 @@ async function signUp(event: Event) {
   ) as additionalInformationFormI;
 
   startLoading(additionalInformation.button as HTMLButtonElement);
+
+  //Start checking if the user already have an account
+  const uid = firebase.auth().currentUser?.uid;
+  if (uid) {
+    const { response, errors } = await fetchUser(uid);
+    if (errors.length) {
+      errors.map((err) => alert(err));
+    } else {
+      if (response?.data?.data) {
+        alert('You already have an account!, please try login');
+        router.push({ name: 'login' });
+        stopLoading(additionalInformation.button as HTMLButtonElement);
+        return Promise.resolve();
+      }
+    }
+  }
+  //End
+
   //Form validated from HTML5
   // const files = additionalInformation.picture.value;
   // const files = additionalInformation.picture.files ?? [];
