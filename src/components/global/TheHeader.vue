@@ -26,7 +26,7 @@ const menuLinks = ref([
   { text: computed(() => t('About_Us')), name: '404', params: {} },
   // { text: "Contact Us", url: "/" },
 ]);
-const showSignOutBtn = ref(false);
+const isLoggedIn = ref(false);
 const registerLinks = ref<
   Array<{ text: ComputedRef<string> & any; name: string; params: {} }>
 >([
@@ -44,7 +44,7 @@ const registerLinks = ref<
 watch(
   localUser,
   (newLocalUser) => {
-    showSignOutBtn.value = newLocalUser.token ? true : false;
+    isLoggedIn.value = newLocalUser.token ? true : false;
   },
   { immediate: true, deep: true }
 );
@@ -67,16 +67,26 @@ function logOutAndRedirect() {
       bg-blue-600
     "
   >
-    <ul class="flex flex-wrap">
+    <ul class="flex items-center">
       <li v-for="(menuLink, index) in menuLinks" :key="index">
         <router-link
           :to="{ name: menuLink.name, params: menuLink.params }"
-          class="px-1 sm:px-2 md:px-4 mx-1 py-4"
+          class="px-0.5 sm:px-2 md:px-4 mx-1 py-3 sm:py-4"
           >{{ menuLink.text }}</router-link
         >
       </li>
     </ul>
-    <div class="relative">
+    <ul class="flex items-center" v-if="!isLoggedIn">
+      <li v-for="(registerLink, index) in registerLinks" :key="index">
+        <router-link
+          :to="{ name: registerLink.name, params: registerLink.params }"
+          class="px-0.5 sm:px-2 md:px-4 mx-1 py-3 sm:py-4"
+        >
+          {{ registerLink.text }}
+        </router-link>
+      </li>
+    </ul>
+    <div v-else class="relative">
       <div
         id="avatar-menu"
         class="px-4 py-2 avatar cursor-pointer"
@@ -105,17 +115,7 @@ function logOutAndRedirect() {
           overflow-hidden
         "
       >
-        <template v-if="!showSignOutBtn">
-          <li v-for="(registerLink, index) in registerLinks" :key="index">
-            <router-link
-              :to="{ name: registerLink.name, params: registerLink.params }"
-              class="px-1 sm:px-2 md:px-4 py-2.5"
-            >
-              {{ registerLink.text }}
-            </router-link>
-          </li>
-        </template>
-        <li v-else>
+        <li>
           <button
             class="px-1 sm:px-2 md:px-4 py-2.5 w-full"
             @click="logOutAndRedirect()"
@@ -150,15 +150,21 @@ button:hover,
   @apply bg-blue-500;
   transition: background-color 200ms ease-in-out;
 }
-@media (max-width: 639px) {
+/* @media (max-width: 639px) {
   a {
-    @apply py-2;
+    @apply py-3;
   }
   ul:first-of-type {
     @apply mt-2;
   }
   ul:last-of-type {
     @apply mb-2;
+  }
+} */
+
+@media (max-width: 370px) {
+  li {
+    @apply text-sm;
   }
 }
 </style>
