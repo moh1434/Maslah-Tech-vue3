@@ -83,46 +83,8 @@ onMounted(() => {
 .i-w-44 {
   @apply w-44 !important;
 }
-.sign-up-form input:disabled,
-.sign-up-form textarea:disabled,
-.sign-up-form select:disabled,
-.sign-up-form button:disabled {
-  @apply cursor-not-allowed opacity-70;
-}
+</style>
 
-.loading-btn {
-  position: relative;
-  transition: padding-right 0.3s ease-out;
-}
-.loading-btn.loading {
-  /* background-color: #ccc; */
-  padding-right: 36px;
-}
-.loading-btn.loading:after {
-  content: '';
-  position: absolute;
-  border-radius: 100%;
-  right: 6px;
-  top: 50%;
-  width: 0px;
-  height: 0px;
-  margin-top: -2px;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  border-left-color: #fff;
-  border-top-color: #fff;
-  animation: spin 0.6s infinite linear, grow 0.3s forwards ease-out;
-}
-@keyframes spin {
-  to {
-    transform: rotate(359deg);
-  }
-}
-@keyframes grow {
-  to {
-    width: 14px;
-    height: 14px;
-    margin-top: -8px;
-    right: 13px;
-  }
-}
+<style>
+@import url('@/assets/css/loading-btn.css');
 </style>

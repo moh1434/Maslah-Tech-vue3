@@ -154,6 +154,7 @@ async function login(event: Event) {
             type="submit"
             name="login-btn"
             class="
+              loading-btn
               inline-block
               px-7
               py-3
@@ -185,4 +186,6 @@ async function login(event: Event) {
   </section>
 </template>
 
-<style></style>
+<style>
+@import url('@/assets/css/loading-btn.css');
+</style>
