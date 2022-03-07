@@ -54,7 +54,7 @@ onBeforeRouteUpdate((to, from, next) => {
     </H1>
     <div class="flex flex-wrap justify-center p-2">
       <Card
-        class="sm:w-64 w-1/2 service-card"
+        class="sm:w-64 w-1/2 service-card direction"
         v-for="service in services"
         :key="service.id"
         :card="{
@@ -70,6 +70,7 @@ onBeforeRouteUpdate((to, from, next) => {
           </div>
           <div>
             <StarsRates
+              class="ltr"
               :totalRates="service.rateSum"
               :totalPeople="service.rateNum"
             />

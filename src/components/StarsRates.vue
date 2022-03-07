@@ -20,7 +20,7 @@ const blackStars = 5 - yellowStars;
       ></path>
     </symbol>
   </svg>
-  <div class="flex items-center">
+  <div class="flex items-center" v-bind="$attrs">
     <div class="flex gap-0.5">
       <svg
         v-for="i in yellowStars"
