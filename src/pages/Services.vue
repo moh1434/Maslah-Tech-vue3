@@ -61,7 +61,7 @@ onBeforeRouteUpdate((to, from, next) => {
           description: service.description,
           title: service.title,
           image: service.images[0],
-          route: { name: '404', params: {} },
+          route: { name: 'service', params: { serviceId: service.id } },
         }"
       >
         <template #extra>
