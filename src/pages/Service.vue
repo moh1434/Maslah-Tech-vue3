@@ -20,12 +20,7 @@ const route = useRoute();
 const router = useRouter();
 
 const service = ref<serviceI>();
-const classStyleToToggle = 'bg-opacity-60';
-//
 const selectedPacks = ref<Array<packageI>>([]);
-
-const allPacks = computed(() => service?.value?.packages);
-
 function selectPack(event: Event, pack: packageI) {
   selectTag(event, pack, selectedPacks, '');
 }
