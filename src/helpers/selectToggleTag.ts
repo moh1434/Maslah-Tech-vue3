@@ -11,11 +11,15 @@ export function selectTag<Tag>(
     const index = selectedTags.value.indexOf(tag);
     if (index !== -1) {
       selectedTags.value.splice(index, 1);
-      (event?.target as any)?.classList?.add(classStyleToToggle);
+      if (classStyleToToggle) {
+        (event?.target as any)?.classList?.add(classStyleToToggle);
+      }
     }
   } else {
     // console.log('NOT includes');
     selectedTags.value.push(tag);
-    (event?.target as any)?.classList?.remove(classStyleToToggle);
+    if (classStyleToToggle) {
+      (event?.target as any)?.classList?.remove(classStyleToToggle);
+    }
   }
 }
