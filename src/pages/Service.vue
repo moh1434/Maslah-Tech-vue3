@@ -14,15 +14,39 @@ import H1 from '@/components/small/H1.vue';
 import { useI18n } from 'vue-i18n';
 import StarsRates from '@/components/StarsRates.vue';
 import { selectTag } from '@/helpers/selectToggleTag';
+import { localUser } from '@/helpers/Auth/localAuth';
 
 const { t, locale } = useI18n();
 const route = useRoute();
 const router = useRouter();
 
 const service = ref<serviceI>();
-const selectedPacks = ref<Array<packageI>>([]);
-function selectPack(event: Event, pack: packageI) {
-  selectTag(event, pack, selectedPacks, '');
+
+//
+const token = localUser.value.token;
+
+const selectedPacksIds = ref<Array<number>>([]);
+function selectPack(event: Event, id: number) {
+  selectTag(event, id, selectedPacksIds, '');
+}
+async function buyTheService() {
+  if (!token) {
+    alert('You need to login before buy a service');
+    // router.push({ name: 'login' });
+    return;
+  }
+
+  const { error, data, isFinished, isFetching } = await useMyFetch<{
+    data: serviceI;
+  }>(`service/order/${route.params.serviceId}`, {
+    headers: { token: token },
+  }).post({
+    packagesId: selectedPacksIds.value,
+  });
+  if (error.value) {
+    alert(error.value);
+  }
+  //TODO: complete this on the future
 }
 
 //
@@ -30,7 +54,7 @@ function selectPack(event: Event, pack: packageI) {
 /** */
 async function reloadServices(serviceId: string) {
   service.value = undefined;
-  selectedPacks.value = [];
+  selectedPacksIds.value = [];
   if (!isPositiveInteger(serviceId)) {
     alert('Invalid category');
     router.push({ name: 'categories' });
@@ -51,13 +75,12 @@ async function reloadServices(serviceId: string) {
 }
 reloadServices(route.params.serviceId as string);
 onBeforeRouteUpdate((to, from, next) => {
+  route.params.serviceId = to.params.serviceId as string;
   reloadServices(to.params.serviceId as string).then(() => {
     next();
   });
 });
 /** */
-
-// var { selectedTags, selectTag } = useToggleSelect(allPacks);
 </script>
 
 <template>
@@ -121,7 +144,7 @@ onBeforeRouteUpdate((to, from, next) => {
           <p>{{ new Date(service.user.lastSeen).toLocaleDateString() }}</p>
         </li>
       </ul>
-      <ul>
+      <ul v-if="service.packages.length" class="mb-7">
         <li class="flex flex-wrap gap-4 shadow px-4 py-4">
           <h2 class="text-lg mx-auto">Available upgrades for this service</h2>
         </li>
@@ -132,7 +155,7 @@ onBeforeRouteUpdate((to, from, next) => {
         >
           <input
             type="checkbox"
-            @change="selectPack($event, pack)"
+            @change="selectPack($event, pack.id)"
             class="w-4 h-4"
           />
           <div>
@@ -147,6 +170,17 @@ onBeforeRouteUpdate((to, from, next) => {
           </div>
         </li>
       </ul>
+      <div class="shadow px-4 py-4">
+        <h3 class="px-2 py-2">Do you want to buy this service?</h3>
+        <div class="px-2 py-2">
+          <button
+            @click="buyTheService()"
+            class="bg-blue-400 text-gray-50 px-2 py-1 rounded hover:bg-blue-500"
+          >
+            Buy now
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
