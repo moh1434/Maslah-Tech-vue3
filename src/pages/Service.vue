@@ -13,6 +13,7 @@ import 'vue3-carousel/dist/carousel.css';
 import H1 from '@/components/small/H1.vue';
 import { useI18n } from 'vue-i18n';
 import StarsRates from '@/components/StarsRates.vue';
+import { selectTag } from '@/helpers/selectToggleTag';
 
 const { t, locale } = useI18n();
 const route = useRoute();
@@ -26,24 +27,7 @@ const selectedPacks = ref<Array<packageI>>([]);
 const allPacks = computed(() => service?.value?.packages);
 
 function selectPack(event: Event, pack: packageI) {
-  const index = allPacks.value?.findIndex((p) => p.id == pack.id);
-  if (index === -1) {
-    return;
-  }
-  if (selectedPacks.value.includes(pack)) {
-    // console.log('includes');
-    const index = selectedPacks.value.indexOf(pack);
-    if (index !== -1) {
-      // console.log('add bg-opacity-60');
-      selectedPacks.value.splice(index, 1);
-      (event?.target as any)?.classList?.add(classStyleToToggle);
-    }
-  } else {
-    // console.log('NOT includes');
-    // console.log('remove bg-opacity-60');
-    selectedPacks.value.push(pack);
-    (event?.target as any)?.classList?.remove(classStyleToToggle);
-  }
+  selectTag(event, pack, selectedPacks, '');
 }
 
 //
