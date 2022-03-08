@@ -15,7 +15,15 @@ export type serviceI = {
   rateNum: number;
   sellerNum: number;
   category: Omit<CategoryI, 'children'>;
-  packages: unknown[];
+  packages: packageI[];
   user: userI;
   userId: string;
+};
+
+export type packageI = {
+  id: number;
+  description: string;
+  moreCost: number;
+  moreDuration: number;
+  active: boolean;
 };

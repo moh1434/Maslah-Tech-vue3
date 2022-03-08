@@ -30,6 +30,11 @@ const routes = [
     name: 'services',
     component: () => import('@/pages/Services.vue'),
   },
+  {
+    path: '/service/:serviceId',
+    name: 'service',
+    component: () => import('@/pages/Service.vue'),
+  },
 
   {
     path: '/404',
