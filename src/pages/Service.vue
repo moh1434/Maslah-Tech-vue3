@@ -35,7 +35,10 @@ async function buyTheService() {
     // router.push({ name: 'login' });
     return;
   }
-
+  if (service.value?.userId == localUser.value.id) {
+    alert('You can not buy your own service');
+    return;
+  }
   const { error, data, isFinished, isFetching } = await useMyFetch<{
     data: serviceI;
   }>(`service/order/${route.params.serviceId}`, {
