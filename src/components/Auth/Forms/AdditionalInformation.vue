@@ -29,7 +29,17 @@ async function signUp(event: Event) {
   if (uid) {
     const { response, errors } = await fetchUser(uid);
     if (errors.length) {
-      errors.map((err) => alert(err));
+      errors.map((err) => {
+        console.log('err=', err, (err as any).message);
+        if (
+          typeof err == 'object' &&
+          (err as any)?.message == 'Request failed with status code 409'
+        ) {
+          //means the user is not found, that is what we want!
+          return;
+        }
+        alert(err);
+      });
     } else {
       if (response?.data?.data) {
         alert('You already have an account!, please try login');

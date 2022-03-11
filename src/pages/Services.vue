@@ -2,7 +2,7 @@
 import { fetchServices } from '@/api/fetchServices';
 import { isPositiveInteger } from '@/helpers/numbers';
 import { ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 import { serviceI } from '../types/ServiceI';
 import { useI18n } from 'vue-i18n';
 import Card from '@/components/Card.vue';
@@ -11,26 +11,38 @@ import StarsRates from '../components/StarsRates.vue';
 const { t, locale } = useI18n();
 const route = useRoute();
 const router = useRouter();
-const categoryId = route.params.categoryId;
-if (!isPositiveInteger(categoryId)) {
-  alert('Invalid category');
-  router.push({ name: 'categories' });
-}
-const services = ref<Array<serviceI>>([]);
-fetchServices(categoryId as string).then(({ response, errors }) => {
-  if (errors.length) {
-    errors.map((err) => alert(err));
-  }
-  if (response) {
-    services.value = response.data;
-  }
-});
 
-console.log(categoryId);
+const services = ref<Array<serviceI>>([]);
+
+//
+function reloadServices(categoryId: string) {
+  services.value = [];
+  if (!isPositiveInteger(categoryId)) {
+    alert('Invalid category');
+    router.push({ name: 'categories' });
+    return;
+  }
+  fetchServices(categoryId as string).then(({ response, errors }) => {
+    if (errors.length) {
+      errors.map((err) => alert(err));
+    }
+    if (response) {
+      services.value = response.data;
+    }
+  });
+}
+//
+
+reloadServices(route.params.categoryId as string);
+
+onBeforeRouteUpdate((to, from, next) => {
+  reloadServices(to.params.categoryId as string);
+  next();
+});
 </script>
 
 <template>
-  <div v-if="!services.length">No services yet</div>
+  <div v-if="!services.length">{{ t('no_services_yet') }}</div>
   <div v-else>
     <H1 class="m-7">
       {{
@@ -38,18 +50,18 @@ console.log(categoryId);
           ? services[0].category.arTitle
           : services[0].category.enTitle
       }}
-      services
+      {{ t('services') }}
     </H1>
     <div class="flex flex-wrap justify-center p-2">
       <Card
-        class="sm:w-64 w-1/2 service-card"
+        class="sm:w-64 w-1/2 service-card direction"
         v-for="service in services"
         :key="service.id"
         :card="{
           description: service.description,
           title: service.title,
           image: service.images[0],
-          route: { name: '404', params: {} },
+          route: { name: 'service', params: { serviceId: service.id } },
         }"
       >
         <template #extra>
@@ -57,10 +69,8 @@ console.log(categoryId);
             {{ service.cost }}$
           </div>
           <div>
-            <!-- <p class="text-gray-700 text-base mb-2">
-              sold count: {{ service.sellerNum }}
-            </p> -->
             <StarsRates
+              class="ltr"
               :totalRates="service.rateSum"
               :totalPeople="service.rateNum"
             />
