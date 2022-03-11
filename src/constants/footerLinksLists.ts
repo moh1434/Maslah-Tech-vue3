@@ -22,30 +22,36 @@ type menuListI<T extends namedRouteLink[] | socialIconWithTextI[]> = {
 export type menuListWithRoutesI = menuListI<namedRouteLink[]>;
 export type menuListWithIconsI = menuListI<socialIconWithTextI[]>;
 
-const response = await fetchCategories();
-const categories = response.data.data;
-const items: namedRouteLink[] = [];
+const categories = ref<Array<CategoryI>>([]);
+const items = ref<Array<namedRouteLink>>([]);
+fetchCategories().then((response) => {
+  categories.value = response.data.data;
 
-categories[0].children.map((category) => {
-  items.push({
-    text: computed(() =>
-      locale.value == 'ar' ? category.arTitle : category.enTitle
-    ),
-    routeName: 'services',
-    params: { categoryId: category.id.toString() },
+  categories.value[0].children.map((category) => {
+    items.value.push({
+      text: computed(() =>
+        locale.value == 'ar' ? category.arTitle : category.enTitle
+      ) as unknown as string,
+      routeName: 'services',
+      params: { categoryId: category.id.toString() },
+    });
   });
 });
 
 const menuRoutesLists = ref<Array<menuListWithRoutesI>>([
   {
     title: computed(() => t('categories.categories')),
-    items: items,
+    items: items.value,
   },
   {
     title: computed(() => t('footer.Useful_pages')),
     items: [
       { text: computed(() => t('Home')), routeName: 'index', params: {} },
-      { text: computed(() => t('About_Us')), routeName: '404', params: {} },
+      {
+        text: computed(() => t('About_Us')),
+        routeName: 'about-us',
+        params: {},
+      },
       { text: computed(() => t('Get_Jobs')), routeName: '404', params: {} },
       {
         text: computed(() => t('Find_Freelancers')),
