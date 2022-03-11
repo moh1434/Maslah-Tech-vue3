@@ -8,7 +8,7 @@ const { t } = useI18n();
   <div class="direction max-w-3xl mx-auto my-6 sm:my-10">
     <img
       class="mx-auto mb-4 sm:mb-8"
-      src="imgs/logo1_400X200.png"
+      src="/imgs/logo1_400X200.png"
       alt="maslahTech image"
     />
     <H1 class="mx-4 mb-4">{{ t('about.h1') }}</H1>
