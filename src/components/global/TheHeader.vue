@@ -117,7 +117,15 @@ function logOutAndRedirect() {
       >
         <li>
           <router-link
-            :to="{ name: '404', params: {} }"
+            :to="{ name: 'settings', params: {} }"
+            class="px-1 sm:px-2 py-2.5"
+          >
+            {{ t('settings') }}
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            :to="{ name: 'profile', params: { userId: localUser.id } }"
             class="px-1 sm:px-2 py-2.5"
           >
             {{ t('profile') }}

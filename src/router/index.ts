@@ -11,6 +11,16 @@ const history = createWebHistory();
 const routes = [
   { path: '/', name: 'index', component: Index },
   {
+    path: '/404',
+    name: 'settings',
+    component: () => import('@/pages/404.vue'),
+  },
+  {
+    path: '/profile/:userId',
+    name: 'profile',
+    component: () => import('@/pages/Profile.vue'),
+  },
+  {
     path: '/login',
     name: 'login',
     component: () => import('@/pages/Login.vue'),
