@@ -208,7 +208,7 @@ watch(
         </div>
       </div>
     </template>
-    <div v-else class="text-center">{{ t('no_profile_data_yet') }}...</div>
+    <div v-else class="text-center">{{ t('no_portfolio_data_yet') }}...</div>
   </section>
 </template>
 
