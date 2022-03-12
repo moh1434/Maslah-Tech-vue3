@@ -1,3 +1,5 @@
+import { serviceI } from './ServiceI';
+import { profileI } from './ProfileI';
 export type userI = Record<
   | 'id'
   | 'picture'
@@ -16,9 +18,6 @@ export type userI = Record<
   | 'completedProject'
   | 'completedService',
   string
-> & { skills: userSkill[] };
-
-type userSkill = {
-  userId: string;
-  skillName: string;
+> & { skills: { name: string }[] } & { services: serviceI[] } & {
+  portfiloItems: profileI[];
 };
