@@ -12,6 +12,8 @@ import H1 from '@/components/small/H1.vue';
 // @ts-ignore
 import { Carousel, Navigation, Slide } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
+import Card from '@/components/Card.vue';
+import StarsRates from '@/components/StarsRates.vue';
 const route = useRoute();
 //start helpers
 
@@ -171,7 +173,39 @@ const currentTab = ref<'services' | 'portfolio'>('portfolio');
       </template>
       <div v-else class="text-center">{{ t('no_portfolio_data_yet') }}...</div>
     </section>
-    <section v-show="currentTab == 'services'"></section>
+    <section v-show="currentTab == 'services'">
+      <template v-if="user">
+        <div class="flex flex-wrap justify-center p-2">
+          <Card
+            class="sm:w-64 w-1/2 card-img-h-44 direction"
+            v-for="service in user.services"
+            :key="service.id"
+            :card="{
+              description: service.description,
+              title: service.title,
+              image: service.images[0],
+              route: { name: 'service', params: { serviceId: service.id } },
+            }"
+          >
+            <template #extra>
+              <div
+                class="absolute top-2.5 left-0 rounded-r p-0.5 pr-1 bg-blue-200"
+              >
+                {{ service.cost }}$
+              </div>
+              <div>
+                <StarsRates
+                  class="ltr"
+                  :totalRates="service.rateSum"
+                  :totalPeople="service.rateNum"
+                />
+              </div>
+            </template>
+          </Card>
+        </div>
+      </template>
+      <div v-else class="text-center">{{ t('no_services_data_yet') }}...</div>
+    </section>
   </section>
 </template>
 
@@ -186,5 +220,8 @@ const currentTab = ref<'services' | 'portfolio'>('portfolio');
 }
 .ltr-i {
   direction: ltr !important;
+}
+.card-img-h-44 img {
+  @apply h-48;
 }
 </style>
