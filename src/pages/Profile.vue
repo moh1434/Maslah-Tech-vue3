@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { useMyFetch } from '@/api/axios';
 import { fetchUser } from '@/api/fetchUser';
 
 import { userI } from '@/types/UserI';
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { onBeforeRouteUpdate, useRoute } from 'vue-router';
-import { profileI } from '../types/ProfileI';
 import H1 from '@/components/small/H1.vue';
 
 // @ts-ignore
