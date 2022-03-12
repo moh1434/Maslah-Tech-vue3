@@ -108,7 +108,7 @@ const currentTab = ref<'services' | 'portfolio'>('services');
       portfolio
     </li>
   </ul>
-  <section class="m-8 mt-0 direction lg:m-24 lg:mt-0">
+  <section class="m-8 mt-0 direction lg:m-16 2xl:m-24 lg:mt-0 2xl:mt-0">
     <H1
       v-if="user"
       class="m-4 sm:m-6 ltr-i"
