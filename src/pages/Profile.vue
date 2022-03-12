@@ -25,6 +25,16 @@ async function loadUserSkills() {
     );
   }
 }
+function loadTheUser() {
+  fetchUser(route.params.userId as string).then(({ response, errors }) => {
+    if (errors.length) {
+      errors.map((err) => alert(err));
+    }
+    if (response?.data.data) {
+      user.value = response.data.data;
+    }
+  });
+}
 //end helpers
 const user = ref<userI>();
 async function loadThePage() {
