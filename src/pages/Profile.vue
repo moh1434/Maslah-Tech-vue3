@@ -13,24 +13,8 @@ import H1 from '@/components/small/H1.vue';
 import { Carousel, Navigation, Slide } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 const route = useRoute();
-const userSkills = ref<Array<string>>([]);
 //start helpers
-async function loadUserSkills() {
-  const { error, data } = await useMyFetch<{
-    data: { data: Array<{ skillName: string }> };
-  }>(`skills/${route.params.userId}`).json();
 
-  if (error.value) {
-    alert(error.value);
-  }
-
-  console.log(data.value);
-  if (data.value) {
-    userSkills.value = data.value.data.map(
-      (skill: { skillName: string }) => skill.skillName
-    );
-  }
-}
 function loadTheUser() {
   fetchUser(route.params.userId as string).then(({ response, errors }) => {
     if (errors.length) {
@@ -41,27 +25,11 @@ function loadTheUser() {
     }
   });
 }
-const profiles = ref<Array<profileI>>([]);
-async function loadUserProfiles() {
-  const { error, data } = await useMyFetch<{
-    data: { data: Array<profileI> };
-  }>(`user/portfilo/${route.params.userId}`).json();
 
-  if (error.value) {
-    alert(error.value);
-  }
-
-  console.log(data.value);
-  if (data.value) {
-    profiles.value = data.value.data;
-  }
-}
 //end helpers
 const user = ref<userI>();
 async function loadThePage() {
   loadTheUser();
-  loadUserSkills();
-  // loadUserProfiles();// it will loaded by watch() based on currentTab value
 }
 loadThePage();
 
@@ -83,20 +51,6 @@ watch(
 );
 
 const currentTab = ref<'services' | 'portfolio'>('portfolio');
-watch(
-  currentTab,
-  (newCurrentTab) => {
-    if (newCurrentTab == 'portfolio') {
-      if (!profiles.value.length) {
-        loadUserProfiles();
-      }
-      return;
-    }
-    if (newCurrentTab == 'services') {
-    }
-  },
-  { immediate: true }
-);
 </script>
 
 <template>
@@ -115,11 +69,11 @@ watch(
       <div class="max-w-xl mx-auto">
         <ul class="flex flex-wrap justify-center gap-2 text-white p-2">
           <p
-            v-for="(skill, index) in userSkills"
+            v-for="(skill, index) in user.skills"
             :key="index"
             class="bg-blue-500 px-2 py-1 rounded-lg text-xs"
           >
-            {{ skill }}
+            {{ skill.name }}
           </p>
         </ul>
       </div>
@@ -162,9 +116,13 @@ watch(
       >{{ user.name.split(' ')[0] + s3En }} {{ t(currentTab) }}</H1
     >
     <section v-show="currentTab == 'portfolio'">
-      <template v-if="profiles.length">
+      <template v-if="user?.portfiloItems.length">
         <div class="flex flex-wrap justify-between">
-          <div class="lg:w-1/2" v-for="profile in profiles" :key="profile.id">
+          <div
+            class="lg:w-1/2"
+            v-for="profile in user.portfiloItems"
+            :key="profile.id"
+          >
             <div class="m-2 sm:m-4 shadow rounded-md border">
               <Carousel class="m-4 ltr" :wrap-around="true">
                 <Slide v-for="(image, i) in profile.images" :key="i">
