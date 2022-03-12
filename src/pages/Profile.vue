@@ -159,56 +159,61 @@ watch(
       v-if="user"
       class="m-4 sm:m-6 ltr-i"
       :class="{ 'text-right': locale == 'ar' }"
-      >{{ user.name.split(' ')[0] + s3En }} {{ t('portfolio') }}</H1
+      >{{ user.name.split(' ')[0] + s3En }} {{ t(currentTab) }}</H1
     >
-    <template v-if="profiles.length">
-      <div class="flex flex-wrap justify-between">
-        <div class="lg:w-1/2" v-for="profile in profiles" :key="profile.id">
-          <div class="m-2 sm:m-4 shadow rounded-md border">
-            <Carousel class="m-4 ltr" :wrap-around="true">
-              <Slide v-for="(image, i) in profile.images" :key="i">
-                <img
-                  alt="image"
-                  :src="image"
-                  class="carousel__item profile-img rounded-md"
-                />
-              </Slide>
-              <template #addons>
-                <Navigation />
-              </template>
-            </Carousel>
+    <section v-show="currentTab == 'portfolio'">
+      <template v-if="profiles.length">
+        <div class="flex flex-wrap justify-between">
+          <div class="lg:w-1/2" v-for="profile in profiles" :key="profile.id">
+            <div class="m-2 sm:m-4 shadow rounded-md border">
+              <Carousel class="m-4 ltr" :wrap-around="true">
+                <Slide v-for="(image, i) in profile.images" :key="i">
+                  <img
+                    alt="image"
+                    :src="image"
+                    class="carousel__item profile-img rounded-md"
+                  />
+                </Slide>
+                <template #addons>
+                  <Navigation />
+                </template>
+              </Carousel>
 
-            <ul>
-              <li class="flex flex-wrap gap-4 shadow px-4 py-4">
-                <a
-                  class="hover:underline hover:text-blue-600"
-                  :href="profile.link"
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <ul>
+                <li class="flex flex-wrap gap-4 shadow px-4 py-4">
+                  <a
+                    class="hover:underline hover:text-blue-600"
+                    :href="profile.link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <h1 class="text-xl">{{ profile.title }}</h1>
+                  </a>
+                </li>
+                <li
+                  class="flex gap-4 flex-wrap sm:flex-nowrap shadow px-4 py-4"
                 >
-                  <h1 class="text-xl">{{ profile.title }}</h1>
-                </a>
-              </li>
-              <li class="flex gap-4 flex-wrap sm:flex-nowrap shadow px-4 py-4">
-                <span>{{ t('description') }}:</span>
-                <p>{{ profile.description }}</p>
-              </li>
-              <li class="flex flex-wrap gap-4 shadow px-4 py-4">
-                <span>{{ t('preview') }}:</span>
-                <a
-                  class="hover:underline hover:text-blue-600"
-                  :href="profile.link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >{{ t('preview_text') }}</a
-                >
-              </li>
-            </ul>
+                  <span>{{ t('description') }}:</span>
+                  <p>{{ profile.description }}</p>
+                </li>
+                <li class="flex flex-wrap gap-4 shadow px-4 py-4">
+                  <span>{{ t('preview') }}:</span>
+                  <a
+                    class="hover:underline hover:text-blue-600"
+                    :href="profile.link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >{{ t('preview_text') }}</a
+                  >
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-    </template>
-    <div v-else class="text-center">{{ t('no_portfolio_data_yet') }}...</div>
+      </template>
+      <div v-else class="text-center">{{ t('no_portfolio_data_yet') }}...</div>
+    </section>
+    <section v-show="currentTab == 'services'"></section>
   </section>
 </template>
 
