@@ -9,6 +9,7 @@
   "Home": "Home",
   "page": "page",
   "profile": "Profile",
+  "settings": "Settings",
   "footer": {
     "Copyright": "© 2022 Copyright:",
     "languages": "Languages",
@@ -78,5 +79,11 @@
   "about": {
     "h1": "About MaslahTech",
     "p": "MaslahTech is the first Iraqi platform for buying and selling services online. MaslahTech brings together the Iraqi youth who are ready to provide services with the category of buyers who are willing to purchase these services, thus providing a suitable income for the Iraqi youth and distinguished services at an economical price for individuals and startups. MaslahTech was launched in 2022 as a graduation project of students in the Computer Engineering Department at the University of Technology"
-  }
+  },
+  "no_user_data_yet": "No user data yet",
+  "no_profile_data_yet": "No profile data yet",
+  "description": "Description",
+  "preview": "Preview",
+  "preview_text": "Click here",
+  "portfolio": "Portfolio"
 }

@@ -189,6 +189,7 @@ onBeforeRouteUpdate((to, from, next) => {
 </template>
 
 <style>
+@import url('@/assets/css/slider.css');
 .carousel__item {
   height: 350px;
   width: 100%;
@@ -198,24 +199,5 @@ onBeforeRouteUpdate((to, from, next) => {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.carousel__slide {
-  padding: 10px;
-}
-
-.carousel__prev {
-  left: 10px;
-}
-.carousel__next {
-  right: 10px;
-}
-.carousel__prev,
-.carousel__next {
-  @apply bg-gray-300 text-black border-solid border-2;
-}
-.carousel__prev:hover,
-.carousel__next:hover {
-  @apply bg-white shadow-lg;
 }
 </style>
