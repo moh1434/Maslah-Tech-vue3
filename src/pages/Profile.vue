@@ -52,7 +52,7 @@ watch(
   { immediate: true }
 );
 
-const currentTab = ref<'services' | 'portfolio'>('portfolio');
+const currentTab = ref<'services' | 'portfolio'>('services');
 </script>
 
 <template>
