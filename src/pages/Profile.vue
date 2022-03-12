@@ -61,7 +61,7 @@ const user = ref<userI>();
 async function loadThePage() {
   loadTheUser();
   loadUserSkills();
-  loadUserProfiles();
+  // loadUserProfiles();// it will loaded by watch() based on currentTab value
 }
 loadThePage();
 
@@ -81,10 +81,26 @@ watch(
   },
   { immediate: true }
 );
+
+const currentTab = ref<'services' | 'portfolio'>('portfolio');
+watch(
+  currentTab,
+  (newCurrentTab) => {
+    if (newCurrentTab == 'portfolio') {
+      if (!profiles.value.length) {
+        loadUserProfiles();
+      }
+      return;
+    }
+    if (newCurrentTab == 'services') {
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
-  <section class="my-8 direction">
+  <section class="my-8 sm:my-14 direction">
     <template v-if="user">
       <div class="flex flex-col items-center">
         <img
@@ -110,7 +126,35 @@ watch(
     </template>
     <div v-else class="text-center">{{ t('no_user_data_yet') }}...</div>
   </section>
-  <section class="my-8 direction lg:m-16">
+  <ul
+    class="
+      rounded-b-3xl
+      flex flex-wrap
+      justify-center
+      gap-3
+      bg-blue-600
+      text-white
+      capitalize
+    "
+  >
+    <li
+      class="px-2 py-2.5 md:p-3 hover:bg-blue-500 cursor-pointer"
+      :class="{
+        'bg-[#4A8EFF]': currentTab == 'services',
+      }"
+      @click="currentTab = 'services'"
+    >
+      services
+    </li>
+    <li
+      class="px-2 py-2.5 md:p-3 hover:bg-blue-500 cursor-pointer"
+      :class="{ 'bg-[#4A8EFF]': currentTab == 'portfolio' }"
+      @click="currentTab = 'portfolio'"
+    >
+      portfolio
+    </li>
+  </ul>
+  <section class="m-8 mt-0 direction lg:m-16 lg:mt-0">
     <H1
       v-if="user"
       class="m-4 sm:m-6 ltr-i"
