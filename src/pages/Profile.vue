@@ -51,8 +51,8 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <template v-if="user">
-    <section class="my-8">
+  <section class="my-8">
+    <template v-if="user">
       <div class="flex flex-col items-center">
         <img
           class="rounded-full w-36 h-36 mb-2"
@@ -74,9 +74,9 @@ const { t } = useI18n();
           </p>
         </ul>
       </div>
-    </section>
-  </template>
-  <div v-else>No user data yet...</div>
+    </template>
+    <div v-else class="text-center">No user data yet...</div>
+  </section>
 </template>
 
 <style></style>
