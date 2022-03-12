@@ -108,7 +108,9 @@ const currentTab = ref<'services' | 'portfolio'>('services');
       portfolio
     </li>
   </ul>
-  <section class="m-8 mt-0 direction lg:m-16 2xl:m-24 lg:mt-0 2xl:mt-0">
+  <section
+    class="my-8 mx-2 sm:mx-8 mt-0 direction lg:m-16 2xl:m-24 lg:mt-0 2xl:mt-0"
+  >
     <H1
       v-if="user"
       class="m-4 sm:m-6 ltr-i"
@@ -129,7 +131,7 @@ const currentTab = ref<'services' | 'portfolio'>('services');
                   <img
                     alt="image"
                     :src="image"
-                    class="carousel__item profile-img rounded-md"
+                    class="profile-img rounded-md"
                   />
                 </Slide>
                 <template #addons>
@@ -173,7 +175,7 @@ const currentTab = ref<'services' | 'portfolio'>('services');
     </section>
     <section v-show="currentTab == 'services'">
       <template v-if="user">
-        <div class="flex flex-wrap justify-center p-2">
+        <div class="flex flex-wrap justify-center">
           <Card
             class="sm:w-64 w-1/2 card-img-h-44 direction"
             v-for="service in user.services"
