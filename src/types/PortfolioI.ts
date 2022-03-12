@@ -1,4 +1,4 @@
-export type profileI = {
+export type portfolioI = {
   id: number;
   images: string[];
   description: string;

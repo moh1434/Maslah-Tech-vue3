@@ -1,5 +1,5 @@
 import { serviceI } from './ServiceI';
-import { profileI } from './ProfileI';
+import { portfolioI } from './PortfolioI';
 export type userI = Record<
   | 'id'
   | 'picture'
@@ -19,5 +19,5 @@ export type userI = Record<
   | 'completedService',
   string
 > & { skills: { name: string }[] } & { services: serviceI[] } & {
-  portfiloItems: profileI[];
+  portfiloItems: portfolioI[];
 };
