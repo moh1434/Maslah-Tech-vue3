@@ -140,7 +140,12 @@ onBeforeRouteUpdate((to, from, next) => {
         </li>
         <li class="flex gap-4 shadow px-4 py-4">
           <span>Freelancer name:</span>
-          <p>{{ service.user.name }}</p>
+          <router-link
+            :to="{ name: 'profile', params: { userId: service.userId } }"
+            class="hover:text-blue-500 hover:underline"
+          >
+            <p>{{ service.user.name }}</p>
+          </router-link>
         </li>
         <li class="flex gap-4 shadow px-4 py-4">
           <span>Freelancer last seen:</span>
