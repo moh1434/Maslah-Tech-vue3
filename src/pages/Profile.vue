@@ -51,7 +51,7 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <section class="my-8">
+  <section class="my-8 direction">
     <template v-if="user">
       <div class="flex flex-col items-center">
         <img
@@ -63,7 +63,7 @@ const { t } = useI18n();
         <p class="text-sm text-gray-600">{{ user.email }}</p>
       </div>
 
-      <div class="max-w-xl mx-auto direction">
+      <div class="max-w-xl mx-auto">
         <ul class="flex flex-wrap justify-center gap-2 text-white p-2">
           <p
             v-for="(skill, index) in userSkills"
@@ -75,7 +75,7 @@ const { t } = useI18n();
         </ul>
       </div>
     </template>
-    <div v-else class="text-center">No user data yet...</div>
+    <div v-else class="text-center">{{ t('no_user_data_yet') }}...</div>
   </section>
 </template>
 
