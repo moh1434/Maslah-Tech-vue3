@@ -50,7 +50,11 @@ const routes = [
     name: 'service',
     component: () => import('@/pages/Service.vue'),
   },
-
+  {
+    path: '/make-service/:serviceId?',
+    name: 'add-edit-service',
+    component: () => import('@/pages/AddEditService.vue'),
+  },
   {
     path: '/404',
     alias: '/:pathMatch(.*)*',
