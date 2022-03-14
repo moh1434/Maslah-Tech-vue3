@@ -163,101 +163,102 @@ async function addService(event: Event) {
 </script>
 
 <template>
-  <form id="edit-service-form">
-    <fieldset class="border-2 m-2 pl-1 pb-1.5">
-      <legend class="capitalize text-lg">{{ TEXT }} service form</legend>
-      <div class="my-2 flex flex-wrap items-center">
-        <label class="px-2">Title:</label>
-        <input
-          v-model="serviceToEdit.title"
-          type="text"
-          minlength="50"
-          required
-          class="px-2 py-1 text-gray-700 border rounded"
-        />
-      </div>
-      <div class="my-2 flex flex-wrap items-center">
-        <label class="px-2">Cost:</label>
-        <input
-          v-model="serviceToEdit.cost"
-          type="number"
-          min="5000"
-          required
-          class="px-2 py-1 text-gray-700 border rounded"
-        />
-      </div>
-      <div class="my-2 flex flex-wrap items-center">
-        <label class="px-2">Duration:</label>
-        <input
-          v-model="serviceToEdit.duration"
-          type="number"
-          required
-          class="px-2 py-1 text-gray-700 border rounded"
-        />
-      </div>
-      <div class="my-2 flex flex-wrap items-center">
-        <label class="px-2">Description:</label>
-        <textarea
-          class="px-2 py-1 text-gray-700 border rounded min-h-[60px]"
-          required
-          minlength="200"
-          v-model="serviceToEdit.description"
-        ></textarea>
-      </div>
-      <div class="my-2 flex flex-wrap items-center">
-        <label class="px-2" for="categories">Category:</label>
-        <select
-          class="px-2 py-1 text-gray-700 border rounded bg-white"
-          id="categories"
-          v-model="serviceToEdit.categoryId"
-        >
-          <optgroup
-            v-for="parentCategory in categories"
-            :key="parentCategory.id"
-            :label="
-              locale == 'ar' ? parentCategory.arTitle : parentCategory.enTitle
-            "
-          >
-            <option
-              v-for="childCategory in parentCategory.children"
-              :key="childCategory.id"
-              :value="childCategory.id"
-              :selected="serviceToEdit.categoryId == childCategory.id"
-            >
-              {{
-                locale == 'ar' ? childCategory.arTitle : childCategory.enTitle
-              }}
-            </option>
-          </optgroup>
-        </select>
-      </div>
-      <ul class="m-2 max-w-xl">
-        <label class="text-lg">Service images:</label>
-        <li
-          class="mb-2 flex flex-wrap items-center"
-          v-for="(img, i) in serviceToEdit.images"
-          :key="i"
-        >
-          <label class="text-gray-700">image {{ i + 1 }}:</label>
+  <form id="edit-service-form" class="max-w-3xl my-4 md:mt-8 mx-auto">
+    <fieldset class="border-2 m-1 rounded">
+      <legend class="capitalize text-lg ml-2">{{ TEXT }} service form</legend>
+      <div class="py-2 sm:py-4 lg:py-6 pr-2">
+        <div class="my-2 md:my-3 flex flex-wrap items-center">
+          <label class="px-2 md:px-3">Title:</label>
+          <textarea
+            class="px-2 py-1 grow text-gray-700 border rounded min-h-[60px]"
+            required
+            minlength="50"
+            v-model="serviceToEdit.title"
+          ></textarea>
+        </div>
+        <div class="my-2 md:my-3 flex flex-wrap items-center">
+          <label class="px-2 md:px-3">Cost:</label>
           <input
-            type="url"
-            v-model="serviceToEdit.images[i]"
-            class="w-full px-2 py-1 text-gray-700 border rounded"
+            v-model="serviceToEdit.cost"
+            type="number"
+            min="5000"
+            required
+            class="px-2 py-1 grow text-gray-700 border rounded"
           />
-        </li>
-        <button
-          class="bg-green-500 px-2 py-1 ml-2 rounded-md text-white text-sm"
-          @click.prevent="serviceToEdit.images.push('')"
-        >
-          Add
-        </button>
-        <button
-          class="bg-red-500 px-2 py-1 ml-2 rounded-md text-white text-sm"
-          @click.prevent="serviceToEdit.images.pop()"
-        >
-          remove
-        </button>
-      </ul>
+        </div>
+        <div class="my-2 md:my-3 flex flex-wrap items-center">
+          <label class="px-2 md:px-3">Duration:</label>
+          <input
+            v-model="serviceToEdit.duration"
+            type="number"
+            required
+            class="px-2 py-1 grow text-gray-700 border rounded"
+          />
+        </div>
+        <div class="my-2 md:my-3 flex flex-wrap items-center">
+          <label class="px-2 md:px-3">Description:</label>
+          <textarea
+            class="px-2 py-1 grow text-gray-700 border rounded min-h-[60px]"
+            required
+            minlength="200"
+            v-model="serviceToEdit.description"
+          ></textarea>
+        </div>
+        <div class="my-2 md:my-3 flex flex-wrap items-center">
+          <label class="px-2 md:px-3" for="categories">Category:</label>
+          <select
+            class="px-2 py-1 text-gray-700 border rounded bg-white"
+            id="categories"
+            v-model="serviceToEdit.categoryId"
+          >
+            <optgroup
+              v-for="parentCategory in categories"
+              :key="parentCategory.id"
+              :label="
+                locale == 'ar' ? parentCategory.arTitle : parentCategory.enTitle
+              "
+            >
+              <option
+                v-for="childCategory in parentCategory.children"
+                :key="childCategory.id"
+                :value="childCategory.id"
+                :selected="serviceToEdit.categoryId == childCategory.id"
+              >
+                {{
+                  locale == 'ar' ? childCategory.arTitle : childCategory.enTitle
+                }}
+              </option>
+            </optgroup>
+          </select>
+        </div>
+        <ul class="m-2 md:m-3 max-w-xl">
+          <label class="text-lg">Service images:</label>
+          <li
+            class="mb-2 flex flex-wrap items-center"
+            v-for="(img, i) in serviceToEdit.images"
+            :key="i"
+          >
+            <label class="text-gray-700 px-2 my-2">image {{ i + 1 }}:</label>
+            <input
+              type="url"
+              v-model="serviceToEdit.images[i]"
+              class="px-2 py-1 grow text-gray-700 border rounded"
+            />
+          </li>
+          <button
+            class="bg-green-500 px-2 py-1 ml-2 rounded-md text-white text-sm"
+            @click.prevent="serviceToEdit.images.push('')"
+          >
+            Add
+          </button>
+          <button
+            class="bg-red-500 px-2 py-1 ml-2 rounded-md text-white text-sm"
+            @click.prevent="serviceToEdit.images.pop()"
+          >
+            remove
+          </button>
+        </ul>
+      </div>
       <button
         @click.prevent="addOrEditService($event)"
         class="
@@ -266,7 +267,7 @@ async function addService(event: Event) {
           hover:bg-blue-400
           text-white
           m-4
-          px-2
+          px-4
           py-1.5
           rounded-lg
         "
