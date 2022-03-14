@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { api, useMyFetch } from '@/api/axios';
+import { useMyFetch } from '@/api/axios';
 import { fetchCategories } from '@/api/FetchCategories';
-import { packageI, serviceI } from '@/types/ServiceI';
+import { serviceI } from '@/types/ServiceI';
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
