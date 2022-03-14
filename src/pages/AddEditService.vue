@@ -8,7 +8,7 @@ import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 import { CategoryI } from '../types/Categroy';
 import { localUser } from '@/helpers/Auth/localAuth';
 import { startLoading, stopLoading } from '@/helpers/useLoading';
-import { putService, serviceAPI } from '@/api/putService';
+import { serviceAPI } from '@/api/putService';
 const { t, locale } = useI18n();
 const route = useRoute();
 const router = useRouter();
@@ -101,12 +101,13 @@ function addOrEditService(event: Event) {
 async function editService(event: Event) {
   startLoading(event.target as HTMLButtonElement);
   const serviceId = route.params.serviceId as string;
-  const { response, errors } = await putService(
-    serviceId,
+  const { response, errors } = await serviceAPI(
+    'put',
+    `service/${serviceId}`,
     serviceToEdit.value,
     localUser.value.token as string
   );
-  if (errors.length) {
+  if (errors) {
     console.log(errors);
     try {
       alert(JSON.stringify(errors));
