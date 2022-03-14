@@ -86,5 +86,17 @@
   "description": "Description",
   "preview": "Preview",
   "preview_text": "Click here",
-  "portfolio": "Portfolio"
+  "portfolio": "Portfolio",
+  "edit": "edit",
+  "insert": "insert",
+  "service_form": "{action} service form",
+  "the_service": "{action} the service",
+  "title": "title",
+  "cost": "cost",
+  "duration": "duration",
+  "category": "category",
+  "service_images": "service images",
+  "image": "image",
+  "add": "add",
+  "remove": "remove"
 }

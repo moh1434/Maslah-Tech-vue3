@@ -87,5 +87,17 @@
   "description": "الوصف",
   "preview": "معاينة",
   "preview_text": "إضغط هنا",
-  "portfolio": "معرض أعمال"
+  "portfolio": "معرض أعمال",
+  "edit": "تعديل",
+  "insert": "إضافة",
+  "service_form": "إستمارة {action} الخدمات",
+  "the_service": "{action} الخدمة",
+  "title": "العنوان",
+  "cost": "السعر",
+  "duration": "المدة",
+  "category": "القسم",
+  "service_images": "صور الخدمة",
+  "image": "صورة",
+  "add": "أضف",
+  "remove": "أزل"
 }

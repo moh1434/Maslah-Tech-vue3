@@ -2,7 +2,7 @@
 import { useMyFetch } from '@/api/axios';
 import { fetchCategories } from '@/api/FetchCategories';
 import { serviceI } from '@/types/ServiceI';
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 import { CategoryI } from '../types/Categroy';
@@ -57,6 +57,8 @@ fetchCategories()
     alert(e);
   });
 const TEXT = ref<'insert' | 'edit'>('insert');
+const translatedTEXT = computed(() => t(TEXT.value));
+
 async function loadThePage() {
   TEXT.value = route.params.serviceId ? 'edit' : 'insert';
   serviceToEdit.value = getCleanService();
@@ -163,12 +165,14 @@ async function addService(event: Event) {
 </script>
 
 <template>
-  <form id="edit-service-form" class="max-w-3xl my-4 md:mt-8 mx-auto">
+  <form id="edit-service-form" class="max-w-3xl my-4 md:mt-8 mx-auto direction">
     <fieldset class="border-2 m-1 rounded">
-      <legend class="capitalize text-lg ml-2">{{ TEXT }} service form</legend>
-      <div class="py-2 sm:py-4 lg:py-6 pr-2">
+      <legend class="capitalize text-lg mx-2">
+        {{ t('service_form', { action: translatedTEXT }) }}
+      </legend>
+      <div class="py-2 sm:py-4 lg:py-6 px-2">
         <div class="my-2 md:my-3 flex flex-wrap items-center">
-          <label class="px-2 md:px-3">Title:</label>
+          <label class="px-2 md:px-3">{{ t('title') }}:</label>
           <textarea
             class="px-2 py-1 grow text-gray-700 border rounded min-h-[60px]"
             required
@@ -177,7 +181,7 @@ async function addService(event: Event) {
           ></textarea>
         </div>
         <div class="my-2 md:my-3 flex flex-wrap items-center">
-          <label class="px-2 md:px-3">Cost:</label>
+          <label class="px-2 md:px-3">{{ t('cost') }}:</label>
           <input
             v-model="serviceToEdit.cost"
             type="number"
@@ -187,7 +191,7 @@ async function addService(event: Event) {
           />
         </div>
         <div class="my-2 md:my-3 flex flex-wrap items-center">
-          <label class="px-2 md:px-3">Duration:</label>
+          <label class="px-2 md:px-3">{{ t('duration') }}:</label>
           <input
             v-model="serviceToEdit.duration"
             type="number"
@@ -196,7 +200,7 @@ async function addService(event: Event) {
           />
         </div>
         <div class="my-2 md:my-3 flex flex-wrap items-center">
-          <label class="px-2 md:px-3">Description:</label>
+          <label class="px-2 md:px-3">{{ t('description') }}:</label>
           <textarea
             class="px-2 py-1 grow text-gray-700 border rounded min-h-[60px]"
             required
@@ -205,7 +209,9 @@ async function addService(event: Event) {
           ></textarea>
         </div>
         <div class="my-2 md:my-3 flex flex-wrap items-center">
-          <label class="px-2 md:px-3" for="categories">Category:</label>
+          <label class="px-2 md:px-3" for="categories"
+            >{{ t('category') }}:</label
+          >
           <select
             class="px-2 py-1 text-gray-700 border rounded bg-white"
             id="categories"
@@ -232,13 +238,15 @@ async function addService(event: Event) {
           </select>
         </div>
         <ul class="m-2 md:m-3 max-w-xl">
-          <label class="text-lg">Service images:</label>
+          <label class="text-lg">{{ t('service_images') }}:</label>
           <li
             class="mb-2 flex flex-wrap items-center"
             v-for="(img, i) in serviceToEdit.images"
             :key="i"
           >
-            <label class="text-gray-700 px-2 my-2">image {{ i + 1 }}:</label>
+            <label class="text-gray-700 px-2 my-2"
+              >{{ t('image') }} {{ i + 1 }}:</label
+            >
             <input
               type="url"
               v-model="serviceToEdit.images[i]"
@@ -246,16 +254,16 @@ async function addService(event: Event) {
             />
           </li>
           <button
-            class="bg-green-500 px-2 py-1 ml-2 rounded-md text-white text-sm"
+            class="bg-green-500 px-2 py-1 mx-1.5 rounded-md text-white text-sm"
             @click.prevent="serviceToEdit.images.push('')"
           >
-            Add
+            {{ t('add') }}
           </button>
           <button
-            class="bg-red-500 px-2 py-1 ml-2 rounded-md text-white text-sm"
+            class="bg-red-500 px-2 py-1 mx-1.5 rounded-md text-white text-sm"
             @click.prevent="serviceToEdit.images.pop()"
           >
-            remove
+            {{ t('remove') }}
           </button>
         </ul>
       </div>
@@ -272,7 +280,7 @@ async function addService(event: Event) {
           rounded-lg
         "
       >
-        {{ TEXT }} the service
+        {{ t('the_service', { action: translatedTEXT }) }}
       </button>
     </fieldset>
   </form>
