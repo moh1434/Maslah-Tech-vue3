@@ -8,7 +8,7 @@ import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 import { CategoryI } from '../types/Categroy';
 import { localUser } from '@/helpers/Auth/localAuth';
 import { startLoading, stopLoading } from '@/helpers/useLoading';
-import { putService } from '@/api/putService';
+import { putService, serviceAPI } from '@/api/putService';
 const { t, locale } = useI18n();
 const route = useRoute();
 const router = useRouter();
@@ -129,7 +129,36 @@ async function editService(event: Event) {
   //   router.push({ name: 'profile', params: { userId: localUser.value.id } });
   // }
 }
-function addService(event: Event) {}
+async function addService(event: Event) {
+  const url = `service/`;
+  startLoading(event.target as HTMLButtonElement);
+  const { response, errors } = await serviceAPI(
+    'post',
+    url,
+    serviceToEdit.value,
+    localUser.value.token as string
+  );
+
+  if (errors) {
+    console.log(errors);
+    try {
+      alert(JSON.stringify(errors));
+    } catch (e) {
+      alert(errors);
+    }
+    stopLoading(event.target as HTMLButtonElement);
+    return Promise.resolve();
+  }
+
+  stopLoading(event.target as HTMLButtonElement);
+  alert('Service inserted successfully');
+  if (response?.data) {
+    router.push({
+      name: 'service',
+      params: { serviceId: response.data.data.id },
+    });
+  }
+}
 </script>
 
 <template>
@@ -141,6 +170,7 @@ function addService(event: Event) {}
         <input
           v-model="serviceToEdit.title"
           type="text"
+          minlength="50"
           required
           class="px-2 py-1 text-gray-700 border rounded"
         />
