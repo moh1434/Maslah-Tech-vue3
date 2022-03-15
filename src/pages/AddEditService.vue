@@ -8,7 +8,6 @@ import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 import { CategoryI } from '../types/Categroy';
 import { localUser } from '@/helpers/Auth/localAuth';
 import { startLoading, stopLoading } from '@/helpers/useLoading';
-import { serviceAPI } from '@/api/putService';
 const { t, locale } = useI18n();
 const route = useRoute();
 const router = useRouter();
@@ -103,31 +102,31 @@ function addOrEditService(event: Event) {
 async function editService(event: Event) {
   startLoading(event.target as HTMLButtonElement);
   const serviceId = route.params.serviceId as string;
-  const { response, errors } = await serviceAPI<serviceI>(
-    'put',
-    `service/${serviceId}`,
-    serviceToEdit.value,
-    localUser.value.token as string
-  );
-  if (errors) {
-    console.log(errors);
-    try {
-      alert(JSON.stringify(errors));
-    } catch (e) {
-      alert(errors);
+  apiWrapper<serviceI>(
+    async () =>
+      await api.put<{ data: serviceI }>(
+        `service/${serviceId}`,
+        serviceToEdit.value,
+        {
+          headers: { token: localUser.value.token as string },
+        }
+      )
+  ).then(({ response, errors }) => {
+    if (errors) {
+      errorAlerter(errors);
+      stopLoading(event.target as HTMLButtonElement);
+      return Promise.resolve();
     }
     stopLoading(event.target as HTMLButtonElement);
-    return Promise.resolve();
-  }
+    alert('Service edited successfully');
+    if (response?.data) {
+      router.push({
+        name: 'service',
+        params: { serviceId: response.data.data.id },
+      });
+    }
+  });
 
-  stopLoading(event.target as HTMLButtonElement);
-  alert('Service edited successfully');
-  if (response?.data) {
-    router.push({
-      name: 'service',
-      params: { serviceId: response.data.data.id },
-    });
-  }
   //  else {
   //   router.push({ name: 'profile', params: { userId: localUser.value.id } });
   // }
@@ -135,20 +134,15 @@ async function editService(event: Event) {
 async function addService(event: Event) {
   const url = `service/`;
   startLoading(event.target as HTMLButtonElement);
-  const { response, errors } = await serviceAPI<serviceI>(
-    'post',
-    url,
-    serviceToEdit.value,
-    localUser.value.token as string
-  );
 
+  const { response, errors } = await apiWrapper<serviceI>(
+    async () =>
+      await api.post<{ data: serviceI }>('service/', serviceToEdit.value, {
+        headers: { token: localUser.value.token as string },
+      })
+  );
   if (errors) {
-    console.log(errors);
-    try {
-      alert(JSON.stringify(errors));
-    } catch (e) {
-      alert(errors);
-    }
+    errorAlerter(errors);
     stopLoading(event.target as HTMLButtonElement);
     return Promise.resolve();
   }
