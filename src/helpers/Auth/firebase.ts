@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 
-import { api as axios } from '@/api/axios';
+import { api as axios, errorAlerter } from '@/api/axios';
 import {
   getPhoneCodeFormID,
   disableFormInputs,
@@ -146,7 +146,7 @@ async function verfiyuser(user?: firebase.User | null) {
   user ??= firebase.auth().currentUser;
   let token = await user?.getIdToken(true);
   try {
-    let res = await axios.get('http://localhost:3001/v1/verfiyuser', {
+    let res = await axios.get('/verfiyuser', {
       headers: {
         token: token ?? 'noToken',
       },
@@ -168,15 +168,11 @@ export async function registerInAPi(
   user ??= firebase.auth().currentUser;
   let token = (await user?.getIdToken(true)) ?? '';
   try {
-    let res = await axios.post<{ data: userI }>(
-      'http://localhost:3001/v1/register',
-      body,
-      {
-        headers: {
-          token: token,
-        },
-      }
-    );
+    let res = await axios.post<{ data: userI }>('/register', body, {
+      headers: {
+        token: token,
+      },
+    });
 
     console.log(res.status);
     console.log(res.data);
@@ -185,7 +181,7 @@ export async function registerInAPi(
     return { token, user: res.data.data };
     // refreshToken();
   } catch (error) {
-    alert(error);
+    errorAlerter(error);
     return { token: undefined, user: undefined };
   }
 }
