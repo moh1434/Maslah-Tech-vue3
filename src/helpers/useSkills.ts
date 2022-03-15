@@ -1,13 +1,17 @@
-import { fetchSkills } from '@/api/fetchSkills';
+import { api, apiWrapper, errorAlerter } from '@/api/axios';
 import { ref } from 'vue';
 
 async function getSkills() {
-  const { response, errors } = await fetchSkills();
-  if (errors.length) {
-    errors.map((err) => alert(err));
-    return Promise.resolve([]);
-  }
-  return response?.data.data ?? [];
+  return apiWrapper<string[]>(
+    async () => await api.get<{ data: string[] }>('/skills')
+  ).then(({ response, errors }) => {
+    if (errors) {
+      errorAlerter(errors);
+      return [];
+    } else {
+      return response?.data.data ? response.data.data : [];
+    }
+  });
 }
 
 const allSkills = ref<Array<string>>([]);
