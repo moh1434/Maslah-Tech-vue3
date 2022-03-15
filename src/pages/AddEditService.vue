@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { api, apiWrapper, errorAlerter, useMyFetch } from '@/api/axios';
+import { api, apiWrapper, errorAlerter } from '@/api/axios';
 
 import { serviceI } from '@/types/ServiceI';
 import { computed, ref, watch } from 'vue';
@@ -26,22 +26,20 @@ function getCleanService() /*: Partial<serviceI>*/ {
 const serviceToEdit = ref(getCleanService());
 
 async function loadTheService() {
-  const { error, data } = await useMyFetch(
-    `service/${route.params.serviceId}`
-  ).json<{
-    data: serviceI;
-  }>();
-  if (error.value) {
-    alert(error.value);
-  }
-  if (data.value) {
-    serviceToEdit.value['title'] = data.value.data['title'];
-    serviceToEdit.value['description'] = data.value.data['description'];
-    serviceToEdit.value['duration'] = data.value.data['duration'];
-    serviceToEdit.value['cost'] = data.value.data['cost'];
+  const { response, errors } = await apiWrapper<serviceI>(
+    async () =>
+      await api.get<{ data: serviceI }>(`service/${route.params.serviceId}`)
+  );
+  errorAlerter(errors);
+  if (response?.data) {
+    const data = response.data.data;
+    serviceToEdit.value['title'] = data['title'];
+    serviceToEdit.value['description'] = data['description'];
+    serviceToEdit.value['duration'] = data['duration'];
+    serviceToEdit.value['cost'] = data['cost'];
 
-    serviceToEdit.value.images = [...data.value.data.images];
-    serviceToEdit.value.categoryId = data.value.data.category.id;
+    serviceToEdit.value.images = [...data.images];
+    serviceToEdit.value.categoryId = data.category.id;
   }
 }
 //end helpers
