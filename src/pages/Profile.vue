@@ -12,6 +12,11 @@ import { Carousel, Navigation, Slide } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 import Card from '@/components/Card.vue';
 import StarsRates from '@/components/StarsRates.vue';
+
+import { localUser } from '@/helpers/Auth/localAuth';
+import { startLoading, stopLoading } from '@/helpers/useLoading';
+import { serviceDelete } from '@/api/putService';
+
 const route = useRoute();
 //start helpers
 
@@ -51,6 +56,45 @@ watch(
 );
 
 const currentTab = ref<'services' | 'portfolio'>('services');
+
+//start deleteService
+function confirmDeleteService(event: Event, serviceId: number) {
+  if (confirm('Are you sure to delete this service?')) {
+    deleteService(event, serviceId);
+  }
+}
+async function deleteService(event: Event, serviceId: number) {
+  startLoading(event.target as HTMLButtonElement);
+
+  const { response, errors } = await serviceDelete<string>(
+    `service/${serviceId}`,
+    localUser.value.token as string
+  );
+  if (errors) {
+    console.log(errors);
+    try {
+      alert(JSON.stringify(errors));
+    } catch (e) {
+      alert(errors);
+    }
+    stopLoading(event.target as HTMLButtonElement);
+    return Promise.resolve();
+  }
+
+  stopLoading(event.target as HTMLButtonElement);
+  alert('Service deleted successfully');
+  if (response?.data) {
+    const index = user.value?.services.findIndex(
+      (service) => service.id == serviceId
+    );
+    if (index === undefined) {
+      console.error('findIndex result is undefined!');
+    } else if (index !== -1) {
+      user.value?.services.splice(index, 1);
+    }
+  }
+}
+//end deleteService
 </script>
 
 <template>
@@ -200,6 +244,42 @@ const currentTab = ref<'services' | 'portfolio'>('services');
                   :totalPeople="service.rateNum"
                 />
               </div>
+              <!-- v-if="localUser?.id == service.userId" -->
+              <div
+                class="flex flex-wrap gap-3 mt-4"
+                v-if="localUser?.id == service.userId"
+              >
+                <router-link
+                  :to="{
+                    name: 'add-edit-service',
+                    params: { serviceId: service.id },
+                  }"
+                  class="
+                    bg-green-500
+                    hover:bg-green-400
+                    text-white
+                    px-2
+                    py-1
+                    rounded
+                    loading-btn
+                  "
+                  >Edit</router-link
+                >
+                <button
+                  @click="confirmDeleteService($event, service.id)"
+                  class="
+                    bg-red-500
+                    hover:bg-red-400
+                    text-white
+                    px-2
+                    py-1
+                    rounded
+                    loading-btn
+                  "
+                >
+                  Delete
+                </button>
+              </div>
             </template>
           </Card>
         </div>
@@ -211,6 +291,7 @@ const currentTab = ref<'services' | 'portfolio'>('services');
 
 <style>
 @import url('@/assets/css/slider.css');
+@import url('@/assets/css/loading-btn.css');
 
 .profile-img {
   max-height: 540px;
