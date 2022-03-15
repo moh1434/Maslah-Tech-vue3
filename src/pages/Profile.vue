@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { fetchUser } from '@/api/fetchUser';
-
 import { userI } from '@/types/UserI';
 import { ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -16,15 +14,18 @@ import StarsRates from '@/components/StarsRates.vue';
 import { localUser } from '@/helpers/Auth/localAuth';
 import { startLoading, stopLoading } from '@/helpers/useLoading';
 import { serviceDelete } from '@/api/putService';
+import { api, apiWrapper } from '@/api/axios';
+import { errorAlerter } from '../api/axios';
 
 const route = useRoute();
 //start helpers
 
 function loadTheUser() {
-  fetchUser(route.params.userId as string).then(({ response, errors }) => {
-    if (errors.length) {
-      errors.map((err) => alert(err));
-    }
+  apiWrapper<userI>(
+    async () =>
+      await api.get<{ data: userI }>(`/user/${route.params.userId as string}`)
+  ).then(({ response, errors }) => {
+    errorAlerter(errors);
     if (response?.data.data) {
       user.value = response.data.data;
     }

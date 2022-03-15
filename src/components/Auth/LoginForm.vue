@@ -3,10 +3,11 @@ import { useI18n } from 'vue-i18n';
 // import OrContinueWithFaceBook from '@/components/Auth/OrContinueWithFaceBook.vue';
 import { loginToFireBase } from '@/helpers/Auth/firebase';
 import { defaultLogInInputs } from '@/helpers/Auth/dev_defaultSignupInputs';
-import { fetchUser } from '@/api/fetchUser';
 import { refreshLocalUserData } from '@/helpers/Auth/localAuth';
 import { startLoading, stopLoading } from '@/helpers/useLoading';
 import { useRouter } from 'vue-router';
+import { api, apiWrapper, errorAlerter } from '@/api/axios';
+import { userI } from '@/types/UserI';
 // import RemeberMeForgotPassword from '../RemeberMeForgotPassword.vue';
 const { t } = useI18n();
 if (import.meta.env.MODE == 'development') {
@@ -53,18 +54,21 @@ async function login(event: Event) {
     return Promise.resolve();
   }
 
-  const userResponse = await fetchUser(uid);
-  if (userResponse.errors.length) {
-    userResponse.errors.map((err) => alert(err));
+  const { response: userRes, errors } = await apiWrapper<userI>(
+    async () => await api.get<{ data: userI }>(`/user/${uid}`)
+  );
+  if (errors) {
+    stopLoading(form['login-btn'] as HTMLButtonElement);
+    errorAlerter(errors);
+    return Promise.resolve();
+  }
+  if (!userRes?.data) {
+    alert('Unknown error');
     stopLoading(form['login-btn'] as HTMLButtonElement);
     return Promise.resolve();
   }
-  const user = userResponse.response?.data.data;
-  if (!user) {
-    alert('Unknown error, may be slow internet');
-    stopLoading(form['login-btn'] as HTMLButtonElement);
-    return Promise.resolve();
-  }
+  const user = userRes.data.data;
+
   const userData = {
     name: user?.name,
     email: user?.email,
