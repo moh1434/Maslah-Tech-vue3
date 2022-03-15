@@ -103,7 +103,7 @@ function addOrEditService(event: Event) {
 async function editService(event: Event) {
   startLoading(event.target as HTMLButtonElement);
   const serviceId = route.params.serviceId as string;
-  const { response, errors } = await serviceAPI(
+  const { response, errors } = await serviceAPI<serviceI>(
     'put',
     `service/${serviceId}`,
     serviceToEdit.value,
@@ -135,7 +135,7 @@ async function editService(event: Event) {
 async function addService(event: Event) {
   const url = `service/`;
   startLoading(event.target as HTMLButtonElement);
-  const { response, errors } = await serviceAPI(
+  const { response, errors } = await serviceAPI<serviceI>(
     'post',
     url,
     serviceToEdit.value,

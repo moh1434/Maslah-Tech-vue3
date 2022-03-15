@@ -1,7 +1,7 @@
 import { serviceI } from '../types/ServiceI';
 import { api } from './axios';
 
-async function serviceAPI(
+async function serviceAPI<T>(
   method: 'post' | 'put' | 'delete',
   url: string,
   payload: Object,
@@ -10,7 +10,7 @@ async function serviceAPI(
   let response = null;
   let errors = null;
   try {
-    response = await api[method]<{ data: serviceI }>(url, payload, {
+    response = await api[method]<{ data: T }>(url, payload, {
       headers: { token: token as string },
     });
   } catch (e: any) {
