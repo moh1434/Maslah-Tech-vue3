@@ -13,7 +13,6 @@ import StarsRates from '@/components/StarsRates.vue';
 
 import { localUser } from '@/helpers/Auth/localAuth';
 import { startLoading, stopLoading } from '@/helpers/useLoading';
-import { serviceDelete } from '@/api/putService';
 import { api, apiWrapper } from '@/api/axios';
 import { errorAlerter } from '../api/axios';
 
@@ -67,17 +66,15 @@ function confirmDeleteService(event: Event, serviceId: number) {
 async function deleteService(event: Event, serviceId: number) {
   startLoading(event.target as HTMLButtonElement);
 
-  const { response, errors } = await serviceDelete<string>(
-    `service/${serviceId}`,
-    localUser.value.token as string
+  const { response, errors } = await apiWrapper<string>(
+    async () =>
+      await api.delete<{ data: string }>(`service/${serviceId}`, {
+        headers: { token: localUser.value.token as string },
+      })
   );
+
   if (errors) {
-    console.log(errors);
-    try {
-      alert(JSON.stringify(errors));
-    } catch (e) {
-      alert(errors);
-    }
+    errorAlerter(errors);
     stopLoading(event.target as HTMLButtonElement);
     return Promise.resolve();
   }
