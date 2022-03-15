@@ -3,8 +3,8 @@ import i18n from '@/i18n';
 const { t, locale } = i18n.global;
 
 import { svgI } from '@/types/icons';
-import { fetchCategories } from '@/api/FetchCategories';
 import { CategoryI } from '@/types/Categroy';
+import { api, apiWrapper, errorAlerter } from '@/api/axios';
 
 export type socialIconWithTextI = svgI & { text: string | ComputedRef<string> };
 
@@ -24,18 +24,23 @@ export type menuListWithIconsI = menuListI<socialIconWithTextI[]>;
 
 const categories = ref<Array<CategoryI>>([]);
 const items = ref<Array<namedRouteLink>>([]);
-fetchCategories().then((response) => {
-  categories.value = response.data.data;
 
-  categories.value[0].children.map((category) => {
-    items.value.push({
-      text: computed(() =>
-        locale.value == 'ar' ? category.arTitle : category.enTitle
-      ) as unknown as string,
-      routeName: 'services',
-      params: { categoryId: category.id.toString() },
+apiWrapper<CategoryI[]>(
+  async () => await api.get<{ data: CategoryI[] }>('/categories')
+).then(({ response, errors }) => {
+  errorAlerter(errors);
+  if (response?.data) {
+    categories.value = response.data.data;
+    categories.value[0].children.map((category) => {
+      items.value.push({
+        text: computed(() =>
+          locale.value == 'ar' ? category.arTitle : category.enTitle
+        ) as unknown as string,
+        routeName: 'services',
+        params: { categoryId: category.id.toString() },
+      });
     });
-  });
+  }
 });
 
 const menuRoutesLists = ref<Array<menuListWithRoutesI>>([

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useMyFetch } from '@/api/axios';
-import { fetchCategories } from '@/api/FetchCategories';
+import { api, apiWrapper, errorAlerter, useMyFetch } from '@/api/axios';
+
 import { serviceI } from '@/types/ServiceI';
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -47,15 +47,15 @@ async function loadTheService() {
 }
 //end helpers
 const categories = ref<Array<CategoryI>>([]);
-fetchCategories()
-  .then((res) => {
-    if (res.data.data) {
-      categories.value = res.data.data;
-    }
-  })
-  .catch((e) => {
-    alert(e);
-  });
+apiWrapper<CategoryI[]>(
+  async () => await api.get<{ data: CategoryI[] }>('/categories')
+).then(({ response, errors }) => {
+  errorAlerter(errors);
+  if (response?.data) {
+    categories.value = response.data.data;
+  }
+});
+
 const TEXT = ref<'insert' | 'edit'>('insert');
 const translatedTEXT = computed(() => t(TEXT.value));
 
