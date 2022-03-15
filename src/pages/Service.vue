@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useMyFetch } from '@/api/axios';
+import { api, apiWrapper } from '@/api/axios';
 
 import { isPositiveInteger } from '@/helpers/numbers';
 import { serviceI, packageI } from '@/types/ServiceI';
@@ -15,6 +15,7 @@ import { useI18n } from 'vue-i18n';
 import StarsRates from '@/components/StarsRates.vue';
 import { selectTag } from '@/helpers/selectToggleTag';
 import { localUser } from '@/helpers/Auth/localAuth';
+import { errorAlerter } from '../api/axios';
 
 const { t, locale } = useI18n();
 const route = useRoute();
@@ -39,16 +40,17 @@ async function buyTheService() {
     alert('You can not buy your own service');
     return;
   }
-  const { error, data, isFinished, isFetching } = await useMyFetch<{
-    data: serviceI;
-  }>(`service/order/${route.params.serviceId}`, {
-    headers: { token: token },
-  }).post({
-    packagesId: selectedPacksIds.value,
-  });
-  if (error.value) {
-    alert(error.value);
-  }
+  const { response, errors } = await apiWrapper<serviceI>(
+    async () =>
+      await api.post<{ data: serviceI }>(
+        `service/order/${route.params.serviceId}`,
+        {
+          packagesId: selectedPacksIds.value,
+        },
+        { headers: { token: token } }
+      )
+  );
+  errorAlerter(errors);
   //TODO: complete this on the future
 }
 
@@ -64,15 +66,12 @@ async function reloadServices(serviceId: string) {
     return Promise.reject();
   }
   const serviceUrl = `/service/${serviceId}`;
-  const { error, data } = await useMyFetch<{ data: serviceI }>(serviceUrl)
-    .get()
-    .json();
+  const { response, errors } = await apiWrapper<serviceI>(
+    async () => await api.get<{ data: serviceI }>(serviceUrl)
+  );
+  errorAlerter(errors);
 
-  if (error.value) {
-    alert(error.value);
-  }
-
-  service.value = data.value?.data;
+  service.value = response?.data.data;
 
   return Promise.resolve();
 }

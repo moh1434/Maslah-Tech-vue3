@@ -13,7 +13,8 @@ import { refreshLocalUserData } from '@/helpers/Auth/localAuth';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import firebase from 'firebase';
-import { fetchUser } from '@/api/fetchUser';
+import { api, apiWrapper, errorAlerter } from '@/api/axios';
+import { userI } from '@/types/UserI';
 const router = useRouter();
 const { t } = useI18n();
 
@@ -27,26 +28,19 @@ async function signUp(event: Event) {
   //Start checking if the user already have an account
   const uid = firebase.auth().currentUser?.uid;
   if (uid) {
-    const { response, errors } = await fetchUser(uid);
-    if (errors.length) {
-      errors.map((err) => {
-        console.log('err=', err, (err as any).message);
-        if (
-          typeof err == 'object' &&
-          (err as any)?.message == 'Request failed with status code 409'
-        ) {
-          //means the user is not found, that is what we want!
-          return;
-        }
-        alert(err);
-      });
-    } else {
-      if (response?.data?.data) {
-        alert('You already have an account!, please try login');
-        router.push({ name: 'login' });
-        stopLoading(additionalInformation.button as HTMLButtonElement);
-        return Promise.resolve();
-      }
+    const { response, errors } = await apiWrapper<userI>(
+      async () => await api.get<{ data: userI }>(`/user/${uid}`)
+    );
+
+    if (errors !== 'NotExist') {
+      //'NotExist' means the user is not found, that is what we want!
+      errorAlerter(errors);
+    }
+    if (response?.data?.data) {
+      alert('You already have an account!, please try login');
+      router.push({ name: 'login' });
+      stopLoading(additionalInformation.button as HTMLButtonElement);
+      return Promise.resolve();
     }
   }
   //End

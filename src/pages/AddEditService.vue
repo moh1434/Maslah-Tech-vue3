@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useMyFetch } from '@/api/axios';
-import { fetchCategories } from '@/api/FetchCategories';
+import { api, apiWrapper, errorAlerter } from '@/api/axios';
+
 import { serviceI } from '@/types/ServiceI';
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -8,7 +8,6 @@ import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 import { CategoryI } from '../types/Categroy';
 import { localUser } from '@/helpers/Auth/localAuth';
 import { startLoading, stopLoading } from '@/helpers/useLoading';
-import { serviceAPI } from '@/api/putService';
 const { t, locale } = useI18n();
 const route = useRoute();
 const router = useRouter();
@@ -27,35 +26,33 @@ function getCleanService() /*: Partial<serviceI>*/ {
 const serviceToEdit = ref(getCleanService());
 
 async function loadTheService() {
-  const { error, data } = await useMyFetch(
-    `service/${route.params.serviceId}`
-  ).json<{
-    data: serviceI;
-  }>();
-  if (error.value) {
-    alert(error.value);
-  }
-  if (data.value) {
-    serviceToEdit.value['title'] = data.value.data['title'];
-    serviceToEdit.value['description'] = data.value.data['description'];
-    serviceToEdit.value['duration'] = data.value.data['duration'];
-    serviceToEdit.value['cost'] = data.value.data['cost'];
+  const { response, errors } = await apiWrapper<serviceI>(
+    async () =>
+      await api.get<{ data: serviceI }>(`service/${route.params.serviceId}`)
+  );
+  errorAlerter(errors);
+  if (response?.data) {
+    const data = response.data.data;
+    serviceToEdit.value['title'] = data['title'];
+    serviceToEdit.value['description'] = data['description'];
+    serviceToEdit.value['duration'] = data['duration'];
+    serviceToEdit.value['cost'] = data['cost'];
 
-    serviceToEdit.value.images = [...data.value.data.images];
-    serviceToEdit.value.categoryId = data.value.data.category.id;
+    serviceToEdit.value.images = [...data.images];
+    serviceToEdit.value.categoryId = data.category.id;
   }
 }
 //end helpers
 const categories = ref<Array<CategoryI>>([]);
-fetchCategories()
-  .then((res) => {
-    if (res.data.data) {
-      categories.value = res.data.data;
-    }
-  })
-  .catch((e) => {
-    alert(e);
-  });
+apiWrapper<CategoryI[]>(
+  async () => await api.get<{ data: CategoryI[] }>('/categories')
+).then(({ response, errors }) => {
+  errorAlerter(errors);
+  if (response?.data) {
+    categories.value = response.data.data;
+  }
+});
+
 const TEXT = ref<'insert' | 'edit'>('insert');
 const translatedTEXT = computed(() => t(TEXT.value));
 
@@ -103,31 +100,31 @@ function addOrEditService(event: Event) {
 async function editService(event: Event) {
   startLoading(event.target as HTMLButtonElement);
   const serviceId = route.params.serviceId as string;
-  const { response, errors } = await serviceAPI<serviceI>(
-    'put',
-    `service/${serviceId}`,
-    serviceToEdit.value,
-    localUser.value.token as string
-  );
-  if (errors) {
-    console.log(errors);
-    try {
-      alert(JSON.stringify(errors));
-    } catch (e) {
-      alert(errors);
+  apiWrapper<serviceI>(
+    async () =>
+      await api.put<{ data: serviceI }>(
+        `service/${serviceId}`,
+        serviceToEdit.value,
+        {
+          headers: { token: localUser.value.token as string },
+        }
+      )
+  ).then(({ response, errors }) => {
+    if (errors) {
+      errorAlerter(errors);
+      stopLoading(event.target as HTMLButtonElement);
+      return Promise.resolve();
     }
     stopLoading(event.target as HTMLButtonElement);
-    return Promise.resolve();
-  }
+    alert('Service edited successfully');
+    if (response?.data) {
+      router.push({
+        name: 'service',
+        params: { serviceId: response.data.data.id },
+      });
+    }
+  });
 
-  stopLoading(event.target as HTMLButtonElement);
-  alert('Service edited successfully');
-  if (response?.data) {
-    router.push({
-      name: 'service',
-      params: { serviceId: response.data.data.id },
-    });
-  }
   //  else {
   //   router.push({ name: 'profile', params: { userId: localUser.value.id } });
   // }
@@ -135,20 +132,15 @@ async function editService(event: Event) {
 async function addService(event: Event) {
   const url = `service/`;
   startLoading(event.target as HTMLButtonElement);
-  const { response, errors } = await serviceAPI<serviceI>(
-    'post',
-    url,
-    serviceToEdit.value,
-    localUser.value.token as string
-  );
 
+  const { response, errors } = await apiWrapper<serviceI>(
+    async () =>
+      await api.post<{ data: serviceI }>('service/', serviceToEdit.value, {
+        headers: { token: localUser.value.token as string },
+      })
+  );
   if (errors) {
-    console.log(errors);
-    try {
-      alert(JSON.stringify(errors));
-    } catch (e) {
-      alert(errors);
-    }
+    errorAlerter(errors);
     stopLoading(event.target as HTMLButtonElement);
     return Promise.resolve();
   }

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { fetchServices } from '@/api/fetchServices';
 import { isPositiveInteger } from '@/helpers/numbers';
 import { ref } from 'vue';
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
@@ -8,6 +7,7 @@ import { useI18n } from 'vue-i18n';
 import Card from '@/components/Card.vue';
 import H1 from '@/components/small/H1.vue';
 import StarsRates from '../components/StarsRates.vue';
+import { api, apiWrapper, errorAlerter } from '@/api/axios';
 const { t, locale } = useI18n();
 const route = useRoute();
 const router = useRouter();
@@ -22,12 +22,16 @@ function reloadServices(categoryId: string) {
     router.push({ name: 'categories' });
     return;
   }
-  fetchServices(categoryId as string).then(({ response, errors }) => {
-    if (errors.length) {
-      errors.map((err) => alert(err));
-    }
-    if (response) {
-      services.value = response.data;
+
+  apiWrapper<serviceI[]>(
+    async () =>
+      await api.get<{ data: serviceI[] }>(
+        `/service?subcategoryids=${categoryId}`
+      )
+  ).then(({ response, errors }) => {
+    errorAlerter(errors);
+    if (response?.data) {
+      services.value = response.data.data;
     }
   });
 }

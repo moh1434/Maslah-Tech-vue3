@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import Category from '@/components/Category.vue';
-import SubCategory from '@/components/SubCategory.vue';
-
-import { fetchCategories } from '@/api/FetchCategories';
+import SubCategory from '@/components/SubCategory.vue'; //TODO:This is not used
 
 import { ref } from 'vue';
 
@@ -11,19 +9,19 @@ import H1 from '@/components/small/H1.vue';
 
 import { CategoryI } from '@/types/Categroy';
 import Card from '@/components/Card.vue';
+import { api, apiWrapper, errorAlerter } from '@/api/axios';
 const { t, locale } = useI18n();
 
 const categories = ref<Array<CategoryI>>([]); //ref<Array<CategoryI>>([]);
-fetchCategories()
-  .then((res) => {
-    if (!res.data.data) {
-      console.log('empty data');
-    } else {
-      console.dir(res.data.data, { depth: null });
-      categories.value = res.data.data;
-    }
-  })
-  .catch((e) => {});
+
+apiWrapper<CategoryI[]>(
+  async () => await api.get<{ data: CategoryI[] }>('/categories')
+).then(({ response, errors }) => {
+  errorAlerter(errors);
+  if (response?.data) {
+    categories.value = response.data.data;
+  }
+});
 
 // console.log('categoriesResponse.status=', categoriesResponse.status);
 // console.log('categoriesResponse.statusText=', categoriesResponse.statusText);
