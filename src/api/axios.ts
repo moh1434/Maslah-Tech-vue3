@@ -41,7 +41,7 @@ export async function apiWrapper<ServerData>(
   return { response, errors };
 }
 
-function errorAlerter(errors: any) {
+export function errorAlerter(errors: any) {
   if (errors) {
     try {
       alert(JSON.stringify(errors));
