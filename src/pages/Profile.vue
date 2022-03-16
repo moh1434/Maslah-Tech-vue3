@@ -15,6 +15,8 @@ import { localUser } from '@/helpers/Auth/localAuth';
 import { startLoading, stopLoading } from '@/helpers/useLoading';
 import { api, apiWrapper } from '@/api/axios';
 import { errorAlerter } from '../api/axios';
+import { confirmDeleteItem } from '@/helpers/deleteItems';
+import { deleteObjFromArray } from '@/helpers/removeObjFromArray';
 
 const route = useRoute();
 //start helpers
@@ -59,40 +61,30 @@ const currentTab = ref<'services' | 'portfolio'>('services');
 
 //start deleteService
 function confirmDeleteService(event: Event, serviceId: number) {
-  if (confirm('Are you sure to delete this service?')) {
-    deleteService(event, serviceId);
-  }
-}
-async function deleteService(event: Event, serviceId: number) {
-  startLoading(event.target as HTMLButtonElement);
-
-  const { response, errors } = await apiWrapper<string>(
-    async () =>
-      await api.delete<{ data: string }>(`service/${serviceId}`, {
-        headers: { token: localUser.value.token as string },
-      })
-  );
-
-  if (errors) {
-    errorAlerter(errors);
-    stopLoading(event.target as HTMLButtonElement);
-    return Promise.resolve();
-  }
-
-  stopLoading(event.target as HTMLButtonElement);
-  alert('Service deleted successfully');
-  if (response?.data) {
-    const index = user.value?.services.findIndex(
-      (service) => service.id == serviceId
-    );
-    if (index === undefined) {
-      console.error('findIndex result is undefined!');
-    } else if (index !== -1) {
-      user.value?.services.splice(index, 1);
+  confirmDeleteItem<string>(
+    event,
+    `service/${serviceId}`,
+    localUser.value.token as string
+  )?.then(() => {
+    if (user.value?.services) {
+      deleteObjFromArray(user.value.services, 'id', serviceId);
     }
-  }
+  });
 }
 //end deleteService
+//start deletePortfolio
+function confirmDeletePortfolio(event: Event, itemId: number) {
+  confirmDeleteItem<string>(
+    event,
+    `portfilo/${itemId}`,
+    localUser.value.token as string
+  )?.then(() => {
+    if (user.value?.portfiloItems) {
+      deleteObjFromArray(user.value.portfiloItems, 'id', itemId);
+    }
+  });
+}
+//end deletePortfolio
 </script>
 
 <template>
@@ -127,7 +119,8 @@ async function deleteService(event: Event, serviceId: number) {
       rounded-b-3xl
       flex flex-wrap
       justify-center
-      gap-3
+      items-center
+      sm:gap-3
       bg-blue-600
       text-white
       capitalize
@@ -140,15 +133,28 @@ async function deleteService(event: Event, serviceId: number) {
       }"
       @click="currentTab = 'services'"
     >
-      services
+      {{ t('services') }}
     </li>
+    <router-link
+      v-if="localUser?.id == user?.id"
+      class="px-2 py-2.5 md:p-3 hover:bg-blue-500 cursor-pointer"
+      :to="{ name: 'add-edit-service' }"
+      >{{ t('insert_service') }}</router-link
+    >
     <li
       class="px-2 py-2.5 md:p-3 hover:bg-blue-500 cursor-pointer"
       :class="{ 'bg-[#4A8EFF]': currentTab == 'portfolio' }"
       @click="currentTab = 'portfolio'"
     >
-      portfolio
+      {{ t('portfolio') }}
     </li>
+
+    <router-link
+      v-if="localUser?.id == user?.id"
+      class="px-2 py-2.5 md:p-3 hover:bg-blue-500 cursor-pointer"
+      :to="{ name: 'add-edit-portfolio' }"
+      >{{ t('insert_portfolio') }}</router-link
+    >
   </ul>
   <section
     class="my-8 mx-2 sm:mx-8 mt-0 direction lg:m-16 2xl:m-24 lg:mt-0 2xl:mt-0"
@@ -198,7 +204,7 @@ async function deleteService(event: Event, serviceId: number) {
                   <span>{{ t('description') }}:</span>
                   <p>{{ profile.description }}</p>
                 </li>
-                <li class="flex flex-wrap gap-4 shadow px-4 py-4">
+                <li class="flex flex-wrap items-center gap-4 shadow px-4 py-4">
                   <span>{{ t('preview') }}:</span>
                   <a
                     class="hover:underline hover:text-blue-600"
@@ -207,6 +213,41 @@ async function deleteService(event: Event, serviceId: number) {
                     rel="noopener noreferrer"
                     >{{ t('preview_text') }}</a
                   >
+                  <div
+                    class="flex flex-wrap gap-3 ml-auto"
+                    v-if="localUser?.id == profile.userId"
+                  >
+                    <router-link
+                      :to="{
+                        name: 'add-edit-portfolio',
+                        params: { portfolioId: profile.id },
+                      }"
+                      class="
+                        bg-green-500
+                        hover:bg-green-400
+                        text-white
+                        px-2
+                        py-1
+                        rounded
+                        loading-btn
+                      "
+                      >Edit</router-link
+                    >
+                    <button
+                      @click="confirmDeletePortfolio($event, profile.id)"
+                      class="
+                        bg-red-500
+                        hover:bg-red-400
+                        text-white
+                        px-2
+                        py-1
+                        rounded
+                        loading-btn
+                      "
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </li>
               </ul>
             </div>

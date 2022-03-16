@@ -56,6 +56,11 @@ const routes = [
     component: () => import('@/pages/AddEditService.vue'),
   },
   {
+    path: '/make-portfolio/:portfolioId?',
+    name: 'add-edit-portfolio',
+    component: () => import('@/pages/AddEditPortfolio.vue'),
+  },
+  {
     path: '/404',
     alias: '/:pathMatch(.*)*',
     name: '404',

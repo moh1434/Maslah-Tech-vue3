@@ -89,14 +89,20 @@
   "portfolio": "Portfolio",
   "edit": "edit",
   "insert": "insert",
+  "insert_service": "insert service",
+  "insert_portfolio": "insert portfolio",
   "service_form": "{action} service form",
   "the_service": "{action} the service",
+  "portfolio_form": "{action} portfolio form",
+  "the_portfolio": "{action} the portfolio",
   "title": "title",
   "cost": "cost",
   "duration": "duration",
   "category": "category",
   "service_images": "service images",
+  "portfolio_images": "portfolio images",
   "image": "image",
   "add": "add",
-  "remove": "remove"
+  "remove": "remove",
+  "link": "link"
 }
