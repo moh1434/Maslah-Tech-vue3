@@ -15,6 +15,8 @@ import { localUser } from '@/helpers/Auth/localAuth';
 import { startLoading, stopLoading } from '@/helpers/useLoading';
 import { api, apiWrapper } from '@/api/axios';
 import { errorAlerter } from '../api/axios';
+import { confirmDeleteItem } from '@/helpers/deleteItems';
+import { deleteObjFromArray } from '@/helpers/removeObjFromArray';
 
 const route = useRoute();
 //start helpers
@@ -93,6 +95,19 @@ async function deleteService(event: Event, serviceId: number) {
   }
 }
 //end deleteService
+//start deletePortfolio
+function confirmDeletePortfolio(event: Event, itemId: number) {
+  confirmDeleteItem<string>(
+    event,
+    `portfilo/${itemId}`,
+    localUser.value.token as string
+  )?.then(() => {
+    if (user.value?.portfiloItems) {
+      deleteObjFromArray(user.value.portfiloItems, 'id', itemId);
+    }
+  });
+}
+//end deletePortfolio
 </script>
 
 <template>
@@ -227,7 +242,8 @@ async function deleteService(event: Event, serviceId: number) {
                       "
                       >Edit</router-link
                     >
-                    <!-- <button
+                    <button
+                      @click="confirmDeletePortfolio($event, profile.id)"
                       class="
                         bg-red-500
                         hover:bg-red-400
@@ -239,7 +255,7 @@ async function deleteService(event: Event, serviceId: number) {
                       "
                     >
                       Delete
-                    </button> -->
+                    </button>
                   </div>
                 </li>
               </ul>
