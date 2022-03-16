@@ -92,12 +92,16 @@
   "insert": "إضافة",
   "service_form": "إستمارة {action} الخدمات",
   "the_service": "{action} الخدمة",
+  "portfolio_form": "إستمارة {action} معرض الأعمار",
+  "the_portfolio": "{action} معرض الأعمال",
   "title": "العنوان",
   "cost": "السعر",
   "duration": "المدة",
   "category": "القسم",
   "service_images": "صور الخدمة",
+  "portfolio_images": "صور المشروع",
   "image": "صورة",
   "add": "أضف",
-  "remove": "أزل"
+  "remove": "أزل",
+  "link": "الرابط"
 }

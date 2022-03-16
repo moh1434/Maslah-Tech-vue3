@@ -198,7 +198,7 @@ async function deleteService(event: Event, serviceId: number) {
                   <span>{{ t('description') }}:</span>
                   <p>{{ profile.description }}</p>
                 </li>
-                <li class="flex flex-wrap gap-4 shadow px-4 py-4">
+                <li class="flex flex-wrap items-center gap-4 shadow px-4 py-4">
                   <span>{{ t('preview') }}:</span>
                   <a
                     class="hover:underline hover:text-blue-600"
@@ -207,6 +207,40 @@ async function deleteService(event: Event, serviceId: number) {
                     rel="noopener noreferrer"
                     >{{ t('preview_text') }}</a
                   >
+                  <div
+                    class="flex flex-wrap gap-3 ml-auto"
+                    v-if="localUser?.id == profile.userId"
+                  >
+                    <router-link
+                      :to="{
+                        name: 'add-edit-portfolio',
+                        params: { portfolioId: profile.id },
+                      }"
+                      class="
+                        bg-green-500
+                        hover:bg-green-400
+                        text-white
+                        px-2
+                        py-1
+                        rounded
+                        loading-btn
+                      "
+                      >Edit</router-link
+                    >
+                    <!-- <button
+                      class="
+                        bg-red-500
+                        hover:bg-red-400
+                        text-white
+                        px-2
+                        py-1
+                        rounded
+                        loading-btn
+                      "
+                    >
+                      Delete
+                    </button> -->
+                  </div>
                 </li>
               </ul>
             </div>
