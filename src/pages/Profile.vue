@@ -119,7 +119,8 @@ function confirmDeletePortfolio(event: Event, itemId: number) {
       rounded-b-3xl
       flex flex-wrap
       justify-center
-      gap-3
+      items-center
+      sm:gap-3
       bg-blue-600
       text-white
       capitalize
@@ -132,15 +133,28 @@ function confirmDeletePortfolio(event: Event, itemId: number) {
       }"
       @click="currentTab = 'services'"
     >
-      services
+      {{ t('services') }}
     </li>
+    <router-link
+      v-if="localUser?.id == user?.id"
+      class="px-2 py-2.5 md:p-3 hover:bg-blue-500 cursor-pointer"
+      :to="{ name: 'add-edit-service' }"
+      >{{ t('insert_service') }}</router-link
+    >
     <li
       class="px-2 py-2.5 md:p-3 hover:bg-blue-500 cursor-pointer"
       :class="{ 'bg-[#4A8EFF]': currentTab == 'portfolio' }"
       @click="currentTab = 'portfolio'"
     >
-      portfolio
+      {{ t('portfolio') }}
     </li>
+
+    <router-link
+      v-if="localUser?.id == user?.id"
+      class="px-2 py-2.5 md:p-3 hover:bg-blue-500 cursor-pointer"
+      :to="{ name: 'add-edit-portfolio' }"
+      >{{ t('insert_portfolio') }}</router-link
+    >
   </ul>
   <section
     class="my-8 mx-2 sm:mx-8 mt-0 direction lg:m-16 2xl:m-24 lg:mt-0 2xl:mt-0"

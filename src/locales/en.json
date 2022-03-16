@@ -89,6 +89,8 @@
   "portfolio": "Portfolio",
   "edit": "edit",
   "insert": "insert",
+  "insert_service": "insert service",
+  "insert_portfolio": "insert portfolio",
   "service_form": "{action} service form",
   "the_service": "{action} the service",
   "portfolio_form": "{action} portfolio form",
