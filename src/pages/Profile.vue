@@ -61,38 +61,15 @@ const currentTab = ref<'services' | 'portfolio'>('services');
 
 //start deleteService
 function confirmDeleteService(event: Event, serviceId: number) {
-  if (confirm('Are you sure to delete this service?')) {
-    deleteService(event, serviceId);
-  }
-}
-async function deleteService(event: Event, serviceId: number) {
-  startLoading(event.target as HTMLButtonElement);
-
-  const { response, errors } = await apiWrapper<string>(
-    async () =>
-      await api.delete<{ data: string }>(`service/${serviceId}`, {
-        headers: { token: localUser.value.token as string },
-      })
-  );
-
-  if (errors) {
-    errorAlerter(errors);
-    stopLoading(event.target as HTMLButtonElement);
-    return Promise.resolve();
-  }
-
-  stopLoading(event.target as HTMLButtonElement);
-  alert('Service deleted successfully');
-  if (response?.data) {
-    const index = user.value?.services.findIndex(
-      (service) => service.id == serviceId
-    );
-    if (index === undefined) {
-      console.error('findIndex result is undefined!');
-    } else if (index !== -1) {
-      user.value?.services.splice(index, 1);
+  confirmDeleteItem<string>(
+    event,
+    `service/${serviceId}`,
+    localUser.value.token as string
+  )?.then(() => {
+    if (user.value?.services) {
+      deleteObjFromArray(user.value.services, 'id', serviceId);
     }
-  }
+  });
 }
 //end deleteService
 //start deletePortfolio
