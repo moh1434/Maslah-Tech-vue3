@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import { ref } from 'vue';
 import { Router } from 'vue-router';
 
@@ -50,9 +51,17 @@ refreshLocalUserData();
 const defaultImagePath = '/imgs/defaultAvatar.png';
 
 function logOut() {
-  localStorage.removeItem('token');
-  localStorage.removeItem('userData');
-  refreshLocalUserData();
+  return firebase
+    .auth()
+    .signOut()
+    .then(() => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userData');
+      refreshLocalUserData();
+    })
+    .catch((error) => {
+      alert(error);
+    });
 }
 
 function confirmLogOutOrRedirect(router: Router) {
