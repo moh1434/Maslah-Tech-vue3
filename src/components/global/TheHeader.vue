@@ -50,8 +50,9 @@ watch(
 );
 
 function logOutAndRedirect() {
-  logOut();
-  router.push({ name: 'login' });
+  logOut().then(() => {
+    router.push({ name: 'login' });
+  });
 }
 </script>
 

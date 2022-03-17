@@ -50,7 +50,7 @@ function refreshLocalUserData() {
 refreshLocalUserData();
 const defaultImagePath = '/imgs/defaultAvatar.png';
 
-function logOut() {
+async function logOut() {
   return firebase
     .auth()
     .signOut()
