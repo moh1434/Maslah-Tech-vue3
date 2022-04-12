@@ -1,7 +1,10 @@
 import axios, { AxiosResponse } from 'axios';
 
+const baseUrl = import.meta.env.PROD
+  ? 'https://freelancer-back-end.herokuapp.com/v1/'
+  : 'http://192.168.3.67:3001/v1/';
 export const api = axios.create({
-  baseURL: `http://192.168.3.67:3001/v1/`,
+  baseURL: baseUrl,
 });
 
 //new way
