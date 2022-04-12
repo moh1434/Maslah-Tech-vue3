@@ -133,6 +133,11 @@ function logOutAndRedirect() {
           </router-link>
         </li>
         <li>
+          <router-link :to="{ name: 'orders' }" class="px-1 sm:px-2 py-2.5">
+            {{ t('my_orders') }}
+          </router-link>
+        </li>
+        <li>
           <button
             class="px-1 sm:px-2 py-2.5 w-full"
             @click="logOutAndRedirect()"
