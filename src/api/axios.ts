@@ -31,13 +31,23 @@ export async function apiWrapper<ServerData>(
 
   return { response, errors };
 }
-
-export function errorAlerter(errors: any) {
+function getAlertMethod(wantLog: Boolean) {
+  if (wantLog) {
+    return (errors) => {
+      console.log(errors);
+    };
+  }
+  return (errors) => {
+    alert(errors);
+  };
+}
+export function errorAlerter(errors: any, wantLog = false) {
   if (errors) {
+    const alertMethod = getAlertMethod(wantLog);
     try {
-      alert(JSON.stringify(errors));
+      alertMethod(JSON.stringify(errors));
     } catch (e) {
-      alert(errors);
+      alertMethod(errors);
     }
     return 'alerted';
   }

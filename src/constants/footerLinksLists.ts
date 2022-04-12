@@ -28,7 +28,7 @@ const items = ref<Array<namedRouteLink>>([]);
 apiWrapper<CategoryI[]>(
   async () => await api.get<{ data: CategoryI[] }>('/categories')
 ).then(({ response, errors }) => {
-  errorAlerter(errors);
+  errorAlerter(errors, true);
   if (response?.data) {
     categories.value = response.data.data;
     categories.value[0].children.map((category) => {
