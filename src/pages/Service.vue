@@ -16,6 +16,7 @@ import StarsRates from '@/components/StarsRates.vue';
 import { selectTag } from '@/helpers/selectToggleTag';
 import { localUser } from '@/helpers/Auth/localAuth';
 import { errorAlerter } from '../api/axios';
+import LI from '@/components/small/LI.vue';
 
 const { t, locale } = useI18n();
 const route = useRoute();
@@ -100,34 +101,34 @@ onBeforeRouteUpdate((to, from, next) => {
         </template>
       </Carousel>
       <ul class="mb-7">
-        <li class="flex flex-wrap gap-4 shadow px-4 py-4">
+        <LI>
           <h1 class="text-xl mx-auto">{{ service.title }}</h1>
-        </li>
-        <li class="flex flex-wrap gap-4 shadow px-4 py-4">
+        </LI>
+        <LI>
           <span>Description</span>
           <p class="overflow-auto">{{ service.description }}</p>
-        </li>
-        <li class="flex flex-wrap gap-4 shadow px-4 py-4">
+        </LI>
+        <LI>
           <span>Duration:</span>
           <p>{{ service.duration }} Day</p>
-        </li>
-        <li class="flex flex-wrap gap-4 shadow px-4 py-4">
+        </LI>
+        <LI>
           <span>Price:</span>
           <p>{{ service.cost }}$</p>
-        </li>
-        <li class="flex flex-wrap gap-4 shadow px-4 py-4">
+        </LI>
+        <LI>
           <span>Number of sales:</span>
           <p>{{ service.sellerNum }}</p>
-        </li>
-        <li class="flex flex-wrap gap-4 shadow px-4 py-4">
+        </LI>
+        <LI>
           <span>Rate: </span>
           <StarsRates
             class="ltr"
             :totalRates="service.rateSum"
             :totalPeople="service.rateNum"
           />
-        </li>
-        <li class="flex flex-wrap gap-4 shadow px-4 py-4">
+        </LI>
+        <LI>
           <span>Category:</span>
           <p>
             {{
@@ -136,7 +137,7 @@ onBeforeRouteUpdate((to, from, next) => {
                 : service.category.enTitle
             }}
           </p>
-        </li>
+        </LI>
         <li class="flex gap-4 shadow px-4 py-4">
           <span>Freelancer name:</span>
           <router-link
@@ -152,9 +153,9 @@ onBeforeRouteUpdate((to, from, next) => {
         </li>
       </ul>
       <ul v-if="service.packages.length" class="mb-7">
-        <li class="flex flex-wrap gap-4 shadow px-4 py-4">
+        <LI>
           <h2 class="text-lg mx-auto">Available upgrades for this service</h2>
-        </li>
+        </LI>
         <li
           class="flex flex-wrap items-center gap-6 shadow px-4 py-4"
           v-for="pack in service.packages"
