@@ -61,6 +61,16 @@ const routes = [
     component: () => import('@/pages/AddEditPortfolio.vue'),
   },
   {
+    path: '/orders/',
+    name: 'orders',
+    component: () => import('@/pages/Orders.vue'),
+  },
+  {
+    path: '/order-history/:orderId',
+    name: 'order-history',
+    component: () => import('@/pages/OrderHistory.vue'),
+  },
+  {
     path: '/404',
     alias: '/:pathMatch(.*)*',
     name: '404',

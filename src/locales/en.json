@@ -104,5 +104,6 @@
   "image": "image",
   "add": "add",
   "remove": "remove",
-  "link": "link"
+  "link": "link",
+  "my_orders": "my orders"
 }
