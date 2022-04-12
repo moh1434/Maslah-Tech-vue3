@@ -33,11 +33,11 @@ export async function apiWrapper<ServerData>(
 }
 function getAlertMethod(wantLog: Boolean) {
   if (wantLog) {
-    return (errors) => {
+    return (errors: any) => {
       console.log(errors);
     };
   }
-  return (errors) => {
+  return (errors: any) => {
     alert(errors);
   };
 }
