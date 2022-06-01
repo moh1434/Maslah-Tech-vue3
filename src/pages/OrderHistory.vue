@@ -112,7 +112,7 @@ function convertTheInsertedMessageToNormalMessage(
         @submit.prevent="addMessage($event)"
         id="addHistoryMessageForm"
       >
-        <button class="p-2 rounded-lg bg-blue-50" data-btn="add">Add</button>
+        <button class="p-2 rounded-lg bg-blue-50 loading-btn" data-btn="add">Add</button>
         <input
           class="p-2 rounded-lg bg-blue-50 w-full"
           required
@@ -127,4 +127,6 @@ function convertTheInsertedMessageToNormalMessage(
   <div v-else>no data yet...</div>
 </template>
 
-<style></style>
+<style>
+@import url("@/assets/css/loading-btn.css");
+</style>
