@@ -112,7 +112,12 @@ function convertTheInsertedMessageToNormalMessage(
         @submit.prevent="addMessage($event)"
         id="addHistoryMessageForm"
       >
-        <button class="p-2 rounded-lg bg-blue-50 loading-btn" data-btn="add">Add</button>
+        <button
+          class="p-2 rounded-lg bg-blue-50 loading-btn hover:bg-blue-100 cursor-pointer"
+          data-btn="add"
+        >
+          Add
+        </button>
         <input
           class="p-2 rounded-lg bg-blue-50 w-full"
           required
