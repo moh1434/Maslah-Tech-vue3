@@ -97,7 +97,7 @@ function convertTheInsertedMessageToNormalMessage(
 </script>
 
 <template>
-  <div v-if="messages.length" class="container mx-auto">
+  <div v-if="messages.length" class="container max-w-4xl mx-auto">
     <div class="border text-center rounded-lg mt-6">
       <div
         v-for="msg in messages"
