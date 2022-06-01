@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { api, apiWrapper, errorAlerter } from '@/api/axios';
-import { messageI } from '@/types/messageI';
+import { api, apiWrapper, errorAlerter } from "@/api/axios";
+import { messageI, insertedMessageI } from "@/types/messageI";
 
-import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
-import { ref } from 'vue';
-import { localUser } from '@/helpers/Auth/localAuth';
+import { onBeforeRouteUpdate, useRoute, useRouter } from "vue-router";
+import { ref } from "vue";
+import { localUser } from "@/helpers/Auth/localAuth";
+import { startLoading, stopLoading } from "../helpers/useLoading";
 
 const route = useRoute();
 const router = useRouter();
 
+const theMessage = ref("");
 if (!localUser.value.token) {
-  alert('You need to login before seeing your orders.');
-  router.push({ name: 'login' });
+  alert("You need to login before seeing your orders.");
+  router.push({ name: "login" });
 }
 const messages = ref<Array<messageI>>([]);
 
@@ -31,6 +33,7 @@ async function loadThePage() {
   if (route.params.orderId) {
     loadTheMessages(route.params.orderId as string);
   }
+  theMessage.value = "";
 }
 
 loadThePage();
@@ -41,6 +44,56 @@ onBeforeRouteUpdate((to, from, next) => {
     next();
   });
 });
+
+function addMessage(event: Event) {
+  // Validate the form
+  const form = event.target as HTMLFormElement;
+  if (!form.reportValidity) {
+    return;
+  }
+  //
+  const addBtn = event.target.querySelector("[data-btn='add']") as HTMLButtonElement;
+  startLoading(addBtn);
+  const orderId = route.params.orderId as string;
+  apiWrapper<insertedMessageI>(
+    async () =>
+      await api.post<{ data: insertedMessageI }>(
+        `order/msg/${orderId}`,
+        { msg: theMessage.value },
+        {
+          headers: { token: localUser.value.token as string },
+        }
+      )
+  ).then(({ response, errors }) => {
+    if (errors) {
+      errorAlerter(errors);
+      stopLoading(addBtn);
+      return Promise.resolve();
+    }
+    stopLoading(addBtn);
+    alert("History message added successfully");
+    if (response?.data) {
+      const theNewMessage = convertTheInsertedMessageToNormalMessage(response.data.data);
+      console.log(theNewMessage);
+      messages.value.push(theNewMessage);
+      theMessage.value = "";
+    }
+  });
+
+  //
+}
+function convertTheInsertedMessageToNormalMessage(
+  historyMessage: insertedMessageI
+): messageI {
+  console.log(historyMessage.id);
+  console.log(historyMessage.msg);
+  return {
+    id: historyMessage.id,
+    createdAt: historyMessage.createdAt,
+    active: historyMessage.active,
+    msg: historyMessage.msg,
+  };
+}
 </script>
 
 <template>
@@ -53,10 +106,22 @@ onBeforeRouteUpdate((to, from, next) => {
       >
         {{ msg.msg }}
       </div>
-      <div class="flex gap-4 m-4 mt-8">
-        <button class="p-2 rounded-lg bg-blue-50">Add</button>
-        <input class="p-2 rounded-lg bg-blue-50 w-full" />
-      </div>
+
+      <form
+        class="flex gap-4 m-4 mt-8"
+        @submit.prevent="addMessage($event)"
+        id="addHistoryMessageForm"
+      >
+        <button class="p-2 rounded-lg bg-blue-50" data-btn="add">Add</button>
+        <input
+          class="p-2 rounded-lg bg-blue-50 w-full"
+          required
+          pattern=".{16,}"
+          minlength="16"
+          type="text"
+          v-model="theMessage"
+        />
+      </form>
     </div>
   </div>
   <div v-else>no data yet...</div>
