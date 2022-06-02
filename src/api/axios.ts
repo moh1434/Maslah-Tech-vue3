@@ -1,60 +1,60 @@
 import axios, { AxiosResponse } from 'axios';
 
 const baseUrl = import.meta.env.PROD
-  ? 'https://freelancer-back-end.herokuapp.com/v1/'
-  : 'http://localhost:3001/v1/';
+	? 'https://freelancer-back-end.herokuapp.com/v1/'
+	: 'http://localhost:3001/v1/';
 export const api = axios.create({
-  baseURL: baseUrl,
+	baseURL: baseUrl,
 });
 
 //new way
 export async function apiWrapper<ServerData>(
-  axiosMethod: () => Promise<
-    AxiosResponse<
-      {
-        data: ServerData;
-      },
-      any
-    >
-  >
+	axiosMethod: () => Promise<
+		AxiosResponse<
+			{
+				data: ServerData;
+			},
+			any
+		>
+	>
 ) {
-  let response = null;
-  let errors = null;
-  try {
-    response = await axiosMethod();
-  } catch (e: any) {
-    if (e?.response?.data?.err) {
-      //The backend puts the errors here :(
-      errors = e.response.data.err;
-    } else {
-      //unknown error
-      errors = e;
-    }
-  }
+	let response = null;
+	let errors = null;
+	try {
+		response = await axiosMethod();
+	} catch (e: any) {
+		if (e?.response?.data?.err) {
+			//The backend puts the errors here :(
+			errors = e.response.data.err;
+		} else {
+			//unknown error
+			errors = e;
+		}
+	}
 
-  return { response, errors };
+	return { response, errors };
 }
 function getAlertMethod(wantLog: Boolean) {
-  if (wantLog) {
-    return (errors: any) => {
-      console.log(errors);
-    };
-  }
-  return (errors: any) => {
-    alert(errors);
-  };
+	if (wantLog) {
+		return (errors: any) => {
+			console.log(errors);
+		};
+	}
+	return (errors: any) => {
+		alert(errors);
+	};
 }
 export function errorAlerter(errors: any, wantLog = false) {
-  if (errors) {
-    const alertMethod = getAlertMethod(wantLog);
-    try {
-      alertMethod(JSON.stringify(errors));
-    } catch (e) {
-      alertMethod(errors);
-    }
-    return 'alerted';
-  }
-  return; //no errors
+	if (errors) {
+		const alertMethod = getAlertMethod(wantLog);
+		try {
+			alertMethod(JSON.stringify(errors));
+		} catch (e) {
+			alertMethod(errors);
+		}
+		return 'alerted';
+	}
+	return; //no errors
 }
 
 // Usage example

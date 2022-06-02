@@ -4,14 +4,14 @@ import { confirmLogOutOrRedirect, localUser } from '@/helpers/Auth/localAuth';
 import { useRouter } from 'vue-router';
 const router = useRouter();
 if (localUser.value.token) {
-  confirmLogOutOrRedirect(router);
+	confirmLogOutOrRedirect(router);
 }
 </script>
 
 <template>
-  <div>
-    <LoginForm></LoginForm>
-  </div>
+	<div>
+		<LoginForm></LoginForm>
+	</div>
 </template>
 
 <style></style>

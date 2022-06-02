@@ -1,13 +1,13 @@
 /** The button should have 'loading-btn' class for styling */
 export function startLoading(button: HTMLButtonElement) {
-  button.disabled = true;
-  button.classList.add('loading');
+	button.disabled = true;
+	button.classList.add('loading');
 }
 
 /** The button should have 'loading-btn' class for styling */
 export function stopLoading(button: HTMLButtonElement) {
-  button.disabled = false;
-  button.classList.remove('loading');
+	button.disabled = false;
+	button.classList.remove('loading');
 }
 
 //Required css to add:
