@@ -194,13 +194,13 @@ function confirmDeletePortfolio(event: Event, itemId: number) {
                         params: { portfolioId: profile.id },
                       }"
                       class="bg-green-500 hover:bg-green-400 text-white px-2 py-1 rounded loading-btn"
-                      >Edit</router-link
+                      >{{ t("edit") }}</router-link
                     >
                     <button
                       @click="confirmDeletePortfolio($event, profile.id)"
                       class="bg-red-500 hover:bg-red-400 text-white px-2 py-1 rounded loading-btn"
                     >
-                      Delete
+                      {{ t("delete") }}
                     </button>
                   </div>
                 </li>
@@ -227,7 +227,7 @@ function confirmDeletePortfolio(event: Event, itemId: number) {
           >
             <template #extra>
               <div class="absolute top-2.5 left-0 rounded-r p-0.5 pr-1 bg-blue-200">
-                {{ service.cost }}D
+                {{ service.cost }}{{ t("dinar") }}
               </div>
               <div>
                 <StarsRates
@@ -247,13 +247,13 @@ function confirmDeletePortfolio(event: Event, itemId: number) {
                     params: { serviceId: service.id },
                   }"
                   class="bg-green-500 hover:bg-green-400 text-white px-2 py-1 rounded loading-btn"
-                  >Edit</router-link
+                  >{{ t("edit") }}</router-link
                 >
                 <button
                   @click="confirmDeleteService($event, service.id)"
                   class="bg-red-500 hover:bg-red-400 text-white px-2 py-1 rounded loading-btn"
                 >
-                  Delete
+                  {{ t("delete") }}
                 </button>
               </div>
             </template>

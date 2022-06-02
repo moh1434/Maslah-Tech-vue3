@@ -89,6 +89,7 @@
   "portfolio": "Portfolio",
   "edit": "edit",
   "insert": "insert",
+  "delete": "حذف",
   "insert_service": "insert service",
   "insert_portfolio": "insert portfolio",
   "service_form": "{action} service form",
@@ -105,5 +106,18 @@
   "add": "add",
   "remove": "remove",
   "link": "link",
-  "my_orders": "my orders"
+  "my_orders": "my orders",
+  "for_cost": "for",
+  "available_upgrades_for_this_service": "available upgrades for this service",
+  "freelancer_last_seen": "freelancer last seen",
+  "freelancer_name": "freelancer name",
+  "rate": "rate",
+  "number_of_sales": "number of sales",
+  "and_additional_execution_time": "and additional execution time",
+  "dinar": "dinar",
+  "price": "price",
+  "do you want to buy this service": "do you want to buy this service",
+  "view_history": "view messages history",
+  "day": "day",
+  "your_orders": "your orders"
 }

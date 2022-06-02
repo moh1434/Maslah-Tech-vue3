@@ -6,7 +6,8 @@ import { onBeforeRouteUpdate, useRoute, useRouter } from "vue-router";
 import { ref } from "vue";
 import { localUser } from "@/helpers/Auth/localAuth";
 import { startLoading, stopLoading } from "../helpers/useLoading";
-
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 const route = useRoute();
 const router = useRouter();
 
@@ -119,7 +120,7 @@ function convertTheInsertedMessageToNormalMessage(
           class="p-2 rounded-lg bg-blue-50 loading-btn hover:bg-blue-100 cursor-pointer"
           data-btn="add"
         >
-          Add
+          {{ t("add") }}
         </button>
         <input
           class="p-2 rounded-lg bg-blue-50 w-full"

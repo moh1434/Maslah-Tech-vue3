@@ -111,23 +111,23 @@ onBeforeRouteUpdate((to, from, next) => {
           <h1 class="text-xl mx-auto">{{ service.title }}</h1>
         </LI>
         <LI>
-          <span>Description</span>
+          <span>{{ t("description") }}</span>
           <p class="overflow-auto">{{ service.description }}</p>
         </LI>
         <LI>
-          <span>Duration:</span>
-          <p>{{ service.duration }} Day</p>
+          <span>{{ t("duration") }}:</span>
+          <p>{{ service.duration }} {{ t("day") }}</p>
         </LI>
         <LI>
-          <span>Price:</span>
-          <p>{{ service.cost }}D</p>
+          <span>{{ t("price") }}:</span>
+          <p>{{ service.cost }}{{ t("dinar") }}</p>
         </LI>
         <LI>
-          <span>Number of sales:</span>
+          <span>{{ t("number_of_sales") }}:</span>
           <p>{{ service.sellerNum }}</p>
         </LI>
         <LI>
-          <span>Rate: </span>
+          <span>{{ t("rate") }}: </span>
           <StarsRates
             class="ltr"
             :totalRates="service.rateSum"
@@ -135,13 +135,13 @@ onBeforeRouteUpdate((to, from, next) => {
           />
         </LI>
         <LI>
-          <span>Category:</span>
+          <span>{{ t("category") }}:</span>
           <p>
             {{ locale == "ar" ? service.category.arTitle : service.category.enTitle }}
           </p>
         </LI>
         <li class="flex gap-4 shadow px-4 py-4">
-          <span>Freelancer name:</span>
+          <span>{{ t("freelancer_name") }}:</span>
           <router-link
             :to="{ name: 'profile', params: { userId: service.userId } }"
             class="hover:text-blue-500 hover:underline"
@@ -150,13 +150,13 @@ onBeforeRouteUpdate((to, from, next) => {
           </router-link>
         </li>
         <li class="flex gap-4 shadow px-4 py-4">
-          <span>Freelancer last seen:</span>
+          <span>{{ t("freelancer_last_seen") }}:</span>
           <p>{{ new Date(service.user.lastSeen).toLocaleDateString() }}</p>
         </li>
       </ul>
       <ul v-if="service.packages.length" class="mb-7">
         <LI>
-          <h2 class="text-lg mx-auto">Available upgrades for this service</h2>
+          <h2 class="text-lg mx-auto">{{ t("available_upgrades_for_this_service") }}</h2>
         </LI>
         <li
           class="flex flex-wrap items-center gap-6 shadow px-4 py-4"
@@ -167,23 +167,23 @@ onBeforeRouteUpdate((to, from, next) => {
           <div>
             <p class="text-lg">{{ pack.description }}</p>
             <div class="text-gray-700">
-              مقابل
+              {{ t("for_cost") }}
               <span>{{ pack.moreCost }}</span
-              >D و مدة تنفيذ إضافية
+              >{{ t("dinar") }} {{ t("and_additional_execution_time") }}
               <span>{{ pack.moreDuration }}</span>
-              أيام
+              {{ t("days") }}
             </div>
           </div>
         </li>
       </ul>
       <div class="shadow px-4 py-4">
-        <h3 class="px-2 py-2">Do you want to buy this service?</h3>
+        <h3 class="px-2 py-2">{{ t("do you want to buy this service") }}?</h3>
         <div class="px-2 py-2">
           <button
             @click="buyTheService()"
             class="bg-blue-400 text-gray-50 px-2 py-1 rounded hover:bg-blue-500"
           >
-            Buy now
+            {{ t("buy") }} {{ t("now") }}
           </button>
         </div>
       </div>
