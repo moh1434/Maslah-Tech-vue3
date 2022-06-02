@@ -29,180 +29,180 @@ const token = localUser.value.token;
 
 const selectedPacksIds = ref<Array<number>>([]);
 function selectPack(event: Event, id: number) {
-  selectTag(event, id, selectedPacksIds, '');
+	selectTag(event, id, selectedPacksIds, '');
 }
 async function buyTheService() {
-  if (!token) {
-    alert('You need to login before buy a service');
-    // router.push({ name: 'login' });
-    return;
-  }
-  if (service.value?.userId == localUser.value.id) {
-    alert('You can not buy your own service');
-    return;
-  }
-  const { response, errors } = await apiWrapper<serviceI>(
-    async () =>
-      await api.post<{ data: serviceI }>(
-        `service/order/${route.params.serviceId}`,
-        {
-          packagesId: selectedPacksIds.value,
-        },
-        { headers: { token: token } }
-      )
-  );
-  errorAlerter(errors);
-  //TODO: complete this on the future
+	if (!token) {
+		alert('You need to login before buy a service');
+		// router.push({ name: 'login' });
+		return;
+	}
+	if (service.value?.userId == localUser.value.id) {
+		alert('You can not buy your own service');
+		return;
+	}
+	const { response, errors } = await apiWrapper<serviceI>(
+		async () =>
+			await api.post<{ data: serviceI }>(
+				`service/order/${route.params.serviceId}`,
+				{
+					packagesId: selectedPacksIds.value,
+				},
+				{ headers: { token: token } }
+			)
+	);
+	errorAlerter(errors);
+	//TODO: complete this on the future
 }
 
 //
 
 /** */
 async function reloadServices(serviceId: string) {
-  service.value = undefined;
-  selectedPacksIds.value = [];
-  if (!isPositiveInteger(serviceId)) {
-    alert('Invalid category');
-    router.push({ name: 'categories' });
-    return Promise.reject();
-  }
-  const serviceUrl = `/service/${serviceId}`;
-  const { response, errors } = await apiWrapper<serviceI>(
-    async () => await api.get<{ data: serviceI }>(serviceUrl)
-  );
-  errorAlerter(errors);
+	service.value = undefined;
+	selectedPacksIds.value = [];
+	if (!isPositiveInteger(serviceId)) {
+		alert('Invalid category');
+		router.push({ name: 'categories' });
+		return Promise.reject();
+	}
+	const serviceUrl = `/service/${serviceId}`;
+	const { response, errors } = await apiWrapper<serviceI>(
+		async () => await api.get<{ data: serviceI }>(serviceUrl)
+	);
+	errorAlerter(errors);
 
-  service.value = response?.data.data;
+	service.value = response?.data.data;
 
-  return Promise.resolve();
+	return Promise.resolve();
 }
 reloadServices(route.params.serviceId as string);
 onBeforeRouteUpdate((to, from, next) => {
-  route.params.serviceId = to.params.serviceId as string;
-  reloadServices(to.params.serviceId as string).then(() => {
-    next();
-  });
+	route.params.serviceId = to.params.serviceId as string;
+	reloadServices(to.params.serviceId as string).then(() => {
+		next();
+	});
 });
 /** */
 </script>
 
 <template>
-  <div class="direction max-w-3xl mx-auto my-10">
-    <p v-if="!service">No service yet</p>
-    <div v-else>
-      <!-- <H1 class="mb-7 sm:text-4xl text-center">{{ service.title }}</H1> -->
+	<div class="direction max-w-3xl mx-auto my-10">
+		<p v-if="!service">No service yet</p>
+		<div v-else>
+			<!-- <H1 class="mb-7 sm:text-4xl text-center">{{ service.title }}</H1> -->
 
-      <Carousel class="mx-4 mb-7 ltr" :autoplay="5000" :wrap-around="true">
-        <Slide v-for="(image, i) in service.images" :key="i">
-          <img alt="image" :src="image" class="carousel__item" />
-        </Slide>
-        <template #addons>
-          <Navigation />
-        </template>
-      </Carousel>
-      <ul class="mb-7">
-        <LI>
-          <h1 class="text-xl mx-auto">{{ service.title }}</h1>
-        </LI>
-        <LI>
-          <span>Description</span>
-          <p class="overflow-auto">{{ service.description }}</p>
-        </LI>
-        <LI>
-          <span>Duration:</span>
-          <p>{{ service.duration }} Day</p>
-        </LI>
-        <LI>
-          <span>Price:</span>
-          <p>{{ service.cost }}$</p>
-        </LI>
-        <LI>
-          <span>Number of sales:</span>
-          <p>{{ service.sellerNum }}</p>
-        </LI>
-        <LI>
-          <span>Rate: </span>
-          <StarsRates
-            class="ltr"
-            :totalRates="service.rateSum"
-            :totalPeople="service.rateNum"
-          />
-        </LI>
-        <LI>
-          <span>Category:</span>
-          <p>
-            {{
-              locale == 'ar'
-                ? service.category.arTitle
-                : service.category.enTitle
-            }}
-          </p>
-        </LI>
-        <li class="flex gap-4 shadow px-4 py-4">
-          <span>Freelancer name:</span>
-          <router-link
-            :to="{ name: 'profile', params: { userId: service.userId } }"
-            class="hover:text-blue-500 hover:underline"
-          >
-            <p>{{ service.user.name }}</p>
-          </router-link>
-        </li>
-        <li class="flex gap-4 shadow px-4 py-4">
-          <span>Freelancer last seen:</span>
-          <p>{{ new Date(service.user.lastSeen).toLocaleDateString() }}</p>
-        </li>
-      </ul>
-      <ul v-if="service.packages.length" class="mb-7">
-        <LI>
-          <h2 class="text-lg mx-auto">Available upgrades for this service</h2>
-        </LI>
-        <li
-          class="flex flex-wrap items-center gap-6 shadow px-4 py-4"
-          v-for="pack in service.packages"
-          :key="pack.id"
-        >
-          <input
-            type="checkbox"
-            @change="selectPack($event, pack.id)"
-            class="w-4 h-4"
-          />
-          <div>
-            <p class="text-lg">{{ pack.description }}</p>
-            <div class="text-gray-700">
-              مقابل
-              <span>{{ pack.moreCost }}</span
-              >$ و مدة تنفيذ إضافية
-              <span>{{ pack.moreDuration }}</span>
-              أيام
-            </div>
-          </div>
-        </li>
-      </ul>
-      <div class="shadow px-4 py-4">
-        <h3 class="px-2 py-2">Do you want to buy this service?</h3>
-        <div class="px-2 py-2">
-          <button
-            @click="buyTheService()"
-            class="bg-blue-400 text-gray-50 px-2 py-1 rounded hover:bg-blue-500"
-          >
-            Buy now
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+			<Carousel class="mx-4 mb-7 ltr" :autoplay="5000" :wrap-around="true">
+				<Slide v-for="(image, i) in service.images" :key="i">
+					<img alt="image" :src="image" class="carousel__item" />
+				</Slide>
+				<template #addons>
+					<Navigation />
+				</template>
+			</Carousel>
+			<ul class="mb-7">
+				<LI>
+					<h1 class="text-xl mx-auto">{{ service.title }}</h1>
+				</LI>
+				<LI>
+					<span>Description</span>
+					<p class="overflow-auto">{{ service.description }}</p>
+				</LI>
+				<LI>
+					<span>Duration:</span>
+					<p>{{ service.duration }} Day</p>
+				</LI>
+				<LI>
+					<span>Price:</span>
+					<p>{{ service.cost }}$</p>
+				</LI>
+				<LI>
+					<span>Number of sales:</span>
+					<p>{{ service.sellerNum }}</p>
+				</LI>
+				<LI>
+					<span>Rate: </span>
+					<StarsRates
+						class="ltr"
+						:totalRates="service.rateSum"
+						:totalPeople="service.rateNum"
+					/>
+				</LI>
+				<LI>
+					<span>Category:</span>
+					<p>
+						{{
+							locale == 'ar'
+								? service.category.arTitle
+								: service.category.enTitle
+						}}
+					</p>
+				</LI>
+				<li class="flex gap-4 shadow px-4 py-4">
+					<span>Freelancer name:</span>
+					<router-link
+						:to="{ name: 'profile', params: { userId: service.userId } }"
+						class="hover:text-blue-500 hover:underline"
+					>
+						<p>{{ service.user.name }}</p>
+					</router-link>
+				</li>
+				<li class="flex gap-4 shadow px-4 py-4">
+					<span>Freelancer last seen:</span>
+					<p>{{ new Date(service.user.lastSeen).toLocaleDateString() }}</p>
+				</li>
+			</ul>
+			<ul v-if="service.packages.length" class="mb-7">
+				<LI>
+					<h2 class="text-lg mx-auto">Available upgrades for this service</h2>
+				</LI>
+				<li
+					class="flex flex-wrap items-center gap-6 shadow px-4 py-4"
+					v-for="pack in service.packages"
+					:key="pack.id"
+				>
+					<input
+						type="checkbox"
+						@change="selectPack($event, pack.id)"
+						class="w-4 h-4"
+					/>
+					<div>
+						<p class="text-lg">{{ pack.description }}</p>
+						<div class="text-gray-700">
+							مقابل
+							<span>{{ pack.moreCost }}</span
+							>$ و مدة تنفيذ إضافية
+							<span>{{ pack.moreDuration }}</span>
+							أيام
+						</div>
+					</div>
+				</li>
+			</ul>
+			<div class="shadow px-4 py-4">
+				<h3 class="px-2 py-2">Do you want to buy this service?</h3>
+				<div class="px-2 py-2">
+					<button
+						@click="buyTheService()"
+						class="bg-blue-400 text-gray-50 px-2 py-1 rounded hover:bg-blue-500"
+					>
+						Buy now
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <style>
 @import url('@/assets/css/slider.css');
 .carousel__item {
-  height: 350px;
-  width: 100%;
+	height: 350px;
+	width: 100%;
 
-  font-size: 20px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	font-size: 20px;
+	border-radius: 8px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 </style>

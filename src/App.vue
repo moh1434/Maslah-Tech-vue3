@@ -8,49 +8,49 @@ import direction from '@/helpers/langDirection';
 </script>
 
 <template>
-  <TheHeader />
-  <main>
-    <router-view />
-  </main>
-  <TheFooter />
+	<TheHeader />
+	<main>
+		<router-view />
+	</main>
+	<TheFooter />
 </template>
 <style>
 *,
 *::after,
 *::before {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 /*  */
 #app,
 html,
 body {
-  height: 100%;
+	height: 100%;
 }
 
 /* body */
 #app {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 /* #__nuxt, */
 main {
-  flex-grow: 1;
+	flex-grow: 1;
 }
 
 .rtl {
-  direction: rtl;
+	direction: rtl;
 }
 
 .ltr {
-  direction: ltr;
+	direction: ltr;
 }
 input:not(.no-direction),
 textarea:not(.no-direction),
 select:not(.no-direction) {
-  direction: v-bind(direction);
+	direction: v-bind(direction);
 }
 .direction {
-  direction: v-bind(direction);
+	direction: v-bind(direction);
 }
 </style>
 <style src="@/assets/css/tailwind.css"></style>

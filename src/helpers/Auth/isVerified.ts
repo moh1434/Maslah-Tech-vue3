@@ -2,10 +2,10 @@ import firebase from 'firebase';
 import { ref } from 'vue';
 
 const isEmailVerified = ref(
-  firebase.auth().currentUser?.emailVerified ?? false
+	firebase.auth().currentUser?.emailVerified ?? false
 );
 const isPhoneNumberVerified = ref(
-  firebase.auth().currentUser?.phoneNumber ? true : false
+	firebase.auth().currentUser?.phoneNumber ? true : false
 );
 
 const showCheckYouEmailMessage = ref(false);
