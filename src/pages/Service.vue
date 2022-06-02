@@ -120,7 +120,7 @@ onBeforeRouteUpdate((to, from, next) => {
         </LI>
         <LI>
           <span>Price:</span>
-          <p>{{ service.cost }}$</p>
+          <p>{{ service.cost }}D</p>
         </LI>
         <LI>
           <span>Number of sales:</span>

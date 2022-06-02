@@ -227,7 +227,7 @@ function confirmDeletePortfolio(event: Event, itemId: number) {
           >
             <template #extra>
               <div class="absolute top-2.5 left-0 rounded-r p-0.5 pr-1 bg-blue-200">
-                {{ service.cost }}$
+                {{ service.cost }}D
               </div>
               <div>
                 <StarsRates
