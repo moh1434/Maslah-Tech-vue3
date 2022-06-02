@@ -96,11 +96,6 @@ function logOutAndRedirect() {
         class="flex flex-wrap flex-col bg-blue-600 absolute z-10 top-11 sm:top-13 right-0 sm:right-1/2 sm:translate-x-1/2 w-24 text-center rounded-sm overflow-hidden"
       >
         <li>
-          <router-link :to="{ name: 'settings', params: {} }" class="px-1 sm:px-2 py-2.5">
-            {{ t("settings") }}
-          </router-link>
-        </li>
-        <li>
           <router-link
             :to="{ name: 'profile', params: { userId: localUser.id } }"
             class="px-1 sm:px-2 py-2.5"
