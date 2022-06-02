@@ -52,7 +52,7 @@ function addMessage(event: Event) {
     return;
   }
   //
-  const addBtn = event.target.querySelector("[data-btn='add']") as HTMLButtonElement;
+  const addBtn = event.target?.querySelector("[data-btn='add']") as HTMLButtonElement;
   startLoading(addBtn);
   const orderId = route.params.orderId as string;
   apiWrapper<insertedMessageI>(
