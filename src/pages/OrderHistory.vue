@@ -99,16 +99,17 @@ function convertTheInsertedMessageToNormalMessage(
 </script>
 
 <template>
-  <div v-if="messages.length" class="container max-w-4xl mx-auto">
+  <div class="container max-w-4xl mx-auto">
     <div class="border text-center rounded-lg mt-6">
       <div
+        v-if="messages.length"
         v-for="msg in messages"
         :key="msg.id"
         class="p-2 m-4 rounded-lg bg-gray-200 even:bg-gray-100"
       >
         {{ msg.msg }}
       </div>
-
+      <div v-else>no messages yet...</div>
       <form
         class="flex gap-4 m-4 mt-8"
         @submit.prevent="addMessage($event)"
@@ -131,7 +132,6 @@ function convertTheInsertedMessageToNormalMessage(
       </form>
     </div>
   </div>
-  <div v-else>no data yet...</div>
 </template>
 
 <style>
