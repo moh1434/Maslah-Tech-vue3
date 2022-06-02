@@ -50,7 +50,7 @@ onBeforeRouteUpdate((to, from, next) => {
       {{ locale == "ar" ? services[0].category.arTitle : services[0].category.enTitle }}
       {{ t("services") }}
     </H1>
-    <div class="flex flex-wrap justify-center p-2">
+    <div class="flex flex-wrap justify-center p-2 limit-lines-p">
       <Card
         class="sm:w-64 w-1/2 service-card direction"
         v-for="service in services"
@@ -82,13 +82,5 @@ onBeforeRouteUpdate((to, from, next) => {
 <style>
 .service-card img {
   height: 182px;
-}
-.service-card p {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 4; /* number of lines to show */
-  line-clamp: 4;
-  -webkit-box-orient: vertical;
 }
 </style>

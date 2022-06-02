@@ -213,7 +213,7 @@ function confirmDeletePortfolio(event: Event, itemId: number) {
     </section>
     <section v-show="currentTab == 'services'">
       <template v-if="user">
-        <div class="flex flex-wrap justify-center">
+        <div class="flex flex-wrap justify-center limit-lines-p">
           <Card
             class="sm:w-64 w-1/2 card-img-h-44 direction"
             v-for="service in user.services"
