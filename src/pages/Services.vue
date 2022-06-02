@@ -83,4 +83,12 @@ onBeforeRouteUpdate((to, from, next) => {
 .service-card img {
   height: 182px;
 }
+.service-card p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* number of lines to show */
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
 </style>
