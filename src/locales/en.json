@@ -119,5 +119,8 @@
   "do you want to buy this service": "do you want to buy this service",
   "view_history": "view messages history",
   "day": "day",
-  "your_orders": "your orders"
+  "days": "days",
+  "your_orders": "your orders",
+  "buy": "buy",
+  "now": "now"
 }

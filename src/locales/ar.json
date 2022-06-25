@@ -120,5 +120,8 @@
   "do you want to buy this service": "هل تريد شراء هذه الخدمة",
   "view_history": "شاهد أرشيف الرسائل",
   "day": "يوم",
-  "your_orders": "طلباتك"
+  "days": "أيام",
+  "your_orders": "طلباتك",
+  "buy": "شراء",
+  "now": "الآن"
 }
